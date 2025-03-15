@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typography Intro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            padding-top: 50px;
+        }
+        h1 {
+            font-size: 5rem;
+            font-weight: bold;
+            display: flex;
+            gap: 0.2em;
+        }
+        h1 span {
+            display: inline-block;
+        }
+        .intro {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+        }
+        .tooltip {
+            position: absolute;
+            left: 50px;
+            top: 22px;
+            background: white;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .back-button:hover + .tooltip {
+            opacity: 1;
+        }
+        .image-container {
+            margin-top: 50px;
+        }
+        .image-container img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 50px;
+        }
+       
+         .timeline {
+            position: relative;
+            width: 400px;
+			
+        }
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: white;
+            transform: translateX(-50%);
+        }
+        .event {
+            position: relative;
+            margin-bottom: 50px;
+            text-align: right;
+            padding-left: 60px;
+        }
+        .event::before {
+            content: "+";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: black;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            border: 2px solid white;
+        }
+        .event h3 {
+            font-size: 24px;
+            font-weight: bold;
+			 align-items: right;
+        }
+		
+		.event p {
+            color: gray;
+            font-size: 16px;
+			 align-items: right;
+        }
+	   
+	        /* Pop-up */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 10%; /* Memberi ruang di atas */
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 850%;
+			height: 100%;
+            max-width: 900px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            max-height: 250vh; /* Batas tinggi untuk mencegah overflow */
+            overflow-y: auto; /* Tambahkan scroll jika kontennya panjang */
+        }
+.popup h2 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: black; /* Mengubah warna teks agar terlihat jelas */
+	 margin-bottom: 15px; /* Menambah jarak di bawah judul */
+}
+
+        .popup .meta {
+            font-size: 20px;
+            color: #777;
+            margin-bottom: 20px;
+        }
+        .popup p {
+            font-size: 25px;
+            color: #333;
+			line-height: 1.8; /* Meningkatkan spasi antar baris */
+    margin-bottom: 15px; /* Menambah jarak antar paragraf */
+        }
+		
+		.popup ul {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding-left: 20px; /* Memberikan padding ke kiri untuk daftar */
+	 color: black;
+	  font-size: 25px;
+}
+
+.popup li {
+    margin-bottom: 8px; /* Menambah jarak antar item list */
+	 color: black;
+	  font-size: 25px;
+}
+        .popup img {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.3s;
+        }
+        .close-btn:hover {
+            color: #333;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+		
+		.experience {
+    max-width: 600px;
+    margin: 50px auto;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: white;
+    text-align: justify;
+}
+
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .icon-track {
+            display: flex;
+            gap: 30px;
+            animation: runIcons 8s linear infinite alternate;
+        }
+        .icon img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            filter: blur(0px);
+            transition: filter 0.3s ease;
+        }
+        .icon img:hover {
+            filter: blur(0);
+        }
+
+        /* Animasi ikon berjalan dari kiri ke kanan */
+        @keyframes runIcons {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+ 
+
+
+
+
+    </style>
+</head>
+<body>
+    <a href="#" class="back-button">&#x2039;</a>
+    <span class="tooltip">Go Back</span>
+    <h2>Halo Nama Saya</h2>
+    <h1>
+        <span>F</span>
+        <span>a</span>
+        <span>r</span>
+        <span>i </span>
+        <span>d</span>
+        <span>A</span>
+		<span>r</span>
+        <span>d</span>
+        <span>i</span>
+        <span>a </span>
+        <span>n</span>
+        <span>s</span>
+		<span>y</span>
+        <span>a</span>
+        <span>h</span>
+        
+    </h1>
+    <p class="intro">Saya sebagai seorang belajar, tidak pernah berhenti untuk mencoba, mencari pengetahuan, memperbaiki kesalahan, belajar untuk hal" yg belum pernah dilakukan, membuat rencana, dan melakukan sesuatu dari rencana.</p>
+    
+    <div class="image-container">
+        <img src="images/5.jpg" alt="Work Setup">
+    </div>
+    <h2>Pengalaman</h2>
+   <div class="timeline">
+     <div class="event" onclick="openPopup()">
+            <h3>PT Kereta Commuter Indonesia</h3>
+            <p><strong>PKL</strong></p>
+            <p>Jan 2018 - Feb 2018 / Dipo Depok, Jawa Barat</p>
+        </div>
+        <div class="event" onclick="openPopup()">
+            <h3>Coming Soon</h3>
+            <p><strong>Coming Soon</strong></p>
+            <p>Coming Soon</p>
+        </div>
+          <div class="event" onclick="openPopup()">
+            <h3>Coming Soon</h3>
+            <p><strong>Coming Soon</strong></p>
+            <p>Coming Soon</p>
+        </div>
+    </div>
+	
+	<div class="experience">
+    <p>
+        Selama 2 semester saya kuliah 2022 dan 2023, saya telah mengerjakan proyek dimata kuliah di gunadarma, diantara nya : PROTOTIPE SISTEM PENYIRAMAN TANAMAN OTOMATIS BERBASIS ARDUINO UNO MENGGUNAKAN TANAMAN KURA ( Penulisan Ilmiah 2022 ), PROTOTIPE SISTEM ALARM PENDETEKSI ASAP DAN KEBAKARAN DINI MENGGUNAKAN KIPAS DAN POMPA AIR BERBASIS ARDUINO UNO ( Skripsi 2023 ). Pengalaman dan latar belakang kuliah, saya telah membangun paradigma desain dan proyek yang unik bagi saya – menciptakan karya yang indah, berguna, dan berkelanjutan.
+    </p>
+    <br>
+    <p>
+        Saya mengambil jurusan Sistem Komputer di perguruan tinggi, dan latar belakang ini merupakan ilmu tak terduga dalam perjalanan belajar saya, memungkinkan saya untuk fokus Programming Learn Focus Arduino, Typescript,Tailwind, Astro
+ sambil melihat lebih dalam memperlajari.
+    </p>
+</div>
+
+    <h2>Organisasi</h2>
+<div class="timeline">
+    <div class="event" data-content="ukm">
+        <h3>UKM Fajrul Islam Universitas Gunadarma</h3>
+        <p><strong>Anggota Syiar</strong></p>
+        <p>Nov 2021 - Agustus 2022 / Depok</p>
+    </div>
+    <div class="event" data-content="comingsoon">
+        <h3>Coming Soon</h3>
+        <p><strong>Coming Soon</strong></p>
+        <p>Coming Soon</p>
+    </div>
+    <div class="event" data-content="comingsoon">
+        <h3>Coming Soon</h3>
+        <p><strong>Coming Soon</strong></p>
+        <p>Coming Soon</p>
+    </div>
+</div>
+	
+	<div class="experience">
+    <p>
+        Coming Soon.
+    </p>
+    <br>
+    <p>
+       Coming Soon.
+    </p>
+</div>
+
+<div class="marquee-container">
+    <div class="icon-track">
+        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator"></div>
+        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma"></div>
+        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adobe_InDesign_CC_icon.svg" alt="InDesign"></div>
+        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Arduino_Logo.svg" alt="Arduino"></div>
+        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg" alt="TypeScript"></div>
+        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" alt="Tailwind CSS"></div>
+        <div class="icon"><img src="https://raw.githubusercontent.com/withastro/astro/main/assets/astro-logo-light.png" alt="Astro"></div>
+        <div class="icon"><img src="https://raw.githubusercontent.com/mdx-js/mdx/main/logo.svg" alt="MDX"></div>
+    </div>
+</div>
+
+	
+ <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="popup" id="popup">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+	<div id="popup-content"></div>
+    <h2></h2>
+    <div class="meta">
+        
+    </div>
+    <p></p>
+
+        
+        <h2></h2>
+        <p></p>
+        <img src="images/5.jpg" alt="">
+        <p></p>
+        
+        <h2></h2>
+        <p></p>
+        <ul>
+            <li><strong>:</strong> </li>
+            <li><strong>:</strong> </li>
+            <li><strong>:</strong> </li>
+        </ul>
+        <img src="images/5.jpg" alt="">
+        
+        <p></p>
+        <img src="images/5.jpg" alt="">
+    </div>
+
+
+    
+   <script>
+    window.onload = function() {
+        document.querySelector('.intro').style.opacity = 1;
+    };
+    
+    const timelineEvents = document.querySelectorAll('.event');
+    const popupContent = document.getElementById('popup-content');
+    
+    const contentData = {
+    ukm: `
+        <h2>UKM Fajrul Islam Universitas Gunadarma</h2>
+    <div class="meta">
+        Anggota Syiar | Nov 2021 - Agustus 2022 / Depok | 4 menit membaca
+    </div>
+    <p>UKM Fajrul Islam Universitas Gunadarma. UKM Fajrul Islam Universitas Gunadarma itu apa sih? Unit Kegiatan Mahasiswa (UKM) Fajrul Islam Universitas Gunadarma adalah organisasi kemahasiswaan yang bergerak di bidang keagamaan Islam.</p>
+
+        
+        <h2>1. Tahapan Seleksi</h2>
+        <p>Pada saat mendaftar gform di UKM Fajrul Islam ada beberapa tahapan seleksi.</p>
+        <img src="images/5.jpg" alt="XR Devices">
+        <p>.</p>
+        
+        <h2>2. Digital Humans</h2>
+        <p>The digital human project was the second major project I participated in. This project had three parts and introduced me to a new field.</p>
+        <ul>
+            <li><strong>Character Design:</strong> I worked with designers to complete the character’s concept art, clothing, models, expressions, and scene design.</li>
+            <li><strong>Use Cases:</strong> We devised a fitness scenario where the character interacts with users via a large screen, becoming their fitness companion. I designed sample courses, interactive games, and large-screen interfaces.</li>
+            <li><strong>Expansion:</strong> Introducing the character to more end users in the e-commerce realm.</li>
+        </ul>
+        <img src="images/5.jpg" alt="Digital Humans">
+        
+        <p>I am grateful to my colleagues for their tolerance, freedom, and support.</p>
+        <img src="images/5.jpg" alt="Gratitude">
+    </div>
+
+    `,
+    comingsoon: `
+        <h2>Coming Soon</h2>
+        <div class="meta">Coming Soon | Coming Soon / Coming Soon | 3 menit membaca</div>
+        <p>Konten tentang Coming Soon...</p>
+    `,
+    comingsoon: `
+        <h2>Coming Soon</h2>
+        <div class="meta">Coming Soon | Coming Soon / Coming Soon | 4 menit membaca</div>
+        <p>Konten tentang Coming Soon...</p>
+    `
+};
+document.querySelectorAll('.event').forEach(event => {
+    event.addEventListener('click', () => {
+        const contentId = event.getAttribute('data-content');
+        const popupContent = document.getElementById('popup-content');
+
+        if (contentData[contentId]) {
+            popupContent.innerHTML = contentData[contentId];
+        } else {
+            popupContent.innerHTML = '<p>Konten tidak ditemukan.</p>';
+        }
+
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+    });
+});
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
+
+    
+  
+</script>
+</body>
+</html>
