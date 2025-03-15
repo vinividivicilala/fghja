@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typography Intro</title>
+    <title></title>
     <style>
         * {
             margin: 0;
@@ -242,14 +242,59 @@
             }
         }
  
+ /* Menu di kanan atas dengan font lebih besar */
+.menu-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 35px; /* Ukuran lebih besar */
+    font-weight: bold;
+    gap: 15px;
+}
 
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none; /* Hapus garis bawah link */
+    color: white; /* Warna default tetap putih */
+}
+
+.menu-item:hover {
+    color: white; /* Tidak berubah warna saat hover */
+}
+
+
+ /* SVG Panah ke kanan atas (default) */
+        .arrow {
+            width: 60px;
+            height: 60px;
+            transition: transform 0.3s ease-in-out;
+            transform: rotate(0deg);
+            fill: none; /* Tambahkan ini untuk memastikan fill tidak mengganggu */
+            stroke: white; /* Tambahkan ini untuk memberi warna putih pada garis */
+            stroke-width: 2; /* Opsional: Sesuaikan lebar garis */
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Saat hover, panah jatuh ke bawah serong kanan */
+        .menu-item:hover .arrow {
+            transform: translate(5px, 10px) rotate(90deg);
+            stroke: white; /* Pastikan warna tetap putih saat hover */
+        }
 
 
 
     </style>
 </head>
 <body>
-    <a href="#" class="back-button">&#x2039;</a>
+    <a href="https://funny-klepon-f48de7.netlify.app/" class="back-button">&#x2039;</a>
     <span class="tooltip">Go Back</span>
     <h2>Halo Nama Saya</h2>
     <h1>
@@ -334,6 +379,29 @@
     </p>
 </div>
 
+ <div class="menu-container">
+        <a class="menu-item" href="https://www.instagram.com/fardardinsyh/">
+            Instagram
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 17L17 7M17 7V15M17 7H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+        <a class="menu-item" href="#work">
+            Project
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 17L17 7M17 7V15M17 7H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+        <a class="menu-item" href="#about">
+            Lamar Kerja
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 17L17 7M17 7V15M17 7H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </div>
+
+
+
 <div class="marquee-container">
     <div class="icon-track">
         <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator"></div>
@@ -346,6 +414,7 @@
         <div class="icon"><img src="https://raw.githubusercontent.com/mdx-js/mdx/main/logo.svg" alt="MDX"></div>
     </div>
 </div>
+
 
 	
  <div class="overlay" id="overlay" onclick="closePopup()"></div>
@@ -405,7 +474,7 @@
         <p> Kegiatan di UKM Fajrul Islam Universitas Gunadarma, ngapain aja sih ?.</p>
         <ul>
             <li><strong>Awal, </strong>perkenalan antar divisi dan semua team regional, struktur organisasi, aturan dan seterusnya</li>
-            <li><strong>Anggota Syiar, </strong> waktu pas meeting online, melakukan syiar2 tentang ilmu agamma ke masyarakat dst.</li>
+            <li><strong>Anggota Syiar, </strong> waktu pas meeting online, melakukan syiar2 tentang ilmu agama ke masyarakat dst.</li>
             <li><strong>Bebas, </strong>Panitia Kegiatan menyambut Mahasiswa Baru UKM Fajrul Islam UG Depok 2022, Panitia Kurma ( kegiatan ramadhan) UKM Fajrul Islam UG Depok 2022.</li>
         </ul>
         <img src="images/5.jpg" alt="">
