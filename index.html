@@ -291,6 +291,47 @@
             stroke: white; /* Pastikan warna tetap putih saat hover */
         }
 
+	      .button, .back-btn {
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            background: transparent;
+            color: white;
+            font-size: 40px;
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+        }
+        .hidden { display: none; }
+        .input-container { text-align: center; }
+        textarea {
+    width: 500px;
+    max-width: 1500px;
+    min-width: 800px;
+    height: auto;
+    min-height: 700px;
+    max-height: 1500px;
+    padding: 15px;
+    background: black;
+    color: white;
+    border: 2px solid white;
+    font-size: 30px;
+    text-align: left;
+    outline: none;
+    resize: vertical; /* Hanya bisa diperbesar ke bawah */
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+        footer {
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+            width: 100%;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
 
 
     </style>
@@ -380,6 +421,18 @@
        Coming Soon.
     </p>
 </div>
+
+	<div id="main-container">
+        <button id="sayHiBtn" class="button">→ say hi</button>
+    </div>
+
+    <div id="inputContainer" class="hidden">
+        <div class="input-container">
+         <textarea id="messageInput" placeholder="Farid Ardiansyah membutuhkan pesan yg bisa di sampaikan"></textarea>
+        </div>
+        <button id="sendBtn" class="button">Send</button>
+        <button id="backBtn" class="back-btn">Back</button>
+    </div>
 
  <div class="menu-container">
         <a class="menu-item" href="https://www.instagram.com/fardardinsyh/">
