@@ -331,6 +331,32 @@
             font-size: 14px;
             opacity: 0.6;
         }
+	     .container {
+            padding: 80px 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .email-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 45px;
+            font-weight: bold;
+            color: white;
+        }
+        .email-container svg {
+            width: 40px;
+            height: 40px;
+        }
+        .email-container a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .email-container a:hover {
+            text-decoration: underline;
+        }
 
 
 
@@ -434,6 +460,18 @@
         <button id="backBtn" class="back-btn">Back</button>
     </div>
 
+<div class="container">
+    <div class="email-container">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <a href="#" id="email-link">faridardiansyah061@gmail.com</a>
+    </div>
+</div>
+
+
+	
  <div class="menu-container">
         <a class="menu-item" href="https://www.instagram.com/fardardinsyh/">
             Instagram
@@ -503,7 +541,67 @@
 
 
     
-   <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_htQZ1TClnXKZGRJ4izbMQ02y6V3aNAQ",
+            authDomain: "wawa44-58d1e.firebaseapp.com",
+            projectId: "wawa44-58d1e",
+            storageBucket: "wawa44-58d1e.appspot.com",
+            messagingSenderId: "836899520599",
+            appId: "1:836899520599:web:b346e4370ecfa9bb89e312",
+            measurementId: "G-8LMP7F4BE9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const sayHiBtn = document.getElementById('sayHiBtn');
+        const inputContainer = document.getElementById('inputContainer');
+        const mainContainer = document.getElementById('main-container');
+        const sendBtn = document.getElementById('sendBtn');
+        const backBtn = document.getElementById('backBtn');
+        const messageInput = document.getElementById('messageInput');
+
+        async function checkSavedMessage() {
+            const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
+            const querySnapshot = await getDocs(q);
+
+            if (!querySnapshot.empty) {
+                sayHiBtn.textContent = 'thank you';
+            } else {
+                sayHiBtn.textContent = '→ say hi';
+            }
+        }
+        checkSavedMessage();
+
+        sayHiBtn.addEventListener('click', () => {
+            mainContainer.classList.add('hidden');
+            inputContainer.classList.remove('hidden');
+        });
+
+        backBtn.addEventListener('click', () => {
+            inputContainer.classList.add('hidden');
+            mainContainer.classList.remove('hidden');
+        });
+
+
+	     sendBtn.addEventListener('click', async () => {
+            const message = messageInput.value.trim();
+            if (message !== '') {
+                await addDoc(collection(db, "messages"), {
+                    text: message,
+                    timestamp: new Date()
+                });
+                sayHiBtn.textContent = 'thank you';
+                inputContainer.classList.add('hidden');
+                mainContainer.classList.remove('hidden');
+            }
+        });
+
+	    
     window.onload = function() {
         document.querySelector('.intro').style.opacity = 1;
     };
@@ -570,7 +668,14 @@ function closePopup() {
     document.getElementById("popup").style.display = "none";
     document.getElementById("overlay").style.display = "none";
 }
-
+document.addEventListener("DOMContentLoaded", function() {
+        const email = "faridardiansyah061@gmail.com";
+        const subject = encodeURIComponent("Hallo, selamat datang!");
+        const body = encodeURIComponent("kalau kamu membutuhkan pesan silahkan kirim pesan ke saya, terima kasih.");
+        const emailLink = document.getElementById("email-link");
+        
+        emailLink.href = `https://mail.google.com/mail/?view=cm&to=${email}&su=${subject}&body=${body}`;
+    });
     
   
 </script>
