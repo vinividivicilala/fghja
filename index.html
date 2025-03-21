@@ -668,6 +668,9 @@ function closePopup() {
     document.getElementById("popup").style.display = "none";
     document.getElementById("overlay").style.display = "none";
 }
+	    document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('.close-btn').addEventListener('click', closePopup);
+});
 document.addEventListener("DOMContentLoaded", function() {
         const email = "faridardiansyah061@gmail.com";
         const subject = encodeURIComponent("Hallo, selamat datang!");
