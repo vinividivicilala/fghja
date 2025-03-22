@@ -420,6 +420,32 @@
             stroke-linejoin: round;
         }
 
+	     table {
+            width: 60%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            color: #a6ff00;
+        }
+        tr:hover {
+            background-color: #222;
+            cursor: pointer;
+        }
+        #image-container {
+            margin-top: 20px;
+            display: none;
+        }
+        img {
+            max-width: 300px;
+            border-radius: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -563,6 +589,46 @@
         </div>
         <button id="sendBtn" class="button">Send</button>
         <button id="backBtn" class="back-btn">Back</button>
+    </div>
+
+	    <table>
+        <thead>
+            <tr>
+                <th>YEAR</th>
+                <th>BY</th>
+                <th>AWARD</th>
+                <th>PROJECT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr onclick="showImage()">
+                <td>2024</td>
+                <td>CSSDA</td>
+                <td>Special Kudos</td>
+                <td>Georgi Valkov</td>
+            </tr>
+            <tr onclick="showImage()">
+                <td>2024</td>
+                <td>CSSDA</td>
+                <td>Best in UI</td>
+                <td>Georgi Valkov</td>
+            </tr>
+            <tr onclick="showImage()">
+                <td>2024</td>
+                <td>CSSDA</td>
+                <td>Best in UX</td>
+                <td>Georgi Valkov</td>
+            </tr>
+            <tr onclick="showImage()">
+                <td>2024</td>
+                <td>CSSDA</td>
+                <td>Innovation</td>
+                <td>Georgi Valkov</td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="image-container">
+        <img src="images/5.jpg" alt="Award Image">
     </div>
 
 <div class="container">
@@ -794,8 +860,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 item.querySelector('span').textContent = isActive ? '+' : '-';
             });
         });
+
+	            function showImage() {
+            document.getElementById('image-container').style.display = 'block';
+        }
     
-  
 </script>
 </body>
 </html>
