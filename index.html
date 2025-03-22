@@ -401,6 +401,24 @@
             height: auto;
             margin-top: 10px;
         }
+	    /* Style untuk tautan dan ikon panah */
+        .faq-answer a {
+            color: white; /* Warna tautan */
+            text-decoration: none; /* Hilangkan garis bawah */
+            display: inline-flex;
+            align-items: center;
+            gap: 5px; /* Jarak antara teks dan ikon */
+        }
+
+        .faq-answer svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
 
 
     </style>
@@ -509,8 +527,18 @@
             </div>
 		  <div class="faq-item">
                 <div class="faq-question"> Apakah saya Cumlaude? <span>+</span></div>
-                <div class="faq-answer">Coming Soon.</div>
+                               <div class="faq-answer">
+                    Coming Soon.
+                    <a href="#">
+                        Link
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </div>
             </div>
+
             <div class="faq-item">
                 <div class="faq-question">Saya jurusan darimana? <span>+</span></div>
                <div class="faq-answer">
