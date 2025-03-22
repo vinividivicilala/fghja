@@ -357,6 +357,41 @@
         .email-container a:hover {
             text-decoration: underline;
         }
+	     .faq-container {
+            max-width: 600px;
+            margin: auto;
+        }
+        h2 {
+            text-align: left;
+        }
+        .faq {
+            background: #222;
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .faq-item {
+            border-bottom: 1px solid #444;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-question {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            display: none;
+            padding: 15px;
+            background: #333;
+        }
+        .faq-question:hover {
+            background: #333;
+        }
 
 
 
@@ -448,6 +483,34 @@
     </p>
 </div>
 
+<div class="faq-container">
+        <h2>Here are some common questions I get.</h2>
+        <p>If you have more, feel free to ask!</p>
+        <div class="faq">
+            <div class="faq-item">
+                <div class="faq-question">How can I hire you for a project <span>+</span></div>
+                <div class="faq-answer">You can either fill out the contact form above or email me directly at josciptt@gmail.com. We'll discuss your needs and how I can help.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How quickly can I get started? <span>+</span></div>
+                <div class="faq-answer">I can typically start within a week depending on my availability.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">We have wireframes, can you work with these? <span>+</span></div>
+                <div class="faq-answer">Yes, I can work with wireframes to bring your design to life.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How long does a project take? <span>+</span></div>
+                <div class="faq-answer">Project timelines vary depending on scope and complexity.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">What are your rates? <span>+</span></div>
+                <div class="faq-answer">Rates depend on the project type and complexity.</div>
+            </div>
+        </div>
+    </div>
+
+	
 	<div id="main-container">
         <button id="sayHiBtn" class="button">→ say hi</button>
     </div>
@@ -679,6 +742,16 @@ document.addEventListener("DOMContentLoaded", function() {
         
         emailLink.href = `https://mail.google.com/mail/?view=cm&to=${email}&su=${subject}&body=${body}`;
     });
+	     document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const answer = item.nextElementSibling;
+                const isActive = answer.style.display === 'block';
+                document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display = 'none');
+                document.querySelectorAll('.faq-question span').forEach(span => span.textContent = '+');
+                answer.style.display = isActive ? 'none' : 'block';
+                item.querySelector('span').textContent = isActive ? '+' : '-';
+            });
+        });
     
   
 </script>
