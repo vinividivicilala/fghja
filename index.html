@@ -420,7 +420,7 @@
             stroke-linejoin: round;
         }
 
-	     table {
+ table {
             width: 60%;
             border-collapse: collapse;
             margin-top: 20px;
@@ -435,14 +435,16 @@
         }
         tr:hover {
             background-color: #222;
-            cursor: pointer;
         }
-      #table-image {
-    max-width: 400px; /* Sesuaikan ukuran gambar */
-    border-radius: 10px;
-    display: none; /* Sembunyikan gambar secara default */
-    margin: 20px auto; /* Tambahkan margin untuk memberi jarak dari tabel */
-}
+        tr {
+            cursor: pointer; /* Pastikan kursor pointer selalu ada */
+        }
+        #table-image {
+            max-width: 400px;
+            border-radius: 10px;
+            display: none;
+            margin: 20px auto;
+        }
 
     </style>
 </head>
@@ -588,44 +590,48 @@
         <button id="sendBtn" class="button">Send</button>
         <button id="backBtn" class="back-btn">Back</button>
     </div>
-<table>
-    <thead>
-        <tr>
-            <th>YEAR</th>
-            <th>BY</th>
-            <th>AWARD</th>
-            <th>PROJECT</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr onclick="showImage()">
-            <td>2024</td>
-            <td>CSSDA</td>
-            <td>Special Kudos</td>
-            <td>Georgi Valkov</td>
-        </tr>
-        <tr onclick="showImage()">
-            <td>2024</td>
-            <td>CSSDA</td>
-            <td>Best in UI</td>
-            <td>Georgi Valkov</td>
-        </tr>
-        <tr onclick="showImage()">
-            <td>2024</td>
-            <td>CSSDA</td>
-            <td>Best in UX</td>
-            <td>Georgi Valkov</td>
-        </tr>
-        <tr onclick="showImage()">
-            <td>2024</td>
-            <td>CSSDA</td>
-            <td>Innovation</td>
-            <td>Georgi Valkov</td>
-        </tr>
-    </tbody>
-</table>
 
-<img id="table-image" src="images/5.jpg" alt="Award Image" style="display: none;">
+
+	<table>
+        <thead>
+            <tr>
+                <th>YEAR</th>
+                <th>BY</th>
+                <th>AWARD</th>
+                <th>PROJECT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr onclick="showImage()">
+                <td>2024</td>
+                <td>CSSDA</td>
+                <td>Special Kudos</td>
+                <td>Georgi Valkov</td>
+            </tr>
+            <tr onclick="showImage()">
+                <td>2024</td>
+                <td>CSSDA</td>
+                <td>Best in UI</td>
+                <td>Georgi Valkov</td>
+            </tr>
+            <tr onclick="showImage()">
+                <td>2024</td>
+                <td>CSSDA</td>
+                <td>Best in UX</td>
+                <td>Georgi Valkov</td>
+            </tr>
+            <tr onclick="showImage()">
+                <td>2024</td>
+                <td>CSSDA</td>
+                <td>Innovation</td>
+		<td>Georgi Valkov</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <img id="table-image" src="images/5.jpg" alt="Award Image" style="display: none;">
+
+
 
 	
       
@@ -860,10 +866,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
 	    
-function showImage() {
-    document.getElementById('table-image').style.display = 'block';
-}
-
+  function showImage() {
+            document.getElementById('table-image').style.display = 'block';
+        }
 	    
 </script>
 </body>
