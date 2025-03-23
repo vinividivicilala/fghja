@@ -593,41 +593,40 @@
 <table>
     <thead>
         <tr>
-            <th>YEAR</th>
-            <th>BY</th>
-            <th>AWARD</th>
-            <th>PROJECT</th>
+            <th>Tahun</th>
+            <th>Penyelenggara</th>
+            <th>Judul</th>
+            <th>Tahun</th>
         </tr>
     </thead>
     <tbody>
-        <tr onclick="showImage()">
-            <td>2024</td>
+        <tr data-image="images/award1.jpg">
+            <td>2025</td>
             <td>CSSDA</td>
             <td>Special Kudos</td>
             <td>Georgi Valkov</td>
         </tr>
-        <tr onclick="showImage()">
-            <td>2024</td>
+        <tr data-image="images/award2.jpg">
+            <td>2025</td>
             <td>CSSDA</td>
             <td>Best in UI</td>
             <td>Georgi Valkov</td>
         </tr>
-        <tr onclick="showImage()">
-            <td>2024</td>
+        <tr data-image="images/award3.jpg">
+            <td>2025</td>
             <td>CSSDA</td>
             <td>Best in UX</td>
             <td>Georgi Valkov</td>
         </tr>
-        <tr onclick="showImage()">
-            <td>2024</td>
+        <tr data-image="images/award4.jpg">
+            <td>2025</td>
             <td>CSSDA</td>
             <td>Innovation</td>
             <td>Georgi Valkov</td>
         </tr>
     </tbody>
 </table>
-
-<img id="table-image" src="images/5.jpg" alt="Award Image" style="display: none;">
+<img id="table-image" src="" alt="Award Image" style="display: none;">
 
 
 	
@@ -865,16 +864,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 item.querySelector('span').textContent = isActive ? '+' : '-';
             });
         });
-
-	    
-const tableRows = document.querySelectorAll('table tr');  // Get all table rows (or target specific rows)
+const tableRows = document.querySelectorAll('table tr'); // Ambil semua baris tabel
 const tableImage = document.getElementById('table-image');
 
 tableRows.forEach(row => {
     row.addEventListener('click', () => {
-        tableImage.style.display = 'block';
+        const imageSrc = row.getAttribute('data-image'); // Ambil path gambar dari atribut data-image
+        if (imageSrc) {
+            tableImage.src = imageSrc; // Set src gambar
+            tableImage.style.display = 'block'; // Tampilkan gambar
+        }
     });
 });
+	    
+
 	    
 </script>
 </body>
