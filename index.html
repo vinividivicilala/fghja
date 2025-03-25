@@ -446,28 +446,28 @@
             display: none;
             margin: 20px auto;
         }
-	     .card {
+	    .card {
             display: flex;
-            max-width: 800px;
+            flex-direction: column;
+            max-width: 1000px; /* Lebih lebar */
             background: #f5f5f5;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 30px;
+            border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 40px; /* Jarak lebih besar antara tabel dan card */
         }
         .card .left {
             font-size: 12px;
             font-weight: bold;
             text-transform: uppercase;
             color: #444;
-            flex: 1;
-            display: flex;
-            align-items: center;
+            margin-bottom: 10px; /* Biar ada jarak dari teks bawahnya */
         }
         .card .right {
-            flex: 3;
             font-size: 14px;
             color: #666;
             line-height: 1.6;
+            text-align: left;
         }
 
     </style>
@@ -652,13 +652,17 @@
 </table>
 <img id="table-image" src="" alt="" style="display: none;">
 
-    <div class="card">
+
+
+ <div class="card">
         <div class="left">Portuguese Designer</div>
         <div class="right">
             Born in Portugal, I’ve always been drawn to creativity—quite literally, with a pencil in hand since childhood. Curious, observant, and a dreamer, my passion for imagining and creating naturally led me to a career in design. With over a decade of experience, I specialize in crafting digital products, building websites, and helping brands bring their visions to life.
         </div>
     </div>
-	  
+
+
+	
 <div class="container">
     <div class="email-container">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
