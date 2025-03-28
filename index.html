@@ -538,6 +538,48 @@
     border-radius: 50%;
 }
 
+.talk-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f7f7f7;
+    border-radius: 50px;
+    padding: 20px 30px;
+    max-width: 100%;
+    width: 600px;
+    height: 70px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.talk-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.talk-button {
+    background-color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, background-color 0.3s;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.talk-button:hover {
+    transform: scale(1.1);
+    background-color: #e0e0e0;
+}
+
+
+
+	    
     
     
     </style>
@@ -890,6 +932,19 @@
     </div>
 </section>
 
+
+<a href="#" class="talk-container">
+    <span class="talk-text">Let's talk</span>
+    <div class="talk-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+    </div>
+</a>
+
+
+	
 		
 <div class="container">
     <div class="email-container">
