@@ -471,11 +471,19 @@
             line-height: 1.6;
             text-align: left;
  }	
+
 .work-experience {
     font-family: Arial, sans-serif;
     margin-top: 50px;
-    max-width: 800px;
-    margin: auto;
+    max-width: 100%;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 20px;
 }
 
 .experience-item {
@@ -484,6 +492,7 @@
     justify-content: space-between;
     padding: 20px;
     border-bottom: 1px solid #ddd;
+    width: 100%;
 }
 
 .experience-date {
@@ -493,8 +502,7 @@
     display: flex;
     align-items: center;
 }
-
-.dot {
+	    .dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -519,12 +527,13 @@
     gap: 10px;
 }
 
-.experience-logo img {
+	    .experience-logo img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
-
+    
+    
     </style>
 </head>
 <body>
@@ -716,6 +725,8 @@
     </div>
 
 	<section class="work-experience">
+    <h2 class="section-title">Work Experience</h2>
+
     <div class="experience-item">
         <div class="experience-date">
             <span class="dot active"></span> 2024 - PRESENT
@@ -741,7 +752,8 @@
             <img src="logo4.png" alt="Modular">
         </div>
     </div>
-<div class="experience-item">
+
+		 <div class="experience-item">
         <div class="experience-date">
             <span class="dot"></span> 2022 - 2023
         </div>
@@ -767,7 +779,7 @@
 </section>
 
 
-	
+		
 <div class="container">
     <div class="email-container">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
