@@ -471,49 +471,59 @@
             line-height: 1.6;
             text-align: left;
  }	
-	    .work-history {
-    margin-top: 50px;
+.work-experience {
     font-family: Arial, sans-serif;
+    margin-top: 50px;
+    max-width: 800px;
+    margin: auto;
 }
 
-.history-card {
+.experience-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px;
     border-bottom: 1px solid #ddd;
-    width: 100%;
 }
 
-.history-date {
+.experience-date {
     flex: 1;
     font-weight: bold;
     color: #555;
+    display: flex;
+    align-items: center;
 }
 
-.history-content {
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.dot.active {
+    background-color: black;
+}
+
+.experience-content {
     flex: 3;
     text-align: left;
+    color: #333;
 }
 
-.history-logo img {
+.experience-logo {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+}
+
+.experience-logo img {
     width: 40px;
     height: 40px;
-    margin-left: 10px;
+    border-radius: 50%;
 }
-
-.gallery {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 30px;
-}
-
-.gallery img {
-    width: 30%;
-    border-radius: 10px;
-}
-
-	    
 
     </style>
 </head>
@@ -705,37 +715,54 @@
         </div>
     </div>
 
-	<section class="work-history">
-    <h2>Work History</h2>
-    <div class="history-card">
-        <div class="history-date">
+	<section class="work-experience">
+    <div class="experience-item">
+        <div class="experience-date">
             <span class="dot active"></span> 2024 - PRESENT
         </div>
-        <div class="history-content">
+        <div class="experience-content">
             <p>In April I joined Everly Health as a Principal Product Designer.</p>
         </div>
-        <div class="history-logo">
-            <img src="logo1.png" alt="Company Logo">
+        <div class="experience-logo">
+            <img src="logo1.png" alt="Everly Health">
         </div>
     </div>
 
-    <div class="history-card">
-        <div class="history-date">
+    <div class="experience-item">
+        <div class="experience-date">
             <span class="dot"></span> 2023 - 2024
         </div>
-        <div class="history-content">
-            <p>Worked as a Principal Product Designer with clients such as Budge.app, Metalab, Modular.</p>
+        <div class="experience-content">
+            <p>Between September 2023 and February 2024 I worked as a Principal Product Designer with clients such as Budge.app, Metalab, Modular.</p>
         </div>
-        <div class="history-logo">
-            <img src="logo2.png" alt="Company Logo">
-            <img src="logo3.png" alt="Company Logo">
-            <img src="logo4.png" alt="Company Logo">
+        <div class="experience-logo">
+            <img src="logo2.png" alt="Budge">
+            <img src="logo3.png" alt="Metalab">
+            <img src="logo4.png" alt="Modular">
         </div>
     </div>
-<div class="gallery">
-        <img src="image1.png" alt="Portfolio Image">
-        <img src="image2.png" alt="Portfolio Image">
-        <img src="image3.png" alt="Portfolio Image">
+<div class="experience-item">
+        <div class="experience-date">
+            <span class="dot"></span> 2022 - 2023
+        </div>
+        <div class="experience-content">
+            <p>In January 2022 I accepted a new challenge with Hedgehog, trying to bring real-world asset investment to everyone.</p>
+        </div>
+        <div class="experience-logo">
+            <img src="logo5.png" alt="Hedgehog">
+        </div>
+    </div>
+
+    <div class="experience-item">
+        <div class="experience-date">
+            <span class="dot"></span> 2020 - 2021
+        </div>
+        <div class="experience-content">
+            <p>In October 2020 I joined Metalab as a Product Designer, and worked with clients such as Epic Games, Patreon, TextMagic, Rain.bh, and Sorare!</p>
+        </div>
+        <div class="experience-logo">
+            <img src="logo6.png" alt="Epic Games">
+        </div>
     </div>
 </section>
 
