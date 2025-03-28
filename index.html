@@ -576,103 +576,100 @@
     transform: scale(1.1);
     background-color: #e0e0e0;
 }
-
 .music-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
-        .music-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background-color: #1e1e1e;
-            color: white;
-            border-radius: 12px;
-            padding: 15px;
-            width: 280px;
-            min-height: 150px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
+.music-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #1e1e1e;
+    color: white;
+    border-radius: 12px;
+    padding: 15px;
+    width: 280px;
+    min-height: 150px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
 
-        .music-card img {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-        }
+.music-card .top-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.music-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+}
 
-	  .music-card .top-content {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+.music-card .spotify-logo {
+    width: 25px;
+    height: auto;
+}
 
-        .music-card .info {
-            text-align: left;
-        }
+.music-card .info {
+    text-align: left;
+    flex-grow: 1;
+    margin-left: 10px;
+}
 
-        .music-card .info h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: bold;
-        }
+.music-card .info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+.music-card .info p {
+    margin: 4px 0;
+    font-size: 12px;
+    color: #ccc;
+}
 
-        .music-card .info p {
-            margin: 4px 0;
-            font-size: 12px;
-            color: #ccc;
-        }
+.music-card .bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
 
-        .music-card .bottom-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }   
+.music-card .save {
+    font-size: 12px;
+    cursor: pointer;
+}
 
- .music-card .save {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            cursor: pointer;
-        }
+.music-card .save:hover {
+    text-decoration: underline;
+}
+.music-card .play-btn {
+    background-color: white;
+    color: black;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+}
 
-        .music-card .save:hover {
-            text-decoration: underline;
-        }
+.music-card .play-btn:hover {
+    background-color: #ddd;
+}
 
-        .music-card .play-btn {
-            background-color: white;
-            color: black;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .music-card .play-btn:hover {
-            background-color: #ddd;
-        }
+/* Warna spesifik untuk setiap kartu */
+.music-card.black { background-color: #181818; }
+.music-card.red { background-color: #a81930; }
+.music-card.purple { background-color: #6b2c91; }
 
 
-.music-card svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Warna spesifik untuk setiap kartu */
-        .music-card.black { background-color: #181818; }
-        .music-card.red { background-color: #a81930; }
-        .music-card.purple { background-color: #6b2c91; }
-	    
+     
 
     </style>
 </head>
@@ -1026,85 +1023,62 @@
 
 
 <h2><strong>Mainkan lagu favorit saya</strong></h2>
-    
-    <div class="music-container">
-        <div class="music-card black">
-            <div class="top-content">
-                <img src="https://i.scdn.co/image/ab67616d00001e02b4a0b2b0b20e95bfc79fc46c" alt="Stay">
-                <div class="info">
-                    <h3>Stay</h3>
-                    <p>Zedd, Alessia Cara</p>
-                </div>
+
+<div class="music-container">
+    <!-- Stay -->
+    <div class="music-card black">
+        <div class="top-content">
+            <img src="https://i.scdn.co/image/ab67616d00001e02b4a0b2b0b20e95bfc79fc46c" alt="Stay">
+            <div class="info">
+                <h3>Stay</h3>
+                <p>Zedd, Alessia Cara</p>
             </div>
-            <div class="bottom-content">
-                <div class="save">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                    </svg>
-                    Simpan di Spotify
-                </div>
-                <div class="play-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                </div>
-            </div>
+            <img class="spotify-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" alt="Spotify">
         </div>
-
-  <div class="music-card red">
-            <div class="top-content">
-                <img src="https://i.scdn.co/image/ab67616d00001e02d1b2c3d50b6b7cd44b7883a4" alt="Starving">
-                <div class="info">
-                    <h3>Starving</h3>
-                    <p>Hailee Steinfeld, Grey, Zedd</p>
-                </div>
-            </div>
-            <div class="bottom-content">
-                <div class="save">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                    </svg>
-                    Simpan di Spotify
-                </div>
-                <div class="play-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                </div>
-            </div>
+        <div class="bottom-content">
+            <div class="save">➕ Simpan di Spotify</div>
+            <span class="duration">03:30</span>
+            <div class="play-btn" onclick="playSpotify('1A6OTy97kk0mMdm78rHsm8')">▶</div>
         </div>
+    </div>
 
-
-
- <div class="music-card purple">
-            <div class="top-content">
-                <img src="https://i.scdn.co/image/ab67616d00001e02e3e7c3f798cb3f3b7d25d45e" alt="Give Me Your Forever">
-                <div class="info">
-                    <h3>Give Me Your Forever</h3>
-                    <p>Zack Tabudlo</p>
-                </div>
+    <!-- Starving -->
+    <div class="music-card red">
+        <div class="top-content">
+            <img src="https://i.scdn.co/image/ab67616d00001e02d1b2c3d50b6b7cd44b7883a4" alt="Starving">
+            <div class="info">
+                <h3>Starving</h3>
+                <p>Hailee Steinfeld, Grey, Zedd</p>
             </div>
-            <div class="bottom-content">
-                <div class="save">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                    </svg>
-                    Simpan di Spotify
-                </div>
-                <div class="play-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                    </svg>
-                </div>
-            </div>
+            <img class="spotify-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" alt="Spotify">
         </div>
+        <div class="bottom-content">
+            <div class="save">➕ Simpan di Spotify</div>
+            <span class="duration">03:01</span>
+            <div class="play-btn" onclick="playSpotify('3jjujdWJ72nww5eGnfs2E7')">▶</div>
+        </div>
+    </div>
+
+    <!-- Give Me Your Forever -->
+    <div class="music-card purple">
+        <div class="top-content">
+            <img src="https://i.scdn.co/image/ab67616d00001e02e3e7c3f798cb3f3b7d25d45e" alt="Give Me Your Forever">
+            <div class="info">
+                <h3>Give Me Your Forever</h3>
+                <p>Zack Tabudlo</p>
+            </div>
+            <img class="spotify-logo" src="https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" alt="Spotify">
+        </div>
+        <div class="bottom-content">
+            <div class="save">➕ Simpan di Spotify</div>
+            <span class="duration">04:04</span>
+            <div class="play-btn" onclick="playSpotify('0pqnGHJpmpxLKifKRmU6WP')">▶</div>
+        </div>
+    </div>
 </div>
+
+
+
 
 	
 
@@ -1367,7 +1341,9 @@ tableRows.forEach(row => {
     });
 });
 	    
-
+function playSpotify(trackId) {
+    window.open(`https://open.spotify.com/track/${trackId}`, '_blank');
+}
 	    
 </script>
 </body>
