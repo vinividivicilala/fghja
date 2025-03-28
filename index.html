@@ -472,11 +472,13 @@
             text-align: left;
  }	
 
-.work-experience {
+
+  .volunteer-experience {
     font-family: Arial, sans-serif;
-    margin-top: 50px;
     max-width: 100%;
-    padding: 0 20px;
+    padding: 20px;
+    background: black;
+    color: white;
 }
 
 .section-title {
@@ -486,52 +488,56 @@
     margin-bottom: 20px;
 }
 
-.experience-item {
+.volunteer-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    border-bottom: 1px solid gray;
     width: 100%;
 }
 
-.experience-date {
+.volunteer-status {
     flex: 1;
-    font-weight: bold;
-    color: white;
     display: flex;
     align-items: center;
+    font-size: 18px;
 }
-	    .dot {
+
+.dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: red;
-    display: inline-block;
     margin-right: 10px;
 }
 
-.dot.active {
+.green {
     background-color: green;
 }
 
-.experience-content {
-    flex: 3;
-    text-align: left;
-    color: white;
+.red {
+    background-color: red;
 }
 
-.experience-logo {
+.volunteer-content {
+    flex: 3;
+    text-align: left;
+    word-wrap: break-word;
+    max-width: 600px;
+}
+
+.volunteer-logo {
     flex: 1;
     display: flex;
     gap: 10px;
 }
 
-	    .experience-logo img {
+.volunteer-logo img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
 }
+
     
     
     </style>
@@ -724,60 +730,49 @@
         </div>
     </div>
 
-	<section class="work-experience">
+	<section class="volunteer-experience">
     <h2 class="section-title">Pengalaman Volunteer</h2>
 
-    <div class="experience-item">
-        <div class="experience-date">
-            <span class="dot active"></span> Coming Soon
+    <div class="volunteer-item">
+        <div class="volunteer-status">
+            <span class="dot green"></span>
+            <strong>Coming Soon</strong>
         </div>
-        <div class="experience-content">
-            <p> Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, .</p>
+        <div class="volunteer-content">
+            <p>Deskripsi pengalaman volunteer yang lebih panjang bisa ditempatkan di sini agar tidak berantakan...</p>
         </div>
-        <div class="experience-logo">
-            <img src="images/5.jpg" alt="Everly Health">
-        </div>
-    </div>
-
-    <div class="experience-item">
-        <div class="experience-date">
-            <span class="dot"></span> Coming Soon
-        </div>
-        <div class="experience-content">
-            <p> Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon,  .</p>
-        </div>
-        <div class="experience-logo">
-            <img src="images/5.jpg" alt="Budge">
-            <img src="images/5.jpg" alt="Metalab">
-            <img src="images/5.jpg" alt="Modular">
+        <div class="volunteer-logo">
+            <img src="logo1.png" alt="Logo 1">
         </div>
     </div>
 
-		 <div class="experience-item">
-        <div class="experience-date">
-            <span class="dot"></span>  Coming Soon
+    <div class="volunteer-item">
+        <div class="volunteer-status">
+            <span class="dot red"></span>
+            <strong>Coming Soon</strong>
         </div>
-        <div class="experience-content">
-            <p> Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, .</p>
+        <div class="volunteer-content">
+            <p>Deskripsi lainnya yang lebih panjang bisa ditambahkan di sini.</p>
         </div>
-        <div class="experience-logo">
-            <img src="images/5.jpg" alt="Hedgehog">
+        <div class="volunteer-logo">
+            <img src="logo2.png" alt="Logo 2">
+            <img src="logo3.png" alt="Logo 3">
         </div>
-    </div>
+</div>
 
-    <div class="experience-item">
-        <div class="experience-date">
-            <span class="dot"></span>  Coming Soon
+    <div class="volunteer-item">
+        <div class="volunteer-status">
+            <span class="dot red"></span>
+            <strong>Coming Soon</strong>
         </div>
-        <div class="experience-content">
-            <p> Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, Coming Soon, !</p>
+        <div class="volunteer-content">
+            <p>Deskripsi tambahan lainnya jika perlu.</p>
         </div>
-        <div class="experience-logo">
-            <img src="images/5.jpg" alt="Epic Games">
+        <div class="volunteer-logo">
+            <img src="logo4.png" alt="Logo 4">
         </div>
     </div>
 </section>
-
 
 		
 <div class="container">
