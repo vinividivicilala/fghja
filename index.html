@@ -577,125 +577,119 @@
     background-color: #e0e0e0;
 }
 
-
-   
-    .playlist-container {
-            display: flex;
-            gap: 20px;
-        }
-
-        .song-card {
-            width: 300px;
-            height: 150px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
+.song-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            padding: 20px;
+            text-align: center;
             position: relative;
         }
 
         .song-card img {
-            width: 90px;
-            height: 90px;
-            border-radius: 8px;
+            width: 150px;
+            height: 150px;
             object-fit: cover;
-            margin-left: 16px;
-        }
-
-	      .song-details {
-            margin-left: 16px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
+            border-radius: 5px;
+            margin-bottom: 15px;
         }
 
         .song-title {
-            font-size: 16px;
             font-weight: bold;
-            color: #333;
+            margin-bottom: 5px;
         }
 
-        .song-artist {
-            font-size: 12px;
+        .artist-name {
+            font-size: 0.9em;
             color: #666;
-            overflow: hidden;
             white-space: nowrap;
-            animation: scrollText 10s linear infinite;
+            overflow: hidden;
+            position: relative;
+        }
+     .artist-name span {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            line-height: 1.5;
+            text-align: left;
+            transform: translateX(100%);
+            animation: marquee 10s linear infinite;
         }
 
-        @keyframes scrollText {
+        @keyframes marquee {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
 
-     .song-duration {
-            font-size: 12px;
-            color: #666;
-        }
-
         .spotify-icon {
             position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 24px;
-            height: 24px;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background-image: url('spotify-icon.png'); /* Ganti dengan path ikon Spotify Anda */
+            background-size: cover;
         }
 
-        .controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .save-button {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 12px;
-            color: #666;
-        }
-        .save-button i {
-            font-size: 16px;
-            color: #666;
-        }
-
-        .play-button {
-            width: 32px;
-            height: 32px;
-            background-color: #1db954;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+ .add-to-spotify {
+            background-color: #1DB954;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 20px;
             cursor: pointer;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
         }
 
-        .play-button i {
-            font-size: 18px;
-            color: #fff;
+        .add-to-spotify::before {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background-image: url('spotify-icon-white.png'); /* Ganti dengan path ikon Spotify putih Anda */
+            background-size: cover;
+            margin-right: 5px;
         }
 
-	      .progress-bar {
-            width: 100%;
-            height: 4px;
-            background-color: #ddd;
-            border-radius: 2px;
+        .song-duration {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
+      
+ .play-button {
+            background-color: #1DB954;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
             position: absolute;
-            bottom: 16px;
-            left: 16px;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .progress-fill {
-            height: 4px;
-            background-color: #1db954;
-            border-radius: 2px;
-            width: 0%; /* Initial progress */
+        .play-button::after {
+            content: '';
+            border-style: solid;
+            border-width: 8px 0 8px 12px;
+            border-color: transparent transparent transparent white;
+            margin-left: 3px;
         }
+
+        audio {
+            width: 100%;
+            margin-top: 10px;
+        }
+      
+      
 
 
    
@@ -1051,65 +1045,42 @@
     </div>
 </section>
 
-
-    <h1>Mainkan lagu favorit saya</h1>
-
-    <div class="playlist-container">
-        <!-- Card 1 -->
-        <div class="song-card" data-song-id="7cIYnVUjNTZtFcQb9cHh0y">
-            <img src="https://source.unsplash.com/random/300x300/?music" alt="Album Cover">
-            <div class="song-details">
-                <div class="song-title">Stay</div>
-                <div class="song-artist">Zedd, Alessia Cara</div>
-                <div class="song-duration">03:30</div>
-            </div>
+ <div class="container">
+        <div class="song-card">
             <div class="spotify-icon"></div>
-            <div class="controls">
-                <div class="save-button"><i class="fas fa-plus"></i> Simpan di Spotify</div>
-                <div class="play-button"><i class="fas fa-play"></i></div>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 0%;"></div>
-            </div>
+            <img src="stay-cover.jpg" alt="Stay Cover">
+            <div class="song-title">Stay</div>
+            <div class="artist-name"><span>Zedd, Alessia Cara</span></div>
+            <button class="add-to-spotify">Simpan di Spotify</button>
+            <div class="song-duration">03:30</div>
+            <button class="play-button" data-audio="stay.mp3"></button>
+            <audio src="stay.mp3"></audio>
         </div>
 
-        <!-- Card 2 -->
-        <div class="song-card" data-song-id="5akZxpN3lD8EYwF3JDKCfu">
-            <img src="https://source.unsplash.com/random/300x300/?music" alt="Album Cover">
-            <div class="song-details">
-                <div class="song-title">Starving</div>
-                <div class="song-artist">Hailee Steinfeld, Grey, Zedd</div>
-                <div class="song-duration">03:01</div>
-            </div>
+        <div class="song-card">
             <div class="spotify-icon"></div>
-            <div class="controls">
-                <div class="save-button"><i class="fas fa-plus"></i> Simpan di Spotify</div>
-                <div class="play-button"><i class="fas fa-play"></i></div>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 0%;"></div>
-            </div>
+            <img src="starving-cover.jpg" alt="Starving Cover">
+            <div class="song-title">Starving</div>
+            <div class="artist-name"><span>Hailee Steinfeld, Grey, Zec</span></div>
+            <button class="add-to-spotify">Simpan di Spotify</button>
+            <div class="song-duration">03:01</div>
+            <button class="play-button" data-audio="starving.mp3"></button>
+            <audio src="starving.mp3"></audio>
         </div>
-
-        <!-- Card 3 -->
-        <div class="song-card" data-song-id="6qevXBwlRmFUASWCFWsBLL">
-            <img src="https://source.unsplash.com/random/300x300/?music" alt="Album Cover">
-            <div class="song-details">
-                <div class="song-title">Give Me Your Forever</div>
-                <div class="song-artist">Zack Tabudlo</div>
-                <div class="song-duration">04:04</div>
-            </div>
-
+        <div class="song-card">
             <div class="spotify-icon"></div>
-            <div class="controls">
-                <div class="save-button"><i class="fas fa-plus"></i> Simpan di Spotify</div>
-                <div class="play-button"><i class="fas fa-play"></i></div>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 0%;"></div>
-            </div>
+            <img src="give-me-your-forever-cover.jpg" alt="Give Me Your Forever Cover">
+            <div class="song-title">Give Me Your Forever</div>
+            <div class="artist-name"><span>Zack Tabudlo</span></div>
+            <button class="add-to-spotify">Simpan di Spotify</button>
+            <div class="song-duration">04:04</div>
+            <button class="play-button" data-audio="give-me-your-forever.mp3"></button>
+            <audio src="give-me-your-forever.mp3"></audio>
         </div>
     </div>
+
+   
+       
 
 
 
@@ -1372,23 +1343,14 @@ tableRows.forEach(row => {
     });
 });
 	    
-// Mengambil semua elemen kartu lagu
-        const songCards = document.querySelectorAll('.song-card');
-
-        // Fungsi untuk membuka pemutar Spotify Web Player
-        function openSpotifyPlayer(card) {
-            const songId = card.getAttribute('data-song-id');
-            const spotifyUrl = `https://open.spotify.com/embed/track/${songId}`;
-
-            // Membuka pemutar dalam jendela baru
-            window.open(spotifyUrl, '_blank', 'width=300,height=380');
-        }
-
-        // Menambahkan event listener ke tombol putar
-        songCards.forEach(card => {
-            const playButton = card.querySelector('.play-button');
-            playButton.addEventListener('click', () => {
-                openSpotifyPlayer(card);
+ document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const audio = this.nextElementSibling;
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
             });
         });
 	    
