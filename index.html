@@ -631,7 +631,34 @@
             border-radius: 10px;
         }
         
-           
+            .social-icons {
+            position: fixed;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .social-icons a {
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            display: flex;
+            align-items: center;
+        }
+        .dot {
+            margin-left: 5px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .linkedin .dot { background-color: blue; }
+        .instagram .dot { background-color: orange; }
+        .dribbble .dot { background-color: magenta; }
+        .x .dot { background-color: blue; }
    
      
     </style>
@@ -1034,6 +1061,25 @@
         <a href="#" id="email-link">faridardiansyah061@gmail.com</a>
     </div>
 </div>
+
+
+
+
+ <div class="social-icons">
+        <a href="#" class="linkedin">in<span class="dot"></span></a>
+        <a href="#" class="instagram">ig<span class="dot"></span></a>
+        <a href="#" class="dribbble">dr<span class="dot"></span></a>
+        <a href="#" class="x">x<span class="dot"></span></a>
+    </div>
+
+
+
+
+
+
+
+
+	
 
  <div class="menu-container">
         <a class="menu-item" href="https://www.instagram.com/fardardinsyh/">
