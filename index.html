@@ -577,34 +577,30 @@
     background-color: #e0e0e0;
 }
 
-        .music-card {
+            .music-card {
             position: relative;
             width: 300px;
-            height: 350px;
+            height: 400px;
             border-radius: 15px;
             overflow: hidden;
-            background: rgba(0, 0, 0, 0.7);
+            background: white;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             text-align: center;
             padding: 15px;
         }
 
-        .music-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
+        .album-cover {
             width: 100%;
-            height: 100%;
-            background: url('https://source.unsplash.com/400x400/?music') no-repeat center/cover;
-            opacity: 0.4;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
         }
 
         .label {
             font-size: 16px;
             color: white;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-top: 10px;
         }
 
         .artist {
@@ -616,7 +612,8 @@
             width: 100%;
             cursor: pointer;
         }
-	            @keyframes marquee {
+
+        @keyframes marquee {
             from { transform: translateX(100%); }
             to { transform: translateX(-100%); }
         }
@@ -625,7 +622,6 @@
             display: inline-block;
             animation: marquee 5s linear infinite;
         }
-
         .spotify-player {
             position: absolute;
             bottom: 10px;
@@ -634,6 +630,8 @@
             width: 90%;
             border-radius: 10px;
         }
+        
+           
    
      
     </style>
@@ -986,20 +984,23 @@
     </div>
 </section>
 
-    <div class="container">
+       <div class="container">
         <div class="music-card">
+            <img class="album-cover" src="images/5.jpg" alt="Pupus - Hanin Dhiya">
             <div class="label">Pupus</div>
             <div class="artist" onclick="startScroll(this)">Hanin Dhiya</div>
             <iframe class="spotify-player" src="https://open.spotify.com/embed/track/4za8UJq7JI99ilRYQXVrkm?utm_source=generator" 
                 width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         </div>
         <div class="music-card">
+            <img class="album-cover" src="images/5.jpg" alt="Kita Lawan Mereka - Stand Here Alone">
             <div class="label">Kita Lawan Mereka</div>
             <div class="artist" onclick="startScroll(this)">Stand Here Alone</div>
             <iframe class="spotify-player" src="https://open.spotify.com/embed/track/2rj9nnNMZQNs2pZAPWuvze?utm_source=generator" 
                 width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
         </div>
         <div class="music-card">
+            <img class="album-cover" src="images/5.jpg" alt="Cinta Ini Membunuhku - D'Masiv">
             <div class="label">Cinta Ini Membunuhku</div>
             <div class="artist" onclick="startScroll(this)">D'Masiv</div>
             <iframe class="spotify-player" src="https://open.spotify.com/embed/track/63tUGwq0yrWE6FVemfPps9?utm_source=generator" 
