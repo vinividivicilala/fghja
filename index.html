@@ -660,65 +660,31 @@
         .dribbble .dot { background-color: magenta; }
         .x .dot { background-color: blue; }
 
-.slider-container {
-      width: 80%;
-      max-width: 1200px;
-      overflow: hidden;
-    }
 
-    .slider {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
+     .text-container {
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .slider-item {
-      flex: 0 0 100%;
-      padding: 20px;
-      box-sizing: border-box;
-      min-width: 300px;
-    }
+        .italic {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
 
-    .testimonial-card {
-      background-color: #333;
-      color: white;
-      padding: 30px;
-      border-radius: 8px;
-      display: flex;
-	 }    
-	     .testimonial-content {
-      flex-grow: 1;
-    }
+        .asterisk {
+            display: inline-block;
+            color: #f4a261;
+            animation: rotate 2s linear infinite;
+            position: relative;
+            top: -5px;
+        }
 
-    .testimonial-card h3 {
-      margin-top: 0;
-    }
-
-    .testimonial-card p {
-      line-height: 1.6;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-    }
-
-    .testimonial-author img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin-right: 15px;
-    }
-
-	    .author-info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .company-name {
-      font-weight: bold;
-      margin-top: 10px;
-    }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
   
      
     </style>
@@ -1117,40 +1083,7 @@
     </div>
 
 
-<div class="slider-container">
-    <div class="slider">
-      <div class="slider-item">
-        <div class="testimonial-card">
-          <div class="testimonial-content">
-            <h3>Abilities that extend beyond design</h3>
-            <p>He's a gifted designer with abilities that extend beyond design, as he's continually looking for new methods to improve our product.</p>
-          </div>
-          <div class="testimonial-author">
-            <img src="https://via.placeholder.com/50" alt="Abby P Joby">
-            <div class="author-info">
-              <span>Abby P Joby</span>
-              <span>Director</span>
-              <span class="company-name">Uniworld</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="slider-item">
-        <div class="testimonial-card">
-          <div class="testimonial-content">
-            <h3>Pays close attention to detail</h3>
-            <p>Arjun has a strong sense of responsibility and pays close attention to detail, which helps our company gain more clients by delivering high-quality work.</p>
-          </div>
-          <div class="testimonial-author">
-            <img src="https://via.placeholder.com/50" alt="Aju George Kurian">
-            <div class="author-info">
-              <span>Aju George Kurian</span>
-              <span>Managing Director</span>
-		     <span class="company-name">Suits India Pvt Ltd</span>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
 	
 		
@@ -1423,19 +1356,7 @@ tableRows.forEach(row => {
             element.innerHTML = `<span class='scrolling'>${element.innerText}</span>`;
         }
 
-	const slider = document.querySelector('.slider');
-    const sliderItems = document.querySelectorAll('.slider-item');
-    let counter = 0;
-
-    function slide() {
-      counter++;
-      if (counter >= sliderItems.length) {
-        counter = 0;
-      }
-      slider.style.transform = `translateX(-${counter * 100}%)`;
-    }
-
-    setInterval(slide, 3000); // Ganti setiap 3 detik
+	
 	    
 </script>
 </body>
