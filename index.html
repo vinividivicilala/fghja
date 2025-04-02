@@ -685,7 +685,8 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-	      .carousel-container {
+	      
+          .carousel-container {
             display: flex;
             overflow: hidden;
             width: 100vw;
@@ -694,31 +695,39 @@
         }
         .carousel {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             animation: scroll 20s linear infinite;
         }
         .testimonial {
             background: #111;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
+            padding: 30px;
+            border-radius: 20px;
+            width: 400px;
             flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
         }
         .testimonial h3 {
             color: orange;
             font-style: italic;
+            font-size: 1.5rem;
         }
-        .testimonial p { margin: 10px 0; }
+        .testimonial p {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
         .profile {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 15px;
+            gap: 15px;
+            margin-top: 20px;
         }
-        .profile img {
-            width: 40px;
-            height: 40px;
+	    .profile img {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
+        }
+        .profile div {
+            font-size: 1rem;
         }
         @keyframes scroll {
             from { transform: translateX(0); }
@@ -1122,13 +1131,13 @@
     </div>
 
 
-	   <div class="carousel-container">
+	<div class="carousel-container">
         <div class="carousel">
             <div class="testimonial">
                 <h3>Abilities that extend beyond design</h3>
                 <p>He's a gifted designer with abilities that extend beyond design...</p>
                 <div class="profile">
-                    <img src="https://via.placeholder.com/40" alt="">
+                    <img src="https://via.placeholder.com/50" alt="">
                     <div>
                         <strong>Abby P Joby</strong><br>
                         Director, Uniworld
@@ -1139,37 +1148,13 @@
                 <h3>Pays close attention to detail</h3>
                 <p>Arjun has a strong sense of responsibility and pays close attention to detail...</p>
                 <div class="profile">
-                    <img src="https://via.placeholder.com/40" alt="">
+                    <img src="https://via.placeholder.com/50" alt="">
                     <div>
                         <strong>Aju George Kurian</strong><br>
                         Managing Director, Suits India Pvt Ltd
                     </div>
                 </div>
             </div>
-            <div class="testimonial">
-                <h3>Beyond design</h3>
-                <p>Beyond his creativity, he demonstrates an understanding of business...</p>
-                <div class="profile">
-                    <img src="https://via.placeholder.com/40" alt="">
-                    <div>
-                        <strong>Kyle</strong><br>
-                        CTO
-                    </div>
-                </div>
-            </div>
-		<div class="testimonial">
-                <h3>Great Team Player</h3>
-                <p>He collaborates effectively with the team and brings new perspectives...</p>
-                <div class="profile">
-                    <img src="https://via.placeholder.com/40" alt="">
-                    <div>
-                        <strong>John Doe</strong><br>
-                        CEO, TechCorp
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 	
 		
