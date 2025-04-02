@@ -685,7 +685,87 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-  
+ .avatar {
+            position: relative;
+            width: 120px;
+            height: 150px;
+            background: #ffcc66;
+            border-radius: 60px 60px 40px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.2), 5px 5px 10px rgba(255, 255, 255, 0.3);
+        }
+        .hair {
+            position: absolute;
+            top: -10px;
+            width: 80px;
+            height: 40px;
+            background: black;
+            border-radius: 50px 50px 0 0;
+        }
+        .female-hair {
+            width: 90px;
+            height: 50px;
+            background: brown;
+            border-radius: 50px 50px 40px 40px;
+            position: absolute;
+            top: -5px;
+        }
+        .ears {
+            position: absolute;
+            top: 40px;
+            width: 140px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .ear {
+            width: 20px;
+            height: 30px;
+            background: #ffcc66;
+            border-radius: 50%;
+        }
+
+	    .eyes {
+            display: flex;
+            gap: 20px;
+            position: relative;
+            top: 20px;
+        }
+        .eye {
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .pupil {
+            width: 12px;
+            height: 12px;
+            background: black;
+            border-radius: 50%;
+            position: absolute;
+            transition: transform 0.05s linear;
+        }
+        .clothing {
+            position: absolute;
+            bottom: -15px;
+            width: 100px;
+            height: 40px;
+            background: navy;
+            border-radius: 0 0 20px 20px;
+        }
+        .female-clothing {
+            background: pink;
+        }
+
+
+	    
      
     </style>
 </head>
@@ -1077,12 +1157,39 @@
 
 
 <div class="text-container">
-        <span class="italic">3 years designing</span>
+        <span class="italic"></span>
         <span class="asterisk">*</span>
         <span>22 years exploring</span>
     </div>
 
-
+<div class="avatar-container">
+        <div class="ears">
+            <div class="ear"></div>
+            <div class="ear"></div>
+        </div>
+        <div class="avatar">
+            <div class="hair"></div>
+            <div class="eyes">
+                <div class="eye"><div class="pupil"></div></div>
+                <div class="eye"><div class="pupil"></div></div>
+            </div>
+            <div class="clothing"></div>
+        </div>
+    </div>
+    <div class="avatar-container">
+        <div class="ears">
+            <div class="ear"></div>
+            <div class="ear"></div>
+        </div>
+        <div class="avatar">
+            <div class="female-hair"></div>
+            <div class="eyes">
+                <div class="eye"><div class="pupil"></div></div>
+                <div class="eye"><div class="pupil"></div></div>
+            </div>
+            <div class="clothing female-clothing"></div>
+        </div>
+    </div>
 
 
 	
@@ -1356,7 +1463,25 @@ tableRows.forEach(row => {
             element.innerHTML = `<span class='scrolling'>${element.innerText}</span>`;
         }
 
-	
+	 const pupils = document.querySelectorAll('.pupil');
+        document.addEventListener('mousemove', (e) => {
+            const avatars = document.querySelectorAll('.avatar');
+            avatars.forEach(avatar => {
+                const rect = avatar.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const deltaX = e.clientX - centerX;
+                const deltaY = e.clientY - centerY;
+                const angle = Math.atan2(deltaY, deltaX);
+                const distance = Math.min(8, Math.hypot(deltaX, deltaY) / 10);
+                const moveX = Math.cos(angle) * distance;
+                const moveY = Math.sin(angle) * distance;
+                
+                avatar.querySelectorAll('.pupil').forEach(pupil => {
+                    pupil.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                });
+            });
+        });
 	    
 </script>
 </body>
