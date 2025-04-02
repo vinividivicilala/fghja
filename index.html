@@ -683,9 +683,13 @@
       color: white;
       padding: 30px;
       border-radius: 8px;
-      text-align: left;
+      display: flex;
+	 }    
+	     .testimonial-content {
+      flex-grow: 1;
     }
- .testimonial-card h3 {
+
+    .testimonial-card h3 {
       margin-top: 0;
     }
 
@@ -693,12 +697,29 @@
       line-height: 1.6;
     }
 
-    .testimonial-card .author {
+    .testimonial-author {
+      display: flex;
+      align-items: center;
       margin-top: 20px;
-      font-weight: bold;
     }
-	 
-     
+
+    .testimonial-author img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+	    .author-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .company-name {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  
      
     </style>
 </head>
@@ -1100,27 +1121,36 @@
     <div class="slider">
       <div class="slider-item">
         <div class="testimonial-card">
-          <h3>Abilities that extend beyond design</h3>
-          <p>He's a gifted designer with abilities that extend beyond design, as he's continually looking for new methods to improve our product.</p>
-          <div class="author">Abby P Joby - Director, Uniworld</div>
+          <div class="testimonial-content">
+            <h3>Abilities that extend beyond design</h3>
+            <p>He's a gifted designer with abilities that extend beyond design, as he's continually looking for new methods to improve our product.</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="https://via.placeholder.com/50" alt="Abby P Joby">
+            <div class="author-info">
+              <span>Abby P Joby</span>
+              <span>Director</span>
+              <span class="company-name">Uniworld</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="slider-item">
         <div class="testimonial-card">
-          <h3>Pays close attention to detail</h3>
-          <p>Arjun has a strong sense of responsibility and pays close attention to detail, which helps our company gain more clients by delivering high-quality work.</p>
-          <div class="author">Aju George Kurian - Managing Director, Suits India Pvt Ltd</div>
+          <div class="testimonial-content">
+            <h3>Pays close attention to detail</h3>
+            <p>Arjun has a strong sense of responsibility and pays close attention to detail, which helps our company gain more clients by delivering high-quality work.</p>
+          </div>
+          <div class="testimonial-author">
+            <img src="https://via.placeholder.com/50" alt="Aju George Kurian">
+            <div class="author-info">
+              <span>Aju George Kurian</span>
+              <span>Managing Director</span>
+		     <span class="company-name">Suits India Pvt Ltd</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="slider-item">
-        <div class="testimonial-card">
-          <h3>Beyond visionary thinking</h3>
-          <p>Beyond his visionary thinking, his skills demonstrate a deep understanding between design and business.</p>
-          <div class="author">Kyle - CTO</div>
-        </div>
-      </div>
-      </div>
-  </div>
 
 	
 		
@@ -1393,7 +1423,7 @@ tableRows.forEach(row => {
             element.innerHTML = `<span class='scrolling'>${element.innerText}</span>`;
         }
 
-	 const slider = document.querySelector('.slider');
+	const slider = document.querySelector('.slider');
     const sliderItems = document.querySelectorAll('.slider-item');
     let counter = 0;
 
