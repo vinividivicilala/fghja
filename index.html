@@ -660,80 +660,45 @@
         .dribbble .dot { background-color: magenta; }
         .x .dot { background-color: blue; }
 
+.slider-container {
+      width: 80%;
+      max-width: 1200px;
+      overflow: hidden;
+    }
 
-	     .text-container {
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
 
-        .italic {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-        }
+    .slider-item {
+      flex: 0 0 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      min-width: 300px;
+    }
 
-        .asterisk {
-            display: inline-block;
-            color: #f4a261;
-            animation: rotate 2s linear infinite;
-            position: relative;
-            top: -5px;
-        }
+    .testimonial-card {
+      background-color: #333;
+      color: white;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: left;
+    }
+ .testimonial-card h3 {
+      margin-top: 0;
+    }
 
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-	      
-          .carousel-container {
-            display: flex;
-            overflow: hidden;
-            width: 100vw;
-            padding: 50px 0;
-            white-space: nowrap;
-        }
-        .carousel {
-            display: flex;
-            gap: 30px;
-            animation: scroll 20s linear infinite;
-        }
-        .testimonial {
-            background: #111;
-            padding: 30px;
-            border-radius: 20px;
-            width: 400px;
-            flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(255, 165, 0, 0.3);
-        }
-        .testimonial h3 {
-            color: orange;
-            font-style: italic;
-            font-size: 1.5rem;
-        }
-        .testimonial p {
-            margin: 15px 0;
-            font-size: 1.1rem;
-        }
-        .profile {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-	    .profile img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-        .profile div {
-            font-size: 1rem;
-        }
-        @keyframes scroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
-   
+    .testimonial-card p {
+      line-height: 1.6;
+    }
+
+    .testimonial-card .author {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+	 
+     
      
     </style>
 </head>
@@ -1131,30 +1096,31 @@
     </div>
 
 
-	<div class="carousel-container">
-        <div class="carousel">
-            <div class="testimonial">
-                <h3>Abilities that extend beyond design</h3>
-                <p>He's a gifted designer with abilities that extend beyond design...</p>
-                <div class="profile">
-                    <img src="https://via.placeholder.com/50" alt="">
-                    <div>
-                        <strong>Abby P Joby</strong><br>
-                        Director, Uniworld
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial">
-                <h3>Pays close attention to detail</h3>
-                <p>Arjun has a strong sense of responsibility and pays close attention to detail...</p>
-                <div class="profile">
-                    <img src="https://via.placeholder.com/50" alt="">
-                    <div>
-                        <strong>Aju George Kurian</strong><br>
-                        Managing Director, Suits India Pvt Ltd
-                    </div>
-                </div>
-            </div>
+<div class="slider-container">
+    <div class="slider">
+      <div class="slider-item">
+        <div class="testimonial-card">
+          <h3>Abilities that extend beyond design</h3>
+          <p>He's a gifted designer with abilities that extend beyond design, as he's continually looking for new methods to improve our product.</p>
+          <div class="author">Abby P Joby - Director, Uniworld</div>
+        </div>
+      </div>
+      <div class="slider-item">
+        <div class="testimonial-card">
+          <h3>Pays close attention to detail</h3>
+          <p>Arjun has a strong sense of responsibility and pays close attention to detail, which helps our company gain more clients by delivering high-quality work.</p>
+          <div class="author">Aju George Kurian - Managing Director, Suits India Pvt Ltd</div>
+        </div>
+      </div>
+      <div class="slider-item">
+        <div class="testimonial-card">
+          <h3>Beyond visionary thinking</h3>
+          <p>Beyond his visionary thinking, his skills demonstrate a deep understanding between design and business.</p>
+          <div class="author">Kyle - CTO</div>
+        </div>
+      </div>
+      </div>
+  </div>
 
 	
 		
@@ -1427,9 +1393,19 @@ tableRows.forEach(row => {
             element.innerHTML = `<span class='scrolling'>${element.innerText}</span>`;
         }
 
-	    const carousel = document.querySelector('.carousel');
-        const clone = carousel.innerHTML;
-        carousel.innerHTML += clone;
+	 const slider = document.querySelector('.slider');
+    const sliderItems = document.querySelectorAll('.slider-item');
+    let counter = 0;
+
+    function slide() {
+      counter++;
+      if (counter >= sliderItems.length) {
+        counter = 0;
+      }
+      slider.style.transform = `translateX(-${counter * 100}%)`;
+    }
+
+    setInterval(slide, 3000); // Ganti setiap 3 detik
 	    
 </script>
 </body>
