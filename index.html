@@ -775,6 +775,79 @@
             background: pink;
         }
 
+	            .carousel-container {
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 700px; /* Tinggi container lebih besar */
+        }
+        .carousel {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll 20s linear infinite;
+        }
+        .testimonial {
+            min-width: 900px;
+            max-width: 1000px;
+            background: #111;
+            padding: 60px;
+            margin: 0 30px;
+            border-radius: 20px;
+            text-align: left;
+            overflow: hidden;
+            word-wrap: break-word;
+            min-height: 400px; /* Menambah tinggi card agar lebih besar ke bawah */
+        }
+        .testimonial h3 {
+            font-style: italic;
+            color: orange;
+            font-size: 2.8em;
+            word-wrap: break-word;
+        }
+        .testimonial p {
+            margin: 30px 0;
+            color: #ccc;
+            font-size: 2em;
+            word-wrap: break-word;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+	    .profile img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-right: 30px;
+        }
+        .profile-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .profile-text {
+            display: flex;
+            flex-direction: column;
+            font-size: 1.8em;
+        }
+        .company {
+            font-size: 1.8em;
+            color: #ccc;
+        }
+        @keyframes scroll {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+
 
 	    
      
@@ -1201,6 +1274,53 @@
                 <div class="eye"><div class="pupil"></div></div>
             </div>
             <div class="clothing female-clothing"></div>
+        </div>
+    </div>
+
+	 <div class="carousel-container">
+        <div class="carousel">
+            <div class="testimonial">
+                <h3>Beyond design expertise</h3>
+                <p>Beyond his design expertise, Arjun is a visionary thinker...</p>
+                <div class="profile">
+                    <img src="profile1.jpg" alt="Kyle Venn">
+                    <div class="profile-info">
+                        <div class="profile-text">
+                            <strong>Kyle Venn</strong>
+                            <span>CTO</span>
+                        </div>
+                        <span class="company">Sodality Tech</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <h3>Pragmatic approach to design</h3>
+                <p>His pragmatic approach to design, particularly through...</p>
+                <div class="profile">
+                    <img src="images/5.jpg" alt="Assaf Packin">
+                    <div class="profile-info">
+                        <div class="profile-text">
+                            <strong>Assaf Packin</strong>
+                            <span>Head of Engineering</span>
+                        </div>
+                        <span class="company">Sodality Tech</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <h3>Suggests ideas when others hadn't</h3>
+                <p>Arjun considers the user experience first, suggests ideas...</p>
+                <div class="profile">
+                    <img src="profile3.jpg" alt="Felix S. Klöckner">
+                    <div class="profile-info">
+                        <div class="profile-text">
+                            <strong>Felix S. Klöckner</strong>
+                            <span>CTO</span>
+                        </div>
+                        <span class="company">Company Name</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
