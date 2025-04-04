@@ -775,13 +775,13 @@
             background: pink;
         }
 
-	            .carousel-container {
+	.carousel-container {
             width: 100vw;
             overflow: hidden;
             position: relative;
             display: flex;
             align-items: center;
-            height: 700px; /* Tinggi container lebih besar */
+            height: 700px;
         }
         .carousel {
             display: flex;
@@ -789,16 +789,17 @@
             animation: scroll 60s linear infinite;
         }
         .testimonial {
-            min-width: 1000px;
-            max-width: 1100px;
+            min-width: 900px;
+            max-width: 1000px;
             background: green;
             padding: 60px;
             margin: 0 30px;
-            border-radius: 45px;
+            border-radius: 50px;
             text-align: left;
             overflow: hidden;
             word-wrap: break-word;
-            min-height: 400px; /* Menambah tinggi card agar lebih besar ke bawah */
+            min-height: 400px;
+            position: relative;
         }
         .testimonial h3 {
             font-style: italic;
@@ -818,7 +819,7 @@
             justify-content: space-between;
             margin-top: 40px;
         }
-	    .profile img {
+        .profile img {
             width: 90px;
             height: 90px;
             border-radius: 50%;
@@ -837,9 +838,9 @@
         }
         .company {
             font-size: 1.8em;
-            color: #ccc;
+            color: red;
         }
-	     .link-container {
+        .link-container {
             position: absolute;
             top: 20px;
             right: 20px;
@@ -853,7 +854,6 @@
             width: 50px;
             height: 50px;
         }
-	    
         @keyframes scroll {
             from {
                 transform: translateX(100%);
@@ -862,8 +862,6 @@
                 transform: translateX(-100%);
             }
         }
-
-
 	    
      
     </style>
