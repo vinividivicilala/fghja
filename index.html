@@ -862,6 +862,73 @@
                 transform: translateX(-100%);
             }
         }
+	     .ui-container {
+            position: relative;
+            width: 900px;
+            height: 600px;
+            background: #222;
+            border-radius: 50px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .ui-container img {
+            width: 100%;
+            height: auto;
+        }
+        .ui-button-container {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            gap: 20px;
+        }
+        .ui-button {
+            padding: 12px 24px;
+            background: white;
+            border-radius: 25px;
+            color: green;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .ui-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .ui-title {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+	     .ui-link {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 29px;
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ui-link svg {
+            width: 40px;
+            height: 40px;
+            fill: none;
+            stroke: black;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transform: none;
+        }
 	    
      
     </style>
@@ -1393,6 +1460,21 @@
                 
 
 	 <h2>Kamu bisa tambahkan testimonial lewat website dokumen, supaya saya bisa masukan data ke website ini.</h2>
+
+
+	<div class="ui-container">
+        <span class="ui-title">Coming Soon</span>
+        <a href="#" class="ui-link">Coming Soon
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12h14M13 6l6 6-6 6" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+        <img src="images/5.jpg" alt="">
+        <div class="ui-button-container">
+            <button class="ui-button">Coming Soon</button>
+            <button class="ui-button">Coming Soon</button>
+        </div>
+    </div>
 	
 	
 
