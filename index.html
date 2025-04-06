@@ -930,6 +930,96 @@
             stroke-linejoin: round;
             transform: none;
         }
+
+	    .cards-wrapper {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .work-entry {
+      background: #fafafa;
+      width: 800px;
+      height: 700px;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+	  margin-top: 40px;
+    }
+
+    .work-header {
+      display: flex;
+      justify-content: space-between;
+      color: black;
+      font-size: 26px;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 12px;
+    }
+
+    .work-content {
+      flex-grow: 1;
+      margin-top: 20px;
+    }
+
+    .work-footer {
+      font-size: 25px;
+      color: #111;
+      line-height: 1.6;
+    }
+
+   .image-card {
+      width: 500px; /* lebih besar dari card teks */
+      height: 700px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+	   margin-top: 40px;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+        .promo-card {
+      background: #fafafa;
+      width: 400px;
+      height: 900px;
+      border-radius: 30px;
+      padding: 16px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+	  margin-top: 40px;
+    }
+
+    .promo-logo {
+      width: 200px;
+      height: 200px;
+	  border-radius: 20px;
+    }
+
+    .promo-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+	  border-radius: 20px;
+    }
+	
+	 .promo-footer {
+      font-size: 25px;
+      color: black;
+      line-height: 1.4;
+	  text-align: left;
+    }
+	
 	    
      
     </style>
@@ -1477,7 +1567,38 @@
         </div>
     </div>
 	
-	
+	 <div class="cards-wrapper">
+
+    <!-- Card 1 -->
+    <div class="work-entry">
+      <div class="work-header">
+        <span>Universitas Gunadarma S-1 </span>
+        <span>Jurusan Sistem Komputer</span>
+      </div>
+      <div class="work-content">
+        <!-- Kosong untuk tampilan clean -->
+      </div>
+      <div class="work-footer">
+     Coming Soon.
+      </div>
+    </div>
+
+    <!-- Card 2 (Gambar Sorare Login) -->
+    <div class="image-card">
+      <img src="images/5.jpg" alt="">
+    </div>
+  </div>
+  
+  <div class="promo-card">
+    <div class="promo-logo">
+      <img src="images/5.jpg" alt="">
+    </div>
+    
+    <div class="promo-footer">
+      <strong>Ini buat illustrator</strong><br>
+      Coming Soon
+    </div>
+  </div>
 
 	
 		
