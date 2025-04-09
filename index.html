@@ -1020,7 +1020,32 @@
 	  text-align: left;
     }
 	
-	    
+	.promo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #007aff;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.promo-link:hover {
+  color: #0051aa;
+  transform: translateX(3px);
+}
+
+.promo-link svg {
+  transform: rotate(-45deg); /* serong kanan atas */
+  transition: transform 0.3s ease;
+}
+
+.promo-link:hover svg {
+  transform: rotate(-45deg) translateX(4px);
+}
+    
      
     </style>
 </head>
@@ -1602,16 +1627,25 @@
     </div>
   </div>
 
-	 <div class="promo-card">
-    <div class="promo-logo">
-      <img src="images/ag.jpg" alt="">
-    </div>
-    
-    <div class="promo-footer">
-      <strong> First Time full colour area  Character illustrator</strong><br>
-      Re-Design flat character ciptaan karya orang lain.
-    </div>
+	<div class="promo-card">
+  <div class="promo-logo">
+    <img src="images/ag.jpg" alt="">
   </div>
+  
+  <div class="promo-footer">
+    <strong>First Time full colour area Character illustrator</strong><br>
+    Re-Design flat character ciptaan karya orang lain.
+
+    <a href="https://linkkamu.com" class="promo-link" target="_blank">
+      View More 
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"/>
+        <polyline points="12 5 19 12 12 19"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
 
 		 <div class="promo-card">
     <div class="promo-logo">
