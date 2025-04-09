@@ -1048,7 +1048,68 @@
   transform: rotate(-45deg) translateX(4px);
 }
 
-    
+	  
+ .author-card {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      max-width: 750px;
+      margin: auto;
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .author-photo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 20px;
+      flex-shrink: 0;
+      border: 2px solid #ddd;
+    }
+
+    .author-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+	    .author-info {
+      flex: 1;
+    }
+
+    .author-role {
+      font-size: 0.85rem;
+      color: #666;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .author-name {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #111;
+      margin: 0 0 10px 0;
+    }
+
+    .author-bio {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 600px) {
+      .author-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+	     .author-photo {
+        margin-bottom: 1rem;
+        margin-right: 0;
+      }
+    }
      
     </style>
 </head>
@@ -1696,6 +1757,21 @@
         <a href="#" id="email-link">faridardiansyah061@gmail.com</a>
     </div>
 </div>
+
+<div class="author-card">
+    <div class="author-photo">
+      <img src="images/5.jpg" alt="Foto Asu Gunung" />
+    </div>
+    <div class="author-info">
+      <div class="author-role">Author</div>
+      <div class="author-name">Asu Gunung</div>
+      <div class="author-bio">
+        Asu Gunung, nama pena dari Ega "Gaplek", seorang Alumnus Sanata Dharma 2017.
+        Dulu aktif di Teater Seriboe Djendela, USD. Sekarang berteater sendiri, belum nemu wadahnya.
+        Pengajar di SMA Strada Bhakti Wiyata, Kranji–Bekasi.
+      </div>
+    </div>
+  </div>
 
 
 
