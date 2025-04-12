@@ -1165,12 +1165,65 @@
       color: white;
     }
 
-	    
+	   .navbar {
+      background-color: #111;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1.5rem;
+      border-radius: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .navbar a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      color: #fff;
+    }
+	     .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-left: auto;
+      padding: 0;
+    }
+
+    .theme-toggle svg {
+      fill: white;
+      width: 1.2rem;
+      height: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover svg {
+      transform: rotate(90deg);
+    }
     
      
     </style>
 </head>
 <body>
+
+	 <nav class="navbar">
+    <a href="#" class="active">Home</a>
+    <a href="#">Courses</a>
+    <a href="#">Mentorship</a>
+    <a href="#">Contact</a>
+    <a href="#">My Setup</a>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+      <!-- Simple sun icon (light mode) -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 4.75a.75.75 0 0 1 .75.75V7a.75.75 0 0 1-1.5 0V5.5A.75.75 0 0 1 12 4.75ZM12 17a.75.75 0 0 1 .75.75V19.5a.75.75 0 0 1-1.5 0V17.75A.75.75 0 0 1 12 17ZM4.75 12a.75.75 0 0 1 .75-.75H7a.75.75 0 0 1 0 1.5H5.5a.75.75 0 0 1-.75-.75ZM17 12a.75.75 0 0 1 .75-.75H19.5a.75.75 0 0 1 0 1.5H17.75A.75.75 0 0 1 17 12ZM7.47 7.47a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 0 1-1.06 1.06L7.47 8.53a.75.75 0 0 1 0-1.06Zm7 7a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 0 1-1.06 1.06l-1.06-1.06a.75.75 0 0 1 0-1.06ZM7.47 16.53a.75.75 0 0 1 1.06-1.06l1.06 1.06a.75.75 0 1 1-1.06 1.06l-1.06-1.06Zm7-7a.75.75 0 0 1 1.06-1.06l1.06 1.06a.75.75 0 0 1-1.06 1.06l-1.06-1.06ZM12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7Z"/>
+      </svg>
+    </button>
+  </nav>
+
     <a href="https://portfolio-faridardiansyah.netlify.app/" class="back-button">&#x2039;</a>
     <span class="tooltip">Go Back</span>
     <h2>Halo Nama Saya</h2>
@@ -2205,6 +2258,10 @@ tableRows.forEach(row => {
                 });
             });
         });
+	    function toggleTheme() {
+      document.body.classList.toggle('light');
+      alert('Theme toggle clicked (implement theme logic here)');
+    }
 	    
 </script>
 </body>
