@@ -1184,7 +1184,7 @@
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s ease;
-    font-size: 29px;
+    font-size: 22px;
     }
 
     .navbar a:hover,
@@ -1210,15 +1210,19 @@
       transform: rotate(90deg);
     }
 	    .arrow-icon {
-  width: 1rem;
-  height: 1rem;
+  width: 70px;
+  height: 70px;
   margin-left: 0.3rem;
   vertical-align: middle;
-  transition: transform 0.3s ease;
+  transform: translateX(0) rotate(0deg);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0.6;
 }
 
-.navbar a:hover .arrow-icon {
-  transform: translateX(4px);
+.navbar a:hover .arrow-icon,
+.navbar a.active .arrow-icon {
+  transform: translate(4px, -4px) rotate(10deg);
+  opacity: 1;
 }
 
     
@@ -1230,41 +1234,42 @@
 	<nav class="navbar">
   <a href="#" class="active">
     Home
-    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-      <path fill="currentColor" d="M6 4l4 4-4 4" />
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" d="M7 17L17 7M17 7H9M17 7V15" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
   <a href="#">
     Courses
-    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-      <path fill="currentColor" d="M6 4l4 4-4 4" />
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" d="M7 17L17 7M17 7H9M17 7V15" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
   <a href="#">
     Mentorship
-    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-      <path fill="currentColor" d="M6 4l4 4-4 4" />
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" d="M7 17L17 7M17 7H9M17 7V15" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
   <a href="#">
     Contact
-    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-      <path fill="currentColor" d="M6 4l4 4-4 4" />
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" d="M7 17L17 7M17 7H9M17 7V15" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
   <a href="#">
     My Setup
-    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-      <path fill="currentColor" d="M6 4l4 4-4 4" />
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" d="M7 17L17 7M17 7H9M17 7V15" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
   <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
-    <!-- Simple sun icon (light mode) -->
+    <!-- ikon tema -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M12 4.75a.75.75 0 0 1 .75.75V7a.75.75 0 0 1-1.5 0V5.5A.75.75 0 0 1 12 4.75ZM12 17a.75.75 0 0 1 .75.75V19.5a.75.75 0 0 1-1.5 0V17.75A.75.75 0 0 1 12 17ZM4.75 12a.75.75 0 0 1 .75-.75H7a.75.75 0 0 1 0 1.5H5.5a.75.75 0 0 1-.75-.75ZM17 12a.75.75 0 0 1 .75-.75H19.5a.75.75 0 0 1 0 1.5H17.75A.75.75 0 0 1 17 12ZM7.47 7.47a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 0 1-1.06 1.06L7.47 8.53a.75.75 0 0 1 0-1.06Zm7 7a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 0 1-1.06 1.06l-1.06-1.06a.75.75 0 0 1 0-1.06ZM7.47 16.53a.75.75 0 0 1 1.06-1.06l1.06 1.06a.75.75 0 1 1-1.06 1.06l-1.06-1.06Zm7-7a.75.75 0 0 1 1.06-1.06l1.06 1.06a.75.75 0 0 1-1.06 1.06l-1.06-1.06ZM12 8.5a3.5 3.5 0 1 1 0 7a3.5 3.5 0 0 1 0-7Z"/>
+      <path d="..."/> <!-- kamu sudah punya ini -->
     </svg>
   </button>
 </nav>
+
 
 
     <a href="https://portfolio-faridardiansyah.netlify.app/" class="back-button">&#x2039;</a>
