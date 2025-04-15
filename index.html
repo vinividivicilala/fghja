@@ -1225,14 +1225,14 @@
   opacity: 1;
 }
 
-     #popup {
+   #popup-container {
     display: none;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: red; /* Ubah menjadi merah */
-    color: white; /* Opsional: ubah warna teks menjadi putih */
+    background-color: red;
+    color: white;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -1243,61 +1243,64 @@
     overflow-y: auto;
 }
 
-#popup a {
-    color: white; /* Opsional: ubah warna tautan menjadi putih */
+#popup-container a {
+    color: white;
 }
 
-#popup a:hover {
-    text-decoration: underline; /* Opsional: tambahkan garis bawah saat hover */
+#popup-container a:hover {
+    text-decoration: underline;
 }
 
-#popup h2 {
+#popup-container h2 {
     font-size: 2.5em;
     margin-bottom: 20px;
 }
-	    #popup p {
+
+#popup-container p {
     font-size: 1.2em;
     margin-bottom: 25px;
 }
 
-.section {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 40px;
-        }
+.popup-section {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
 
-        .section-number {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-right: 20px;
-            min-width: 40px;
-            text-align: left;
-        }
+.popup-section-number {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-right: 20px;
+    min-width: 40px;
+    text-align: left;
+}
 
-        .section-content {
-            flex-grow: 1;
-        }
+.popup-section-content {
+    flex-grow: 1;
+}
 
-        .section-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: left;
-        }
+.popup-section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
 
-	      .section-description {
-            font-size: 1.2rem;
-            text-align: left;
-            margin-bottom: 20px;
-            text-align: left;
-        }
+.popup-section-description {
+    font-size: 1.2rem;
+    text-align: left;
+    margin-bottom: 20px;
+}
 
-        .section-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
+.popup-section-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
 
+
+
+        
 	    
     </style>
 </head>
@@ -1922,68 +1925,79 @@
   </div>
 </div>
 
-	<div id="label-merah" style="text-align: center; margin-top: 20px;">
-            <div style="background-color: red; color: white; padding: 10px 20px; border-radius: 20px; display: inline-block;">
-                Coming Soon.com telah di-bangun, cek log.
-                <span style="background-color: white; color: black; padding: 5px 10px; border-radius: 50%; margin-left: 10px; font-size: 29px;">+</span>
+	<!-- Tombol Label -->
+<div id="label-merah" style="text-align: center; margin-top: 20px;">
+    <div style="background-color: red; color: white; padding: 10px 20px; border-radius: 20px; display: inline-block;">
+        Coming Soon.com telah di-bangun, cek log.
+        <span style="background-color: white; color: black; padding: 5px 10px; border-radius: 50%; margin-left: 10px; font-size: 29px;">+</span>
+    </div>
+</div>
+
+<!-- Overlay dan Popup -->
+<div id="popup-overlay" style="display: none;"></div>
+
+<div id="popup-container" style="display: none;">
+    <div style="text-align: right;">
+        <button id="tutup-popup" style="background-color: transparent; border: none; font-size: 1.2em; cursor: pointer;">&times;</button>
+    </div>
+    <div style="text-align: left;">
+        <h2>Coming Soon.com telah di-bangun, cek log.</h2>
+        <p style="margin-bottom: 30px;">Maret 10, 2025<span style="margin-left: 20px;"></span>| 1 menit membaca</p>
+    </div>
+    <div style="padding: 10px;">
+        <p>
+            <a href="Coming Soon" style="color: white; text-decoration: none;">Coming Soon.com</a> Coming Soon.
+        </p>
+
+        <!-- Section 1 -->
+        <div class="popup-section">
+            <div class="popup-section-number">1.</div>
+            <div class="popup-section-content">
+                <h2 class="popup-section-title">Coming Soon</h2>
+                <p class="popup-section-description">Coming Soon.</p>
+                <div class="popup-section-image">
+                    <img src="images/5.jpg" alt="Coming Soon">
+                </div>
             </div>
         </div>
 
-     <div id="popup-overlay"></div>
-        <div id="popup" style="display: none;">
-            <div style="text-align: right;">
-                <button id="tutup-popup" style="background-color: transparent; border: none; font-size: 1.2em; cursor: pointer;">&times;</button>
-            </div>
-            <div style="text-align: left;">
-                <h2>Coming Soon.com telah di-bangun, cek log.</h2>
-                <p style="margin-bottom: 30px;">Maret 10, 2025<span style="margin-left: 20px;"></span>| 1 menit membaca</p>
-            </div>
-            <div style="padding: 10px;">
-                <p>
-                    <a href="Coming Soon" style="color: white; text-decoration: none;">Coming Soon.com</a> Coming Soon.
-                </p>
-                <div class="section">
-                    <div class="section-number">1.</div>
-                    <div class="section-content">
-                        <h2 class="section-title">Coming Soon</h2>
-                        <p class="section-description">Coming Soon.</p>
-                        <div class="section-image">
-                            <img src="images/5.jpg" alt="Coming Soon">
-                        </div>
-                    </div>
-                </div>
-                <div class="section">
-                    <div class="section-number">2.</div>
-                    <div class="section-content">
-                        <h2 class="section-title">Coming Soon</h2>
-                        <p class="section-description">Coming Soon.</p>
-                        <div class="section-image">
-                            <img src="images/5.jpg" alt="Coming Soon">
-                        </div>
-                    </div>
-                </div>
-		     <div class="section">
-                    <div class="section-number">3.</div>
-                    <div class="section-content">
-                        <h2 class="section-title">Coming Soon</h2>
-                        <p class="section-description">Coming Soon.</p>
-                        <div class="section-image">
-                            <img src="images/5.jpg" alt="Coming Soon">
-                        </div>
-                    </div>
-                </div>
-                <div class="section">
-                    <div class="section-number">4.</div>
-                    <div class="section-content">
-                        <h2 class="section-title">Coming Soon</h2>
-                        <p class="section-description">Coming Soon.</p>
-                        <div class="section-image">
-                            <img src="images/5.jpg" alt="Coming Soon">
-                        </div>
-                    </div>
+        <!-- Section 2 -->
+        <div class="popup-section">
+            <div class="popup-section-number">2.</div>
+            <div class="popup-section-content">
+                <h2 class="popup-section-title">Coming Soon</h2>
+                <p class="popup-section-description">Coming Soon.</p>
+                <div class="popup-section-image">
+                    <img src="images/5.jpg" alt="Coming Soon">
                 </div>
             </div>
         </div>
+
+        <!-- Section 3 -->
+        <div class="popup-section">
+            <div class="popup-section-number">3.</div>
+            <div class="popup-section-content">
+                <h2 class="popup-section-title">Coming Soon</h2>
+                <p class="popup-section-description">Coming Soon.</p>
+                <div class="popup-section-image">
+                    <img src="images/5.jpg" alt="Coming Soon">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="popup-section">
+            <div class="popup-section-number">4.</div>
+            <div class="popup-section-content">
+                <h2 class="popup-section-title">Coming Soon</h2>
+                <p class="popup-section-description">Coming Soon.</p>
+                <div class="popup-section-image">
+                    <img src="images/5.jpg" alt="Coming Soon">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -2433,22 +2447,22 @@ tableRows.forEach(row => {
       alert('Theme toggle clicked (implement theme logic here)');
     }
 	     document.addEventListener('DOMContentLoaded', function() {
-            const labelMerah = document.getElementById('label-merah');
-            const popup = document.getElementById('popup');
-            const tutupPopup = document.getElementById('tutup-popup');
-            const popupOverlay = document.getElementById('popup-overlay');
+    const labelMerah = document.getElementById('label-merah');
+    const popupContainer = document.getElementById('popup-container');
+    const tutupPopup = document.getElementById('tutup-popup');
+    const popupOverlay = document.getElementById('popup-overlay');
 
-            labelMerah.addEventListener('click', function() {
-                popup.style.display = 'block';
-                popupOverlay.style.display = 'block';
-            });
+    labelMerah.addEventListener('click', function() {
+        popupContainer.style.display = 'block';
+        popupOverlay.style.display = 'block';
+    });
 
-            tutupPopup.addEventListener('click', function() {
-                popup.style.display = 'none';
-                popupOverlay.style.display = 'none';
-            });
-        });
- 
+    tutupPopup.addEventListener('click', function() {
+        popupContainer.style.display = 'none';
+        popupOverlay.style.display = 'none';
+    });
+});
+
 	    
 </script>
 </body>
