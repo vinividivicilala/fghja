@@ -1397,24 +1397,25 @@
       display: inline-block;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+  .section-supportby {
+      padding: 60px 20px;
+      text-align: center;
     }
 
- .support-title {
+    .section-supportby-title {
       font-size: 2rem;
       font-weight: bold;
       margin-bottom: 40px;
     }
 
-    .card-container {
+    .supportby-card-list {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 20px;
     }
 
-    .support-card {
+    .supportby-card {
       background: #fff;
       border-radius: 16px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
@@ -1428,28 +1429,27 @@
       border: 2px solid transparent;
     }
 
-    .support-card:hover {
+    .supportby-card:hover {
       transform: translateY(-6px);
       border-color: #007aff;
       box-shadow: 0 15px 30px rgba(0,0,0,0.15);
     }
 
-    .site-name {
+    .supportby-name {
       font-size: 1.1rem;
       font-weight: 600;
     }
 
-    .arrow-icon {
+    .supportby-arrow {
       width: 24px;
       height: 24px;
       fill: #007aff;
       transition: transform 0.3s ease;
     }
 
-    .support-card:hover .arrow-icon {
+    .supportby-card:hover .supportby-arrow {
       transform: translateY(-4px) translateX(4px);
     }
-
 
 
 
@@ -2247,35 +2247,49 @@
     </div>
 </div>
 
-<section class="support-section">
-    <div class="support-title">Supported By</div>
-    <div class="card-container">
-      <div class="support-card">
-        <div class="site-name">CodePen</div>
-        <svg class="arrow-icon" viewBox="0 0 24 24">
+
+  <section class="section-supportby">
+    <div class="section-supportby-title">Supported By</div>
+    <div class="supportby-card-list">
+      <div class="supportby-card">
+        <div class="supportby-name">CodePen</div>
+        <svg class="supportby-arrow" viewBox="0 0 24 24">
           <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="support-card">
-        <div class="site-name">GitHub</div>
-        <svg class="arrow-icon" viewBox="0 0 24 24">
+      <div class="supportby-card">
+        <div class="supportby-name">GitHub</div>
+        <svg class="supportby-arrow" viewBox="0 0 24 24">
           <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="support-card">
-        <div class="site-name">Vercel</div>
-        <svg class="arrow-icon" viewBox="0 0 24 24">
+      <div class="supportby-card">
+        <div class="supportby-name">Vercel</div>
+        <svg class="supportby-arrow" viewBox="0 0 24 24">
           <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="support-card">
-        <div class="site-name">Netlify</div>
-        <svg class="arrow-icon" viewBox="0 0 24 24">
+      <div class="supportby-card">
+        <div class="supportby-name">Netlify</div>
+        <svg class="supportby-arrow" viewBox="0 0 24 24">
           <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </div>
   </section>
+
+</body>
+</html>
+Sekarang semua class sudah lebih aman dan spesifik buat bagian "Support By". Mau dilanjutin ke versi ada link atau animasi scroll juga?
+
+
+
+
+
+
+
+
+
 
 
 
