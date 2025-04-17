@@ -1401,6 +1401,61 @@
       to { transform: rotate(360deg); }
     }
 
+ .support-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .support-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 240px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+
+    .support-card:hover {
+      transform: translateY(-6px);
+      border-color: #007aff;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .site-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .arrow-icon {
+      width: 24px;
+      height: 24px;
+      fill: #007aff;
+      transition: transform 0.3s ease;
+    }
+
+    .support-card:hover .arrow-icon {
+      transform: translateY(-4px) translateX(4px);
+    }
+
+
+
+
+
+
+	    
         
 	    
     </style>
@@ -2191,6 +2246,40 @@
         <a href="#" id="email-link">faridardiansyah061@gmail.com</a>
     </div>
 </div>
+
+<section class="support-section">
+    <div class="support-title">Supported By</div>
+    <div class="card-container">
+      <div class="support-card">
+        <div class="site-name">CodePen</div>
+        <svg class="arrow-icon" viewBox="0 0 24 24">
+          <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="support-card">
+        <div class="site-name">GitHub</div>
+        <svg class="arrow-icon" viewBox="0 0 24 24">
+          <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="support-card">
+        <div class="site-name">Vercel</div>
+        <svg class="arrow-icon" viewBox="0 0 24 24">
+          <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="support-card">
+        <div class="site-name">Netlify</div>
+        <svg class="arrow-icon" viewBox="0 0 24 24">
+          <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+
+
+	
 
 	 <h1>Kumpulan Source Code</h1>
 
