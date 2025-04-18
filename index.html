@@ -1481,7 +1481,48 @@
       transform: translateY(-4px) translateX(4px);
     }
 
+    .marquee-row {
+      width: 100vw;
+      overflow: hidden;
+      white-space: nowrap;
+      mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, white 10%, white 90%, transparent);
+    }
 
+    .marquee-content {
+      display: inline-flex;
+      animation: scroll-left 20s linear infinite;
+    }
+
+    .reverse .marquee-content {
+      animation: scroll-right 20s linear infinite;
+    }
+.skill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: green;
+  border-radius: 14px;
+  margin: 0 12px;
+  font-size: 45px; /* ✨ Perbesar teks */
+}
+
+.skill img {
+  width: 90px;  /* ✨ Perbesar logo */
+  height: 90px;
+}
+
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes scroll-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
 	    
         
 	    
@@ -2274,6 +2315,69 @@
     </div>
 </div>
 
+ <!-- Baris 1 -->
+  <div class="marquee-row">
+    <div class="marquee-content">
+      <!-- Duplicate untuk seamless loop -->
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"/>React</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"/>JavaScript</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"/>TypeScript</div>
+      <div class="skill"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/d3js/d3js-original.svg"/>D3.js</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"/>Next.js</div>
+	  <div class="skill"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Mdx-logo.svg"/>MDX</div
+
+      <!-- Duplikat -->
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"/>React</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"/>JavaScript</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"/>TypeScript</div>
+      <div class="skill"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/d3js/d3js-original.svg"/>D3.js</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg"/>Next.js</div>
+	  <div class="skill"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Mdx-logo.svg"/>MDX</div
+    </div>
+  </div>
+
+  <!-- Baris 2 (reverse) -->
+  <div class="marquee-row reverse">
+    <div class="marquee-content">
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"/>Bootstrap</div>
+      <div class="skill"><img src="https://www.svgrepo.com/show/374118/tailwind.svg"/>Tailwind CSS</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg"/>Sass</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"/>CSS</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"/>HTML</div>
+	  <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg"/>Arduino</div>
+	  <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/astro/astro-original.svg"/>Astro</div>
+
+      <!-- Duplikat -->
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"/>Bootstrap</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg"/>Tailwind CSS</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg"/>Sass</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"/>CSS</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"/>HTML</div>
+	  <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg"/>Arduino</div>
+	  <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/astro/astro-original.svg"/>Astro</div>
+    </div>
+  </div>
+	  <!-- Baris 3 -->
+  <div class="marquee-row">
+    <div class="marquee-content">
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/strapi/strapi-original.svg"/>Strapi</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg"/>Webpack</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"/>Firebase</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"/>Figma</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg"/>Three.js</div>
+
+      <!-- Duplikat -->
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/strapi/strapi-original.svg"/>Strapi</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg"/>Webpack</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg"/>Firebase</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"/>Figma</div>
+      <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg"/>Three.js</div>
+<div class="skill"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg"/>Adobe Illustrator</div>
+    </div>
+  </div>
+
+
+
 
   <div class="supportby-header">
   <img src="images/5.jpg" alt="Support By Logo" class="supportby-logo-img" />
@@ -2548,19 +2652,6 @@
     </div>
 
 
-
-<div class="marquee-container">
-    <div class="icon-track">
-        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg" alt="Illustrator"></div>
-        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma"></div>
-        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Adobe_InDesign_CC_icon.svg" alt="InDesign"></div>
-        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Arduino_Logo.svg" alt="Arduino"></div>
-        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Typescript.svg" alt="TypeScript"></div>
-        <div class="icon"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" alt="Tailwind CSS"></div>
-        <div class="icon"><img src="https://raw.githubusercontent.com/withastro/astro/main/assets/astro-logo-light.png" alt="Astro"></div>
-        <div class="icon"><img src="https://raw.githubusercontent.com/mdx-js/mdx/main/logo.svg" alt="MDX"></div>
-    </div>
-</div>
 
 
 	
