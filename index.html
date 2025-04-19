@@ -2805,8 +2805,7 @@
       </svg>
     </div>
   </div>
-</div>
- </div>
+
 
   <!-- POPUP -->
   <div class="info-popup" id="info-popup">
@@ -2815,9 +2814,7 @@
       <div id="info-popup-text"></div>
     </div>
   </div>
-	  </div>
-  </div>
-
+	
 
 
 
@@ -3255,7 +3252,10 @@ tableRows.forEach(row => {
 
     document.getElementById('info-popup').addEventListener('click', function(e) {
       if (e.target === this) closeInfoPopup();
-    });	    
+    });	
+	    window.openInfoPopup = openInfoPopup;
+window.closeInfoPopup = closeInfoPopup;
+
 </script>
 </body>
 </html>
