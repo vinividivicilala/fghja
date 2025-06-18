@@ -1643,12 +1643,63 @@
       background: #bbb;
       border-radius: 4px;
     }
+
+
+	    .vote-banner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: green;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 16px 24px;
+  border-radius: 30px;
+  gap: 12px;
+  transition: background 0.3s ease, transform 0.3s ease;
+  border: 2px solid white;
+  margin: 40px auto;
+}
+
+.vote-banner:hover {
+  background-color: #111;
+  transform: translateY(-2px);
+}
+
+.vote-banner .arrow-icon {
+  width: 50px;
+  height: 50px;
+  stroke: white;
+  fill: none;
+  transition: transform 0.3s ease;
+}
+
+.vote-banner:hover .arrow-icon {
+  transform: translateX(5px);
+}
 	    
         
 	    
     </style>
 </head>
 <body>
+
+
+
+
+
+
+<a href="https://noted-farid.netlify.app/#" class="vote-banner">
+  website note farid
+  <svg class="arrow-icon" viewBox="0 0 24 24">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+
+
+
+	
 
 <nav class="navbar">
   <a href="#" class="active">
