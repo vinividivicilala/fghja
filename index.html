@@ -697,84 +697,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
- .avatar {
-            position: relative;
-            width: 120px;
-            height: 150px;
-            background: #ffcc66;
-            border-radius: 60px 60px 40px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.2), 5px 5px 10px rgba(255, 255, 255, 0.3);
-        }
-        .hair {
-            position: absolute;
-            top: -10px;
-            width: 80px;
-            height: 40px;
-            background: green;
-            border-radius: 50px 50px 0 0;
-        }
-        .female-hair {
-            width: 90px;
-            height: 50px;
-            background: brown;
-            border-radius: 50px 50px 40px 40px;
-            position: absolute;
-            top: -5px;
-        }
-        .ears {
-            position: absolute;
-            top: 40px;
-            width: 140px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .ear {
-            width: 20px;
-            height: 30px;
-            background: #ffcc66;
-            border-radius: 50%;
-        }
-
-	    .eyes {
-            display: flex;
-            gap: 20px;
-            position: relative;
-            top: 20px;
-        }
-        .eye {
-            width: 30px;
-            height: 30px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        .pupil {
-            width: 12px;
-            height: 12px;
-            background: black;
-            border-radius: 50%;
-            position: absolute;
-            transition: transform 0.05s linear;
-        }
-        .clothing {
-            position: absolute;
-            bottom: -15px;
-            width: 100px;
-            height: 40px;
-            background: navy;
-            border-radius: 0 0 20px 20px;
-        }
-        .female-clothing {
-            background: pink;
-        }
 
 	.carousel-container {
             width: 100vw;
@@ -1167,32 +1089,88 @@
       color: white;
     }
 
-.navbar {
-    background-color: green;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 1.5rem;
-    border-radius: 2rem;
+
+
+
+	  .navbar {
+    background: linear-gradient(to right, #006400, #00aa00);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .navbar a {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    position: relative;
-    /* Tambahkan z-index untuk memastikan navbar berada di atas elemen lain */
-    z-index: 100;
-	margin-bottom: 20px;
-}
-    
-    .navbar a {
-      color: rgba(255, 255, 255, 0.7);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    font-size: 22px;
-    }
+    transition: background 0.3s, transform 0.2s;
+	margin-bottom: 1px;
+  }
 
-    .navbar a:hover,
-    .navbar a.active {
-      color: white;
-    }
+  .navbar a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .navbar svg {
+    margin-left: 8px;
+    width: 24px;
+    height: 24px;
+    stroke: white;
+    stroke-width: 2.5;
+    transition: transform 0.3s ease;
+  }
+
+  .navbar a:hover svg {
+    transform: translate(3px, -3px) rotate(15deg);
+  }
+
+  .new-label {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: red;
+    color: white;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 50px;
+    font-weight: bold;
+    animation: bounce 1s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	    
 	     .theme-toggle {
       background: none;
       border: none;
@@ -1672,7 +1650,7 @@
 </head>
 <body>
 
-	<nav class="navbar">
+<nav class="navbar">
   <a href="#" class="active">
     Home
     <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -1680,30 +1658,28 @@
     </svg>
   </a>
   <a href="#">
+    <span class="new-label">Terbaru</span>
     BLOG
     <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2" d="M7 17L17 7M17 7H9M17 7V15" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
   <a href="#">
+      <span class="new-label">Terbaru</span>
     Project Skripsi
     <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2" d="M7 17L17 7M17 7H9M17 7V15" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
   <a href="#">
+      <span class="new-label">Terbaru</span>
     Project PI
     <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2" d="M7 17L17 7M17 7H9M17 7V15" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
-  <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
-    <!-- ikon tema -->
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="..."/> <!-- kamu sudah punya ini -->
-    </svg>
-  </button>
 </nav>
+
 
 
 
@@ -2101,34 +2077,7 @@
         </div>
     </div>
 
-<div class="avatar-container">
-        <div class="ears">
-            <div class="ear"></div>
-            <div class="ear"></div>
-        </div>
-        <div class="avatar">
-            <div class="hair"></div>
-            <div class="eyes">
-                <div class="eye"><div class="pupil"></div></div>
-                <div class="eye"><div class="pupil"></div></div>
-            </div>
-            <div class="clothing"></div>
-        </div>
-    </div>
-    <div class="avatar-container">
-        <div class="ears">
-            <div class="ear"></div>
-            <div class="ear"></div>
-        </div>
-        <div class="avatar">
-            <div class="female-hair"></div>
-            <div class="eyes">
-                <div class="eye"><div class="pupil"></div></div>
-                <div class="eye"><div class="pupil"></div></div>
-            </div>
-            <div class="clothing female-clothing"></div>
-        </div>
-    </div>
+
 
 	 <div class="carousel-container">
         <div class="carousel">
