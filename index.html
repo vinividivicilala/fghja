@@ -3130,7 +3130,16 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
         import { getFirestore,  doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
-		  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, getRedirectResult,  signInWithRedirect  } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+	import { getAuth, 
+        GoogleAuthProvider, 
+        signInWithPopup, 
+        signInWithRedirect,
+        onAuthStateChanged, 
+        signOut,
+        getRedirectResult,
+        setPersistence,
+        browserSessionPersistence,
+        browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
     const firebaseConfig = {
   apiKey: "AIzaSyD_htQZ1TClnXKZGRJ4izbMQ02y6V3aNAQ",
@@ -3151,104 +3160,159 @@
         const sendBtn = document.getElementById('sendBtn');
         const backBtn = document.getElementById('backBtn');
         const messageInput = document.getElementById('messageInput');
-	    const userId = "attiq_r";
+	    const userId = "";
   const profileRef = doc(db, "profiles", userId);
 
   
     let selectedRating = 0;
-	    let currentUser = null;
+    let currentUser = null;
 
 
-// Konfigurasi Provider Google
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
-  prompt: "select_account",
-  hd: "*"
-});
-
+  // Konfigurasi Provider Google untuk multi-akun
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+        prompt: 'select_account', // Selalu tampilkan pemilihan akun
+        hd: '*', // Izinkan semua domain
+        login_hint: '' // Kosongkan untuk memungkinkan pilihan bebas
+    });
     
-    // Cek status login saat halaman dimuat
+    // Tambahkan scope tambahan jika diperlukan
+    provider.addScope('email');
+    provider.addScope('profile');
+
+    // Set persistence untuk menjaga session
+    setPersistence(auth, browserLocalPersistence)
+        .then(() => {
+            console.log("Persistence set to LOCAL (tetap login setelah tab ditutup)");
+        })
+        .catch((error) => {
+            console.error("Error setting persistence:", error);
+        });
+
+
+// Pantau status auth
     onAuthStateChanged(auth, (user) => {
+        currentUser = user;
+        
         if (user) {
             console.log("User logged in:", user.displayName);
-            document.getElementById('auth-container').style.display = 'none';
-            document.getElementById('user-info').style.display = 'block';
-            document.getElementById('user-name').textContent = user.displayName;
-            document.getElementById('user-avatar').src = user.photoURL;
+            updateUserUI(user);
+            
+            // Simpan data user ke localStorage
+            localStorage.setItem('firebaseUser', JSON.stringify({
+                uid: user.uid,
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL
+            }));
         } else {
-            console.log("User not logged in");
-            document.getElementById('auth-container').style.display = 'block';
-            document.getElementById('user-info').style.display = 'none';
+            console.log("User logged out");
+            
+            // Coba load dari localStorage
+            const savedUser = localStorage.getItem('firebaseUser');
+            if (savedUser) {
+                try {
+                    const userData = JSON.parse(savedUser);
+                    console.log("Found saved user:", userData.displayName);
+                    updateUserUI(userData);
+                    return;
+                } catch (e) {
+                    console.error("Error parsing saved user:", e);
+                }
+            }
+            
+            updateUserUI(null);
         }
     });
 
-    // Handle hasil redirect login (jika menggunakan fallback)
+    // Handle redirect result
     getRedirectResult(auth)
         .then((result) => {
             if (result) {
-                console.log("Login via redirect berhasil:", result.user.displayName);
+                console.log("Redirect login success:", result.user.displayName);
+                window.location.href = "https://faridardiansyah.netlify.app";
             }
         })
         .catch((error) => {
-            console.error("Error redirect login:", error);
-            alert("Login gagal: " + error.message);
+            console.error("Redirect login error:", error);
+            alert("Login error: " + error.message);
         });
 
-async function handleGoogleLogin() {
-  const loginBtn = document.getElementById('google-login-button');
-  
-  try {
-    loginBtn.disabled = true;
-    loginBtn.innerHTML = 'Memproses...';
-    
-    // Coba metode popup pertama
-    const result = await signInWithPopup(auth, provider);
-    console.log("Login berhasil:", result.user);
-    
-    // Jika berhasil, arahkan ke halaman yang diinginkan
-    window.location.href = "https://faridardiansyah.netlify.app";
-    
-  } catch (error) {
-    console.error("Error login:", error.code, error.message);
-    
-    // Fallback ke redirect jika popup diblokir
-    if (error.code === 'auth/popup-blocked') {
-      try {
-        await signInWithRedirect(auth, provider);
-      } catch (redirectError) {
-        console.error("Redirect error:", redirectError);
-        alert("Silakan izinkan popup untuk login atau coba lagi.");
-      }
-    } else {
-      alert(`Login gagal: ${error.message}`);
+    // Fungsi utama login Google
+    async function handleGoogleLogin(e) {
+        if (e) e.preventDefault();
+        
+        const loginBtn = document.getElementById('google-login-button');
+        if (!loginBtn) return;
+        
+        try {
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = 'Memproses...';
+            
+            // 1. Coba dengan popup
+            const result = await signInWithPopup(auth, provider);
+            console.log("Popup login success:", result.user.displayName);
+            
+            // Redirect setelah login sukses
+            window.location.href = "https://faridardiansyah.netlify.app/dashboard";
+            
+        } catch (error) {
+            console.error("Login error:", error.code, error.message);
+            
+            // 2. Fallback ke redirect jika popup diblokir
+            if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+                try {
+                    await signInWithRedirect(auth, provider);
+                } catch (redirectError) {
+                    console.error("Redirect error:", redirectError);
+                    alert("Silakan izinkan popup atau coba login kembali.");
+                }
+            } else {
+                alert("Login gagal: " + error.message);
+            }
+        } finally {
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = `
+                <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
+                Login dengan Google
+            `;
+        }
     }
-  } finally {
-    loginBtn.disabled = false;
-    loginBtn.innerHTML = `
-      <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-      Login dengan Google
-    `;
-  }
-}
 
-    // Fungsi logout
+    // Fungsi logout (opsional)
     function handleLogout() {
-        auth.signOut().then(() => {
-            console.log("User logged out");
+        // Hapus dari localStorage
+        localStorage.removeItem('firebaseUser');
+        
+        signOut(auth).then(() => {
+            console.log("Logout successful");
+            window.location.reload();
         }).catch((error) => {
             console.error("Logout error:", error);
         });
     }
 
+    // Update UI berdasarkan status user
+    function updateUserUI(user) {
+        const authContainer = document.getElementById('auth-container');
+        const userInfo = document.getElementById('user-info');
+        
+        if (user) {
+            if (authContainer) authContainer.style.display = 'none';
+            if (userInfo) {
+                userInfo.style.display = 'block';
+                document.getElementById('user-name').textContent = user.displayName || 'User';
+                document.getElementById('user-avatar').src = user.photoURL || 'default-avatar.jpg';
+            }
+        } else {
+            if (authContainer) authContainer.style.display = 'block';
+            if (userInfo) userInfo.style.display = 'none';
+        }
+    }
+
     // Export fungsi ke global scope
     window.handleGoogleLogin = handleGoogleLogin;
     window.handleLogout = handleLogout;
-
-
-
-
-
-
 
 
 
