@@ -3155,7 +3155,7 @@ document.getElementById('google-login').addEventListener("click", async () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     currentUser = user;
-    
+
     // Update UI setelah login berhasil
     document.getElementById("auth-container").innerHTML = `
       <div style="text-align: center; padding: 20px;">
@@ -3181,16 +3181,28 @@ document.getElementById('google-login').addEventListener("click", async () => {
   }
 });
 
-// Fungsi logout
-window.logout = async function() {
-  try {
-    await signOut(auth);
-    location.reload(); // Refresh halaman setelah logout
-  } catch (error) {
-    console.error("Logout error:", error);
-  }
-};
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	    
  
 
 
