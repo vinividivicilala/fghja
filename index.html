@@ -1883,11 +1883,12 @@
 
 
 
-<div id="auth-container" style="display: block;">
-    <button id="google-login" class="button" style="margin: 20px 0;">
-        Login with Google to Follow & Review
+  <div id="auth-container" style="text-align: center;">
+    <button id="google-login" class="button">
+      Login with Google
     </button>
-</div>
+  </div>
+
 
 
 
@@ -3145,21 +3146,34 @@
         const messageInput = document.getElementById('messageInput');
 	    const userId = "attiq_r";
   const profileRef = doc(db, "profiles", userId);
+	        const loginBtn = document.getElementById("google-login");
+
   
     let selectedRating = 0;
 	    let currentUser = null;
 
 
-
-
   if (loginBtn) {
-    loginBtn.addEventListener("click", async () => {
-      try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-        console.log("✅ Login berhasil:", user.displayName);
+      loginBtn.addEventListener("click", async () => {
+        try {
+          const result = await signInWithPopup(auth, provider);
+          const user = result.user;
 
-        // Ubah UI login menjadi ucapan selamat datang
+          document.getElementById("auth-container").innerHTML = `
+            <div style="text-align: center; padding: 20px;">
+              <p>👋 Selamat datang, <strong>${user.displayName}</strong></p>
+              <p>Email: ${user.email}</p>
+              <button onclick="logout()" class="button">Logout</button>
+            </div>
+          `;
+        } catch (error) {
+          alert("Login gagal: " + error.message);
+        }
+      });
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
         document.getElementById("auth-container").innerHTML = `
           <div style="text-align: center; padding: 20px;">
             <p>👋 Selamat datang, <strong>${user.displayName}</strong></p>
@@ -3167,31 +3181,13 @@
             <button onclick="logout()" class="button">Logout</button>
           </div>
         `;
-      } catch (error) {
-        console.error("❌ Gagal login:", error.message);
-        alert("Login gagal: " + error.message);
       }
     });
-  }
 
-  // Deteksi jika user sudah login (misalnya setelah refresh)
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      document.getElementById("auth-container").innerHTML = `
-        <div style="text-align: center; padding: 20px;">
-          <p>👋 Selamat datang, <strong>${user.displayName}</strong></p>
-          <p>Email: ${user.email}</p>
-          <button onclick="logout()" class="button">Logout</button>
-        </div>
-      `;
-    }
-  });
-
-  // Fungsi logout
-  window.logout = async function () {
-    await signOut(auth);
-    location.reload();
-  };
+    window.logout = async function () {
+      await signOut(auth);
+      location.reload();
+    };
 
 
 
