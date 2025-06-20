@@ -3066,7 +3066,8 @@
     </div>
   </div>
 
-  <button class="btn-follow" onclick="followUser()">Follow</button>
+
+<button class="btn-follow">Follow</button>
 
   <div class="stats">
     <div class="stat">
@@ -3144,7 +3145,7 @@ import {
   signInWithPopup,
   setPersistence,
   browserLocalPersistence,
-  onAuthStateChanged
+  onAuthStateChanged, signOut 
 } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
 // Firebase Config
@@ -3367,11 +3368,13 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// DOM Ready
-document.addEventListener('DOMContentLoaded', () => {
-  // Tombol login
-  document.getElementById("google-login-button")?.addEventListener("click", handleGoogleLogin);
+let loginBtn;
 
+document.addEventListener('DOMContentLoaded', () => {
+  loginBtn = document.getElementById("google-login-button");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", handleGoogleLogin);
+  }
   // Tombol follow
   document.querySelector(".btn-follow")?.addEventListener("click", followUser);
 
@@ -3381,7 +3384,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Rating bintang
   setupStarRating();
 });
-
 
 
 
