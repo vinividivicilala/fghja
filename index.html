@@ -3153,24 +3153,22 @@
 	    let currentUser = null;
 
 
-  if (loginBtn) {
-      loginBtn.addEventListener("click", async () => {
-        try {
-          const result = await signInWithPopup(auth, provider);
-          const user = result.user;
 
-          document.getElementById("auth-container").innerHTML = `
-            <div style="text-align: center; padding: 20px;">
-              <p>👋 Selamat datang, <strong>${user.displayName}</strong></p>
-              <p>Email: ${user.email}</p>
-              <button onclick="logout()" class="button">Logout</button>
-            </div>
-          `;
-        } catch (error) {
-          alert("Login gagal: " + error.message);
-        }
-      });
-    }
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
+
+const loginBtn = document.getElementById("google-login");
+loginBtn.addEventListener("click", async () => {
+  try {
+    const result = await signInWithPopup(auth, provider); // ✅ gunakan signInWithPopup
+    const user = result.user;
+    console.log("✅ Login berhasil:", user.displayName);
+  } catch (error) {
+    console.error("❌ Gagal login:", error.code, error.message);
+  }
+});
+
+	    
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
