@@ -3158,53 +3158,80 @@
 
 
 
- provider.setCustomParameters({ prompt: "select_account" });
+ // Set provider untuk memaksa pemilihan akun
+provider.setCustomParameters({ 
+    prompt: "select_account",
+    login_hint: '' // Kosongkan untuk memungkinkan pemilihan akun
+});
 
-	    
-  loginBtn.addEventListener("click", async () => {
-    loginBtn.disabled = true; // cegah klik berulang
+// Fungsi untuk menangani login
+const handleLogin = async (e) => {
+    e.preventDefault(); // Mencegah perilaku default
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = '<span>Loading...</span>';
+    
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      document.getElementById("auth-container").innerHTML = `
-        <div style="text-align: center; padding: 20px;">
-          <p>👋 Selamat datang, <strong>${user.displayName}</strong></p>
-          <p>Email: ${user.email}</p>
-          <button onclick="logout()" style="padding: 8px 16px; font-size: 14px; margin-top: 10px;">Logout</button>
-        </div>
-      `;
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        showUserInfo(user);
     } catch (error) {
-      if (error.code === "auth/popup-closed-by-user") {
-        alert("Login dibatalkan oleh pengguna. Silakan coba lagi.");
-      } else {
-        alert("Login gagal: " + error.message);
-      }
-      console.error("Login gagal:", error.code, error.message);
-    } finally {
-      loginBtn.disabled = false;
+        console.error("Error during login:", error);
+        if (error.code === 'auth/popup-closed-by-user') {
+            alert("Login popup ditutup. Silakan coba lagi.");
+        } else {
+            alert(`Login gagal: ${error.message}`);
+        }
+        resetLoginButton();
     }
-  });
+};
 
-  // Deteksi login otomatis jika sudah login sebelumnya
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      document.getElementById("auth-container").innerHTML = `
+// Fungsi untuk menampilkan info user setelah login
+const showUserInfo = (user) => {
+    document.getElementById("auth-container").innerHTML = `
         <div style="text-align: center; padding: 20px;">
-          <p>👋 Selamat datang kembali, <strong>${user.displayName}</strong></p>
-          <p>Email: ${user.email}</p>
-          <button onclick="logout()" style="padding: 8px 16px; font-size: 14px; margin-top: 10px;">Logout</button>
+            <img src="${user.photoURL || 'https://via.placeholder.com/50'}" 
+                 style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 10px;">
+            <p>👋 Selamat datang, <strong>${user.displayName || 'Pengguna'}</strong></p>
+            <p>${user.email}</p>
+            <button onclick="logout()" class="button" 
+                    style="padding: 8px 16px; font-size: 14px; margin-top: 10px; 
+                           background: #f44336; color: white; border: none; border-radius: 4px;">
+                Logout
+            </button>
         </div>
-      `;
+    `;
+};
+
+// Fungsi untuk reset tombol login
+const resetLoginButton = () => {
+    loginBtn.disabled = false;
+    loginBtn.innerHTML = `
+        <img src="https://img.icons8.com/color/16/000000/google-logo.png" 
+             style="margin-right: 8px; vertical-align: middle;">
+        Login with Google
+    `;
+};
+
+// Fungsi logout yang bisa dipanggil dari HTML
+window.logout = async () => {
+    try {
+        await signOut(auth);
+        location.reload(); // Refresh halaman setelah logout
+    } catch (error) {
+        console.error("Error during logout:", error);
+        alert("Logout gagal: " + error.message);
     }
-  });
+};
 
-  // Fungsi logout
-  window.logout = async function () {
-    await signOut(auth);
-    location.reload();
-  };
+// Deteksi status auth
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        showUserInfo(user);
+    }
+});
 
+// Event listener untuk tombol login
+loginBtn.addEventListener("click", handleLogin);
 
 
 
