@@ -3150,36 +3150,69 @@
 	    let currentUser = null;
 
 
-document.getElementById('google-login').addEventListener("click", async () => {
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-    currentUser = user;
 
-    // Update UI setelah login berhasil
-    document.getElementById("auth-container").innerHTML = `
-      <div style="text-align: center; padding: 20px;">
-        <p>Selamat datang, ${user.displayName}</p>
-        <p>Email: ${user.email}</p>
-        <button onclick="logout()" style="margin-top: 10px; padding: 8px 16px; background: white; color: black; border: none; border-radius: 4px; cursor: pointer;">
-          Logout
-        </button>
-      </div>
-    `;
 
-    // Simpan data user ke Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
-      lastLogin: new Date()
-    }, { merge: true });
 
-  } catch (error) {
-    console.error("Login error:", error);
-    alert("Gagal login: " + error.message);
+  // Fungsi login
+  async function login() {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("Berhasil login sebagai:", user.displayName);
+    } catch (error) {
+      console.error("Gagal login:", error.message);
+    }
   }
-});
+
+  // Fungsi logout
+  function logout() {
+    signOut(auth)
+      .then(() => {
+        console.log("Berhasil logout.");
+      })
+      .catch((error) => {
+        console.error("Gagal logout:", error.message);
+      });
+  }
+
+  // Menyimak status login
+  onAuthStateChanged(auth, (user) => {
+    const authContainer = document.getElementById("auth-container");
+    if (user) {
+      currentUser = user;
+      authContainer.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <p>Selamat datang kembali, ${user.displayName}</p>
+          <p>Email: ${user.email}</p>
+          <button id="logout-btn" style="margin-top: 10px; padding: 8px 16px; background: white; color: black; border: none; border-radius: 4px; cursor: pointer;">
+            Logout
+          </button>
+        </div>
+      `;
+
+      // Pasang event listener logout setelah render ulang
+      document.getElementById("logout-btn").addEventListener("click", logout);
+
+    } else {
+      authContainer.innerHTML = `
+        <button id="google-login" class="button" style="margin: 20px 0;">
+          Login with Google to Follow & Review
+        </button>
+      `;
+
+      // Pasang event listener login kembali setelah render ulang
+      const loginBtn = document.getElementById("google-login");
+      if (loginBtn) {
+        loginBtn.addEventListener("click", login);
+      }
+    }
+  });
+
+
+
+
+
+
 
 
 
@@ -3203,33 +3236,6 @@ document.getElementById('google-login').addEventListener("click", async () => {
 
 
 	    
- 
-
-
-onAuthStateChanged(auth, (user) => {
-  const authContainer = document.getElementById("auth-container");
-  if (user) {
-    currentUser = user;
-    authContainer.innerHTML = `
-      <div style="text-align: center; padding: 20px;">
-        <p>Selamat datang kembali, ${user.displayName}</p>
-        <p>Email: ${user.email}</p>
-        <button onclick="logout()" style="margin-top: 10px; padding: 8px 16px; background: white; color: black; border: none; border-radius: 4px; cursor: pointer;">
-          Logout
-        </button>
-      </div>
-    `;
-  } else {
-    authContainer.innerHTML = `
-      <button id="google-login" class="button" style="margin: 20px 0;">
-        Login with Google to Follow & Review
-      </button>
-    `;
-    // Tambahkan event listener kembali setelah render ulang
-    document.getElementById('google-login').addEventListener("click", /* fungsi login */);
-  }
-});
-
 
 
 
