@@ -1889,12 +1889,10 @@
 <body>
 
 
- <div id="auth-container">
-    <button id="google-login-button" onclick="handleGoogleLogin(event)">
-        <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-        Login dengan Google
-    </button>
-</div>
+<button id="google-login-button" onclick="handleGoogleLogin(event)">
+  <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
+  Login dengan Google
+</button>
 
 <div id="user-info" style="display:none;">
     <img id="user-avatar" width="30" style="border-radius:50%;">
@@ -3134,16 +3132,15 @@
         import { getFirestore,  doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 		  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, getRedirectResult,  signInWithRedirect  } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyD_htQZ1TClnXKZGRJ4izbMQ02y6V3aNAQ",
-            authDomain: "faridardiansyah.netlify.app",
-            projectId: "wawa44-58d1e",
-            storageBucket: "wawa44-58d1e.appspot.com",
-            messagingSenderId: "836899520599",
-            appId: "1:836899520599:web:b346e4370ecfa9bb89e312",
-            measurementId: "G-8LMP7F4BE9"
-        };
-
+    const firebaseConfig = {
+  apiKey: "AIzaSyD_htQZ1TClnXKZGRJ4izbMQ02y6V3aNAQ",
+  authDomain: "wawa44-58d1e.firebaseapp.com", // Ganti ke domain Firebase default
+  projectId: "wawa44-58d1e",
+  storageBucket: "wawa44-58d1e.appspot.com",
+  messagingSenderId: "836899520599",
+  appId: "1:836899520599:web:b346e4370ecfa9bb89e312",
+  measurementId: "G-8LMP7F4BE9"
+};
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 	const auth = getAuth(app); // Tambahkan in
@@ -3162,16 +3159,14 @@
 	    let currentUser = null;
 
 
+// Konfigurasi Provider Google
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "select_account",
+  hd: "*"
+});
 
-
-    // Configure Google Provider
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({
-        prompt: 'select_account', // Selalu tampilkan pilihan akun
-        login_hint: '', // Biarkan kosong untuk memilih semua akun
-        hd: '*' // Optional: untuk membatasi domain tertentu
-    });
-
+    
     // Cek status login saat halaman dimuat
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -3199,42 +3194,42 @@
             alert("Login gagal: " + error.message);
         });
 
-    // Fungsi utama untuk login Google
-    async function handleGoogleLogin() {
-        const loginBtn = document.getElementById('google-login-button');
-        
-        try {
-            // 1. Coba login dengan popup terlebih dahulu
-            loginBtn.disabled = true;
-            loginBtn.innerHTML = 'Memproses...';
-            
-            const result = await signInWithPopup(auth, provider);
-            console.log("Login berhasil:", result.user.displayName);
-            
-        } catch (error) {
-            console.error("Error login:", error.code, error.message);
-            
-            // 2. Jika popup diblokir, fallback ke redirect
-            if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
-                try {
-                    await signInWithRedirect(auth, provider);
-                } catch (redirectError) {
-                    console.error("Redirect error:", redirectError);
-                    alert("Login gagal: " + redirectError.message);
-                }
-            } else {
-                alert("Login gagal: " + error.message);
-            }
-        } finally {
-            if (loginBtn) {
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = `
-                    <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-                    Login dengan Google
-                `;
-            }
-        }
+async function handleGoogleLogin() {
+  const loginBtn = document.getElementById('google-login-button');
+  
+  try {
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = 'Memproses...';
+    
+    // Coba metode popup pertama
+    const result = await signInWithPopup(auth, provider);
+    console.log("Login berhasil:", result.user);
+    
+    // Jika berhasil, arahkan ke halaman yang diinginkan
+    window.location.href = "https://faridardiansyah.netlify.app/dashboard";
+    
+  } catch (error) {
+    console.error("Error login:", error.code, error.message);
+    
+    // Fallback ke redirect jika popup diblokir
+    if (error.code === 'auth/popup-blocked') {
+      try {
+        await signInWithRedirect(auth, provider);
+      } catch (redirectError) {
+        console.error("Redirect error:", redirectError);
+        alert("Silakan izinkan popup untuk login atau coba lagi.");
+      }
+    } else {
+      alert(`Login gagal: ${error.message}`);
     }
+  } finally {
+    loginBtn.disabled = false;
+    loginBtn.innerHTML = `
+      <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
+      Login dengan Google
+    `;
+  }
+}
 
     // Fungsi logout
     function handleLogout() {
