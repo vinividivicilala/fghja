@@ -3153,25 +3153,16 @@
 	    let currentUser = null;
 
 
+ // Login Google
+  if (loginBtn) {
+    loginBtn.addEventListener("click", async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        currentUser = user;
 
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
+        console.log("✅ Login berhasil:", user.displayName);
 
-const loginBtn = document.getElementById("google-login");
-loginBtn.addEventListener("click", async () => {
-  try {
-    const result = await signInWithPopup(auth, provider); // ✅ gunakan signInWithPopup
-    const user = result.user;
-    console.log("✅ Login berhasil:", user.displayName);
-  } catch (error) {
-    console.error("❌ Gagal login:", error.code, error.message);
-  }
-});
-
-	    
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
         document.getElementById("auth-container").innerHTML = `
           <div style="text-align: center; padding: 20px;">
             <p>👋 Selamat datang, <strong>${user.displayName}</strong></p>
@@ -3179,13 +3170,32 @@ loginBtn.addEventListener("click", async () => {
             <button onclick="logout()" class="button">Logout</button>
           </div>
         `;
+      } catch (error) {
+        console.error("❌ Gagal login:", error.code, error.message);
+        alert("Login gagal: " + error.message);
       }
     });
+  }
 
-    window.logout = async function () {
-      await signOut(auth);
-      location.reload();
-    };
+  // Deteksi login ulang
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser = user;
+      document.getElementById("auth-container").innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+          <p>👋 Selamat datang, <strong>${user.displayName}</strong></p>
+          <p>Email: ${user.email}</p>
+          <button onclick="logout()" class="button">Logout</button>
+        </div>
+      `;
+    }
+  });
+
+  // Fungsi logout
+  window.logout = async function () {
+    await signOut(auth);
+    location.reload();
+  };
 
 
 
