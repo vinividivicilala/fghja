@@ -3308,26 +3308,38 @@ document.querySelectorAll('#starRating span').forEach(star => {
 
 
 
+
+
+
 onSnapshot(profileRef, (docSnap) => {
   if (docSnap.exists()) {
     const data = docSnap.data();
 
-    // Nama langsung dari akun Google (jika sudah login)
-    if (currentUser) {
-      document.getElementById("name").innerText = currentUser.displayName || "farid.";
-    } else {
-      document.getElementById("name").innerText = data.name || "farid.";
-    }
+    // Nama: gunakan dari Google login jika ada, fallback ke Firestore
+    const name = currentUser?.displayName || data.name || "farid.";
+    document.getElementById("name").innerText = name;
 
-    document.getElementById("bio").innerText = data.bio || "";
+    document.getElementById("bio").innerText = data.bio || "Multidisciplinary Designer & Branding Expert";
     document.getElementById("earned").innerText = data.earnings || 25000;
     document.getElementById("hired").innerText = data.hiredCount || 27;
+    document.getElementById("followers").innerText = (data.followers || []).length;
+    document.getElementById("rating").innerText = (data.avgRating || 0).toFixed(2);
+    document.getElementById("avgRatingDisplay").innerText = (data.avgRating || 0).toFixed(2);
+    document.getElementById("reviewCount").innerText = (data.reviews || []).length;
 
-    // Update followers count
+    // Tampilkan review
+    const reviews = data.reviews || [];
+    document.getElementById("reviewList").innerHTML = reviews.map(r => `
+      <div class="review-item">
+        <strong>${r.name}</strong> - ${r.position} (${r.date})<br/>
+        ★ ${r.rating} - ${r.review}
+      </div>`).join('');
+
+    // Followers list
     const followers = data.followers || [];
-    document.getElementById("followers").innerText = followers.length;
+    document.getElementById("followersList").innerText = followers.length ? followers.join(', ') : 'Belum ada followers.';
 
-    // Check if current user is following
+    // Tombol follow
     if (currentUser && followers.includes(currentUser.uid)) {
       document.querySelector(".btn-follow").textContent = "Following";
       document.querySelector(".btn-follow").style.backgroundColor = "#4CAF50";
@@ -3335,59 +3347,10 @@ onSnapshot(profileRef, (docSnap) => {
       document.querySelector(".btn-follow").textContent = "Follow";
       document.querySelector(".btn-follow").style.backgroundColor = "";
     }
-
-    // Rest of your display logic...
   }
 });
 
 
-
-
-
-
-
-  
-  
-  
-  
- 
-
-
-  // Akhir dari script kamu
-  onSnapshot(profileRef, (docSnap) => {
-    if (docSnap.exists()) {
-      const data = docSnap.data();
-              document.getElementById("name").innerText = currentUser.displayName || "farid.";
-      document.getElementById("bio").innerText = data.bio || "Multidisciplinary Designer & Branding Expert";
-      document.getElementById("earned").innerText = data.earnings || 25000;
-      document.getElementById("hired").innerText = data.hiredCount || 27;
-      document.getElementById("followers").innerText = (data.followers || []).length;
-      document.getElementById("rating").innerText = (data.avgRating || 0).toFixed(2);
-	  document.getElementById("avgRatingDisplay").innerText = (data.avgRating || 0).toFixed(2);
-document.getElementById("reviewCount").innerText = (data.reviews || []).length;
-
-
-      const reviews = data.reviews || [];
-      document.getElementById("reviewList").innerHTML = reviews.map(r => `
-        <div class="review-item">
-          <strong>${r.name}</strong> - ${r.position} (${r.date})<br/>
-          ★ ${r.rating} - ${r.review}
-        </div>`).join('');
-
-      const followers = data.followers || [];
-      document.getElementById("followersList").innerText = followers.length ? followers.join(', ') : 'Belum ada followers.';
-    }
-  });
-
-  // Tampilkan Following user login
-  const currentUserRef = doc(db, "profiles", "user123");
-  onSnapshot(currentUserRef, (docSnap) => {
-    if (docSnap.exists()) {
-      const following = docSnap.data().following || [];
-      document.getElementById("followingList").innerText = following.length ? following.join(', ') : 'Belum mengikuti siapa pun.';
-    }
-  });
-  
   // Tampilkan container auth secara default
 document.getElementById('auth-container').style.display = 'block';
 
