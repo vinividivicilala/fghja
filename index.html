@@ -3143,7 +3143,6 @@
         const sendBtn = document.getElementById('sendBtn');
         const backBtn = document.getElementById('backBtn');
         const messageInput = document.getElementById('messageInput');
-	    const loginButton = document.getElementById("google-login");
 	    const userId = "attiq_r";
   const profileRef = doc(db, "profiles", userId);
   
@@ -3152,15 +3151,12 @@
 
 
 
-
-
-const loginButton = document.getElementById("google-login");
-
 loginButton.addEventListener("click", async () => {
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     currentUser = user;
+    console.log("User signed in:", user.displayName);
 
     document.getElementById("auth-container").innerHTML = `
       <p>Selamat datang, ${user.displayName}</p>
@@ -3178,6 +3174,7 @@ loginButton.addEventListener("click", async () => {
   }
 });
 
+ 
 
 
 // Saat reload, jika user sudah login
