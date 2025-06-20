@@ -3218,6 +3218,15 @@ function handleLoginSuccess(user) {
   updateAuthDependentUI();
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("google-login-button");
+  if (btn) {
+    btn.addEventListener("click", handleGoogleLogin);
+  }
+});
+
+	    
+
 function resetLoginButton() {
   const btn = document.getElementById('google-login-button');
   if (btn) {
