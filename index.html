@@ -3129,7 +3129,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
         import { getFirestore,  doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
-		  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+		  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, getRedirectResult  } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD_htQZ1TClnXKZGRJ4izbMQ02y6V3aNAQ",
@@ -3161,8 +3161,41 @@
 
 
 
+getRedirectResult(auth)
+  .then((result) => {
+    if (result && result.user) {
+      console.log("Login via redirect berhasil:", result.user.displayName);
+      // tampilkan data user
+    }
+  })
+  .catch((error) => {
+    console.error("Redirect login gagal:", error.message);
+  });
 
 
+
+ document.getElementById("google-login-button")?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("Login berhasil:", user.displayName);
+    } catch (error) {
+      console.error("Login gagal:", error.code, error.message);
+      alert("Login gagal: " + error.message);
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+	    
 
 auth.useDeviceLanguage();
 // Google Provider Config
@@ -3216,18 +3249,16 @@ async function handleGoogleLogin(e) {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     console.log("Login berhasil:", user.displayName);
+    // tampilkan UI atau simpan data
   } catch (error) {
-    console.error("Login gagal:", error.message);
+    console.error("Login gagal:", error.code, error.message);
+    alert("Login gagal: " + error.message);
   }
 }
 
+
 	    
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("google-login-button");
-  if (btn) {
-    btn.addEventListener("click", handleGoogleLogin);
-  }
-});
+
 
 	    
 
