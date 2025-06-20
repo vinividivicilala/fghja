@@ -1889,11 +1889,9 @@
 <body>
 
 
-<button id="google-login-button" onclick="window.handleGoogleLogin(event)">
+<button id="google-login-button">Login with Google</button>
     <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-    Login with Google
-</button>
-
+   
 
 
 
@@ -3161,9 +3159,7 @@
         const sendBtn = document.getElementById('sendBtn');
         const backBtn = document.getElementById('backBtn');
         const messageInput = document.getElementById('messageInput');
-	    const userId = "";
-  const profileRef = doc(db, "profiles", userId);
-
+	   
   
     let selectedRating = 0;
     let currentUser = null;
@@ -3215,19 +3211,23 @@
         return doc(db, "profiles", userId); // Correct 3-segment reference
     }
 
-    // Initialize auth state
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log('User is signed in:', user.uid);
-            const userProfileRef = getProfileRef(user.uid); // Use actual UID
-            
-            if (userProfileRef) {
-                // Perform Firestore operations here
-            }
-        } else {
-            console.log('User is signed out');
-        }
-    });
+
+let profileRef = null;
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    currentUser = user;
+    const userId = user.uid;
+    profileRef = doc(db, "profiles", userId); // ✅ benar karena sekarang userId valid
+    console.log('User is signed in:', userId);
+
+    // Lanjutkan dengan onSnapshot dan lainnya di sini jika perlu
+  } else {
+    console.log('User is signed out');
+  }
+});
+
+	    
 
     // Initialize after DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
@@ -3235,6 +3235,12 @@
     });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const loginBtn = document.getElementById("google-login-button");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", handleGoogleLogin);
+  }
+});
 
 
 
