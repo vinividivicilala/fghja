@@ -1889,14 +1889,13 @@
 <body>
 
 
-
-
  <div id="auth-container" style="text-align: center; margin-top: 30px;">
-  <button id="google-login-button" class="google-login-btn">
-    <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google logo">
-    Login with Google
-  </button>
-</div>
+    <button id="google-login-button" class="google-login-btn">
+      <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google logo" />
+      Login with Google
+    </button>
+  </div>
+
 
 
 <a href="https://noted-farid.netlify.app/#" class="vote-banner">
@@ -3161,74 +3160,75 @@
 
 
 
+ // Force account picker
+    provider.setCustomParameters({ prompt: "select_account" });
 
-  // Gunakan bahasa perangkat pengguna
-  auth.useDeviceLanguage();
-
-  // Paksa user pilih akun
-  provider.setCustomParameters({
-    prompt: "select_account"
-  });
-
-  // Tangani login saat tombol ditekan
-  window.handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      console.log("Login berhasil:", user.displayName);
-      // Tampilkan ke UI atau simpan ke Firestore jika perlu
-      document.getElementById("auth-container").innerHTML = `
-        <p>Selamat datang, ${user.displayName}</p>
-        <p>Email: ${user.email}</p>
-        <button onclick="logout()">Logout</button>
-      `;
-    } catch (error) {
-      console.error("Login gagal:", error.code, error.message);
-      if (error.code === "auth/popup-blocked" || error.code === "auth/cancelled-popup-request") {
-        // Fallback ke redirect jika popup diblokir
-        await signInWithRedirect(auth, provider);
-      } else {
-        alert("Login gagal: " + error.message);
+    // Handle login function (must be global)
+    window.handleGoogleLogin = async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        console.log("Login berhasil:", user.displayName);
+        document.getElementById("auth-container").innerHTML = `
+          <p>Selamat datang, ${user.displayName}</p>
+          <p>Email: ${user.email}</p>
+          <button onclick="logout()">Logout</button>
+        `;
+      } catch (error) {
+        console.error("Login gagal:", error.code, error.message);
+        if (error.code === "auth/popup-blocked" || error.code === "auth/cancelled-popup-request") {
+          await signInWithRedirect(auth, provider);
+        } else {
+          alert("Login gagal: " + error.message);
+        }
       }
-    }
-  };
+    };
 
-  // Tangani hasil dari redirect login (jika gagal popup)
-  getRedirectResult(auth).then((result) => {
-    if (result && result.user) {
-      const user = result.user;
-      console.log("Login via redirect berhasil:", user.displayName);
-      document.getElementById("auth-container").innerHTML = `
-        <p>Selamat datang, ${user.displayName}</p>
-        <p>Email: ${user.email}</p>
-        <button onclick="logout()">Logout</button>
-      `;
-    }
-  }).catch((error) => {
-    console.error("Redirect login error:", error.message);
-  });
+    // Attach event AFTER DOM loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("google-login-button");
+      if (btn) {
+        btn.addEventListener("click", window.handleGoogleLogin);
+      }
+    });
 
-  // Logout function
-  window.logout = async () => {
-    await auth.signOut();
-    document.getElementById("auth-container").innerHTML = `
-      <button id="google-login-button" onclick="handleGoogleLogin()" class="google-login-btn">
-        <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google logo">
-        Login with Google
-      </button>
-    `;
-  };
+    // Redirect result handler
+    getRedirectResult(auth).then((result) => {
+      if (result && result.user) {
+        const user = result.user;
+        document.getElementById("auth-container").innerHTML = `
+          <p>Selamat datang, ${user.displayName}</p>
+          <p>Email: ${user.email}</p>
+          <button onclick="logout()">Logout</button>
+        `;
+      }
+    });
 
-  // Saat status login berubah
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log("User aktif:", user.displayName);
-    } else {
-      console.log("Belum login.");
-    }
-  });
+    // Logout global
+    window.logout = async () => {
+      await signOut(auth);
+      location.reload(); // Refresh halaman setelah logout
+    };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	    
 
 
   // Rating bintang interaktif
