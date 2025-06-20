@@ -3145,6 +3145,7 @@
         const db = getFirestore(app);
 		    const provider = new GoogleAuthProvider();
 			    const auth = getAuth(app); // Tambahkan in
+	    
         const sayHiBtn = document.getElementById('sayHiBtn');
         const inputContainer = document.getElementById('inputContainer');
         const mainContainer = document.getElementById('main-container');
@@ -3161,102 +3162,73 @@
 
 
 
-// Pastikan popup akan meminta pemilihan akun
+
+
+auth.useDeviceLanguage();
+// Google Provider Config
+const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
-  prompt: "select_account"
+  prompt: "select_account",
+  ux_mode: "popup",
+  hd: "*"
 });
 
-// Elemen tombol
-const googleLoginBtn = document.getElementById('google-login-button');
+// Login Handler dengan Semua Perbaikan
+let authOperationInProgress = false;
 
-// Fungsi untuk menangani login
-const handleGoogleLogin = async () => {
+window.handleGoogleLogin = async (e) => {
+  if (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+
+  if (authOperationInProgress) return;
+  authOperationInProgress = true;
+
+  const btn = document.getElementById('google-login-button');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<span>Memuat...</span>';
+  }
+
   try {
-    // Tampilkan indikator loading
-    googleLoginBtn.innerHTML = '<span>Memuat...</span>';
-    googleLoginBtn.disabled = true;
-    
-    // Trigger login popup
+    // Coba metode popup pertama
     const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-    
-    // Tampilkan info user
-    document.getElementById('auth-container').innerHTML = `
-      <div class="user-info">
-        <img src="${user.photoURL || 'https://via.placeholder.com/50'}" alt="User photo">
-        <p>Halo, <strong>${user.displayName || 'Pengguna'}</strong></p>
-        <button id="logout-btn" class="logout-btn">Logout</button>
-      </div>
-    `;
-    
-    // Tambahkan event listener untuk logout
-    document.getElementById('logout-btn').addEventListener('click', handleLogout);
-    
+    handleLoginSuccess(result.user);
   } catch (error) {
-    console.error("Error during Google login:", error);
+    console.error("Auth error:", error.code, error.message);
     
-    // Kembalikan tombol ke state semula
-    googleLoginBtn.innerHTML = `
-      <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google logo">
-      Login with Google
-    `;
-    googleLoginBtn.disabled = false;
-    
-    // Tampilkan pesan error spesifik
-    if (error.code === 'auth/popup-closed-by-user') {
-      alert('Anda menutup jendela login. Silakan coba lagi.');
+    if (['auth/popup-blocked', 'auth/cancelled-popup-request'].includes(error.code)) {
+      // Fallback ke redirect jika popup gagal
+      await signInWithRedirect(auth, provider);
     } else {
       alert(`Login gagal: ${error.message}`);
     }
+  } finally {
+    authOperationInProgress = false;
+    resetLoginButton();
   }
 };
 
-// Fungsi untuk logout
-const handleLogout = async () => {
-  try {
-    await signOut(auth);
-    location.reload(); // Refresh halaman setelah logout
-  } catch (error) {
-    console.error("Error during logout:", error);
-    alert(`Logout gagal: ${error.message}`);
-  }
-};
-
-// Cek status login saat halaman dimuat
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User sudah login
-    document.getElementById('auth-container').innerHTML = `
-      <div class="user-info">
-        <img src="${user.photoURL || 'https://via.placeholder.com/50'}" alt="User photo">
-        <p>Halo, <strong>${user.displayName || 'Pengguna'}</strong></p>
-        <button id="logout-btn" class="logout-btn">Logout</button>
-      </div>
-    `;
-    document.getElementById('logout-btn').addEventListener('click', handleLogout);
-  } else {
-    // User belum login
-    document.getElementById('auth-container').innerHTML = `
-      <button id="google-login-button" class="google-login-btn">
-        <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google logo">
-        Login with Google
-      </button>
-    `;
-    document.getElementById('google-login-button').addEventListener('click', handleGoogleLogin);
-  }
-});
-
-// Inisialisasi event listener pertama kali
-if (document.getElementById('google-login-button')) {
-  document.getElementById('google-login-button').addEventListener('click', handleGoogleLogin);
+// Fungsi bantuan
+function handleLoginSuccess(user) {
+  currentUser = user; // Simpan user ke state
+  showUserInfo(user);
+  
+  // Update UI lainnya yang bergantung pada auth state
+  updateAuthDependentUI();
 }
 
-
-
-
-
-
-
+function resetLoginButton() {
+  const btn = document.getElementById('google-login-button');
+  if (btn) {
+    btn.disabled = false;
+    btn.innerHTML = `
+      <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
+      Login with Google
+    `;
+  }
+}
 
 
 
