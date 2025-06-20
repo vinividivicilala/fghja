@@ -1891,9 +1891,8 @@
 
 <button id="google-login-button" onclick="window.handleGoogleLogin(event)">
     <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-    Login dengan Google
+    Login with Google
 </button>
-
 
 
 
@@ -3137,12 +3136,9 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
         import { getFirestore,  doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
-	import {
-         getAuth, 
+	import { getAuth, 
         GoogleAuthProvider, 
-        signInWithPopup, 
-        signInWithRedirect,
-        onAuthStateChanged,
+        signInWithPopup,
         setPersistence,
         browserLocalPersistence} from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
@@ -3172,85 +3168,71 @@
     let selectedRating = 0;
     let currentUser = null;
 
-
-   // Inisialisasi provider Google
+  // Google Auth Provider
     const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({
-        prompt: 'select_account'
-    });
+    provider.setCustomParameters({ prompt: 'select_account' });
 
-    // Fungsi login Google
-    async function handleGoogleLogin(e) {
+    // Global function declaration
+    window.handleGoogleLogin = async function(e) {
         if (e) e.preventDefault();
         
         const loginBtn = document.getElementById('google-login-button');
-        if (!loginBtn) return;
-        
+        if (!loginBtn) {
+            console.error('Login button not found');
+            return;
+        }
+
         try {
             loginBtn.disabled = true;
-            loginBtn.innerHTML = 'Memproses...';
+            loginBtn.textContent = 'Signing in...';
             
-            // Set persistence untuk tetap login
             await setPersistence(auth, browserLocalPersistence);
-            
-            // Coba login dengan popup
             const result = await signInWithPopup(auth, provider);
-            console.log("Login berhasil:", result.user.email);
             
-            // Redirect setelah login sukses
-            window.location.href = "/dashboard.html"; // Ganti dengan halaman tujuan
+            console.log('Login success:', result.user.uid);
+            // Handle successful login (e.g., redirect or update UI)
             
         } catch (error) {
-            console.error("Error login:", error.code, error.message);
-            
-            // Fallback ke redirect jika popup diblokir
-            if (error.code === 'auth/popup-blocked') {
-                try {
-                    await signInWithRedirect(auth, provider);
-                } catch (redirectError) {
-                    console.error("Redirect error:", redirectError);
-                    alert("Silakan izinkan popup untuk login");
-                }
-            } else {
-                alert("Login gagal: " + error.message);
-            }
+            console.error('Login failed:', error);
+            alert(`Login failed: ${error.message}`);
         } finally {
             if (loginBtn) {
                 loginBtn.disabled = false;
                 loginBtn.innerHTML = `
                     <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-                    Login dengan Google
+                    Login with Google
                 `;
             }
         }
-    }
+    };
 
-    // Perbaikan referensi Firestore
+    // Proper Firestore document reference
     function getProfileRef(userId) {
         if (!userId || typeof userId !== 'string') {
-            console.error("Invalid user ID");
+            console.error('Invalid user ID:', userId);
             return null;
         }
-        return doc(db, "profiles", userId);
+        return doc(db, "profiles", userId); // Correct 3-segment reference
     }
 
-    // Inisialisasi saat halaman dimuat
-    document.addEventListener('DOMContentLoaded', () => {
-        // Pastikan fungsi tersedia di global scope
-        window.handleGoogleLogin = handleGoogleLogin;
-        
-        // Cek status login
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log("User sudah login:", user.email);
-                const profileRef = getProfileRef(user.uid); // Gunakan UID user yang login
-                if (profileRef) {
-                    // Lakukan operasi Firestore di sini
-                }
+    // Initialize auth state
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            console.log('User is signed in:', user.uid);
+            const userProfileRef = getProfileRef(user.uid); // Use actual UID
+            
+            if (userProfileRef) {
+                // Perform Firestore operations here
             }
-        });
+        } else {
+            console.log('User is signed out');
+        }
     });
 
+    // Initialize after DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Firebase initialized');
+    });
 
 
 
