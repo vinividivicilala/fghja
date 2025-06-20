@@ -3135,7 +3135,7 @@ import {
   arrayUnion,
   onSnapshot, 
   query,                
-  collection, orderBy    
+  collection, orderBy, getDocs, setDoc, updateDoc, collection, addDoc  
 } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
 import {
@@ -3169,7 +3169,6 @@ let currentUser = null;
 let profileRef = null;
 let selectedRating = 0;
 
-// Fungsi Login
 async function handleGoogleLogin(e) {
   e?.preventDefault();
   const loginBtn = document.getElementById('google-login-button');
@@ -3181,6 +3180,25 @@ async function handleGoogleLogin(e) {
 
     await setPersistence(auth, browserLocalPersistence);
     const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    const userRef = doc(db, "profiles", user.uid);
+    const docSnap = await getDoc(userRef);
+
+    if (!docSnap.exists()) {
+      await setDoc(userRef, {
+        name: user.displayName,
+        bio: "Multidisciplinary Designer & Branding Expert",
+        followers: [],
+        reviews: [],
+        avgRating: 0,
+        earnings: 0,
+        hiredCount: 0
+      });
+    } else if (!docSnap.data().name) {
+      await updateDoc(userRef, { name: user.displayName });
+    }
+
     console.log('Login success:', result.user.uid);
 
   } catch (error) {
@@ -3196,6 +3214,7 @@ async function handleGoogleLogin(e) {
     }
   }
 }
+
 
 // FOLLOW user
 async function followUser() {
@@ -3289,6 +3308,16 @@ onAuthStateChanged(auth, (user) => {
 
     console.log("User logged in:", userId);
 
+	   if (loginBtn) {
+      loginBtn.textContent = "Logout";
+      loginBtn.onclick = () => {
+        signOut(auth).then(() => {
+          alert("Berhasil logout.");
+          window.location.reload(); // Optional, untuk reset tampilan
+        });
+      };
+    }
+
     // Tarik data profile hanya setelah login
     onSnapshot(profileRef, (docSnap) => {
       if (!docSnap.exists()) return;
@@ -3328,6 +3357,13 @@ onAuthStateChanged(auth, (user) => {
 
   } else {
     console.log("User signed out");
+    if (loginBtn) {
+      loginBtn.innerHTML = `
+        <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
+        Login with Google
+      `;
+      loginBtn.onclick = handleGoogleLogin;
+    }
   }
 });
 
