@@ -3124,131 +3124,149 @@
 
 
 
-
-
-
-
-
 	
-	
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-        import { getFirestore,  doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
-	import { getAuth, 
-        GoogleAuthProvider, 
-        signInWithPopup,
-        setPersistence,
-        browserLocalPersistence, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  updateDoc,
+  arrayUnion,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-    const firebaseConfig = {
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  setPersistence,
+  browserLocalPersistence,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+
+// Firebase Config
+const firebaseConfig = {
   apiKey: "AIzaSyD_htQZ1TClnXKZGRJ4izbMQ02y6V3aNAQ",
-  authDomain: "wawa44-58d1e.firebaseapp.com", // Ganti ke domain Firebase default
+  authDomain: "wawa44-58d1e.firebaseapp.com",
   projectId: "wawa44-58d1e",
   storageBucket: "wawa44-58d1e.appspot.com",
   messagingSenderId: "836899520599",
   appId: "1:836899520599:web:b346e4370ecfa9bb89e312",
   measurementId: "G-8LMP7F4BE9"
 };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-	const auth = getAuth(app); // Tambahkan in
-	    
-        const sayHiBtn = document.getElementById('sayHiBtn');
-        const inputContainer = document.getElementById('inputContainer');
-        const mainContainer = document.getElementById('main-container');
-        const sendBtn = document.getElementById('sendBtn');
-        const backBtn = document.getElementById('backBtn');
-        const messageInput = document.getElementById('messageInput');
-	   
-  
-    let selectedRating = 0;
-    let currentUser = null;
 
-  // Google Auth Provider
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: 'select_account' });
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: 'select_account' });
 
-    // Global function declaration
-    window.handleGoogleLogin = async function(e) {
-        if (e) e.preventDefault();
-        
-        const loginBtn = document.getElementById('google-login-button');
-        if (!loginBtn) {
-            console.error('Login button not found');
-            return;
-        }
-
-        try {
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Signing in...';
-            
-            await setPersistence(auth, browserLocalPersistence);
-            const result = await signInWithPopup(auth, provider);
-            
-            console.log('Login success:', result.user.uid);
-            // Handle successful login (e.g., redirect or update UI)
-            
-        } catch (error) {
-            console.error('Login failed:', error);
-            alert(`Login failed: ${error.message}`);
-        } finally {
-            if (loginBtn) {
-                loginBtn.disabled = false;
-                loginBtn.innerHTML = `
-                    <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-                    Login with Google
-                `;
-            }
-        }
-    };
-
-    // Proper Firestore document reference
-    function getProfileRef(userId) {
-        if (!userId || typeof userId !== 'string') {
-            console.error('Invalid user ID:', userId);
-            return null;
-        }
-        return doc(db, "profiles", userId); // Correct 3-segment reference
-    }
-
-
+let currentUser = null;
 let profileRef = null;
+let selectedRating = 0;
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = user;
-    const userId = user.uid;
-    profileRef = doc(db, "profiles", userId); // ✅ benar karena sekarang userId valid
-    console.log('User is signed in:', userId);
+// Fungsi Login
+async function handleGoogleLogin(e) {
+  e?.preventDefault();
+  const loginBtn = document.getElementById('google-login-button');
+  if (!loginBtn) return;
 
-    // Lanjutkan dengan onSnapshot dan lainnya di sini jika perlu
-  } else {
-    console.log('User is signed out');
+  try {
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Signing in...';
+
+    await setPersistence(auth, browserLocalPersistence);
+    const result = await signInWithPopup(auth, provider);
+    console.log('Login success:', result.user.uid);
+
+  } catch (error) {
+    console.error('Login failed:', error);
+    alert(`Login failed: ${error.message}`);
+  } finally {
+    if (loginBtn) {
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = `
+        <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
+        Login with Google
+      `;
+    }
   }
-});
+}
 
-	    
+// FOLLOW user
+async function followUser() {
+  if (!currentUser || !profileRef) return alert("Please login first.");
 
-    // Initialize after DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('Firebase initialized');
-    });
+  const snapshot = await getDoc(profileRef);
+  if (!snapshot.exists()) return;
 
+  const data = snapshot.data();
+  const followers = data.followers || [];
 
-document.addEventListener("DOMContentLoaded", () => {
-  const loginBtn = document.getElementById("google-login-button");
-  if (loginBtn) {
-    loginBtn.addEventListener("click", handleGoogleLogin);
+  if (followers.includes(currentUser.uid)) {
+    return alert("You're already following.");
   }
-});
 
+  await updateDoc(profileRef, {
+    followers: [...followers, currentUser.uid]
+  });
 
+  const currentUserRef = doc(db, "users", currentUser.uid);
+  await updateDoc(currentUserRef, {
+    following: arrayUnion(profileRef.id)
+  });
 
+  alert("You're now following this profile!");
+}
 
-	    
+// Submit review
+async function submitReview() {
+  if (!currentUser || !profileRef) return alert("Login required.");
 
+  const position = document.getElementById("reviewPos").value;
+  const date = document.getElementById("reviewDate").value;
+  const text = document.getElementById("reviewText").value;
 
-  // Rating bintang interaktif
+  if (!position || !date || !text || selectedRating === 0) {
+    return alert("Please complete all fields.");
+  }
+
+  const snapshot = await getDoc(profileRef);
+  const data = snapshot.exists() ? snapshot.data() : {};
+  const reviews = data.reviews || [];
+
+  const hasReviewed = reviews.some(r => r.userId === currentUser.uid);
+  if (hasReviewed) return alert("You already submitted a review.");
+
+  reviews.push({
+    userId: currentUser.uid,
+    name: currentUser.displayName || "Anonymous",
+    position,
+    date,
+    review: text,
+    rating: selectedRating
+  });
+
+  const avgRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+
+  await updateDoc(profileRef, {
+    reviews,
+    avgRating
+  });
+
+  document.getElementById("reviewPos").value = "";
+  document.getElementById("reviewDate").value = "";
+  document.getElementById("reviewText").value = "";
+  selectedRating = 0;
+  document.querySelectorAll('#starRating span').forEach(s => s.classList.remove('selected'));
+
+  alert("Thanks for your review!");
+}
+
+// ⭐ Interaktif rating
+function setupStarRating() {
   document.querySelectorAll('#starRating span').forEach(star => {
     star.addEventListener('click', () => {
       selectedRating = parseInt(star.dataset.value);
@@ -3258,162 +3276,73 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+}
 
-  
-  
-  
-  // Tombol Follow
-async function followUser() {
-    if (!currentUser) {
-        alert("Please login with Google to follow this profile.");
-        return;
-    }
+// Observe user auth
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    currentUser = user;
+    const userId = user.uid;
+    profileRef = doc(db, "profiles", userId);
 
-    const snapshot = await getDoc(profileRef);
+    console.log("User logged in:", userId);
 
-    if (snapshot.exists()) {
-        const data = snapshot.data();
-        const currentFollowers = data.followers || [];
-        
-        // Check if already following
-        if (currentFollowers.includes(currentUser.uid)) {
-            alert("You're already following this profile!");
-            return;
+    // Tarik data profile hanya setelah login
+    onSnapshot(profileRef, (docSnap) => {
+      if (!docSnap.exists()) return;
+
+      const data = docSnap.data();
+
+      document.getElementById("name").innerText = currentUser?.displayName || data.name || "farid.";
+      document.getElementById("bio").innerText = data.bio || "Multidisciplinary Designer & Branding Expert";
+      document.getElementById("earned").innerText = data.earnings || 25000;
+      document.getElementById("hired").innerText = data.hiredCount || 27;
+      document.getElementById("followers").innerText = (data.followers || []).length;
+      document.getElementById("rating").innerText = (data.avgRating || 0).toFixed(2);
+      document.getElementById("avgRatingDisplay").innerText = (data.avgRating || 0).toFixed(2);
+      document.getElementById("reviewCount").innerText = (data.reviews || []).length;
+
+      const reviews = data.reviews || [];
+      document.getElementById("reviewList").innerHTML = reviews.map(r => `
+        <div class="review-item">
+          <strong>${r.name}</strong> - ${r.position} (${r.date})<br/>
+          ★ ${r.rating} - ${r.review}
+        </div>`).join('');
+
+      const followers = data.followers || [];
+      const btn = document.querySelector(".btn-follow");
+      if (btn) {
+        if (followers.includes(currentUser.uid)) {
+          btn.textContent = "Following";
+          btn.style.backgroundColor = "#4CAF50";
+        } else {
+          btn.textContent = "Follow";
+          btn.style.backgroundColor = "";
         }
+      }
 
-        const updatedFollowers = [...currentFollowers, currentUser.uid];
-        await updateDoc(profileRef, {
-            followers: updatedFollowers
-        });
+      document.getElementById("followersList").innerText = followers.length ? followers.join(', ') : "Belum ada followers.";
+    });
 
-        // Update following list for current user
-        const currentUserRef = doc(db, "users", currentUser.uid);
-        await updateDoc(currentUserRef, {
-            following: arrayUnion(userId)
-        });
-
-        alert("You're now following this profile!");
-    }
-}
-
-
-async function submitReview() {
-  if (!currentUser) {
-    alert("Please login with Google to submit a review.");
-    return;
-  }
-
-  const name = currentUser.displayName || "Anonymous"; // otomatis dari akun Google
-  const position = document.getElementById("reviewPos").value;
-  const date = document.getElementById("reviewDate").value;
-  const text = document.getElementById("reviewText").value;
-
-  if (!position || !date || !text || selectedRating === 0) {
-    alert("Semua kolom dan rating bintang wajib diisi.");
-    return;
-  }
-
-  const snapshot = await getDoc(profileRef);
-  const data = snapshot.exists() ? snapshot.data() : {};
-  const reviews = data.reviews || [];
-
-  const hasReviewed = reviews.some(review => review.userId === currentUser.uid);
-  if (hasReviewed) {
-    alert("Kamu sudah pernah memberikan review.");
-    return;
-  }
-
-  reviews.push({
-    userId: currentUser.uid,
-    name: name,
-    position,
-    date,
-    review: text,
-    rating: selectedRating
-  });
-
-  const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);
-  const avgRating = totalRating / reviews.length;
-
-  await updateDoc(profileRef, {
-    reviews: reviews,
-    avgRating: avgRating
-  });
-
-  // Reset form
-  document.getElementById("reviewPos").value = "";
-  document.getElementById("reviewDate").value = "";
-  document.getElementById("reviewText").value = "";
-  document.querySelectorAll('#starRating span').forEach(s => s.classList.remove('selected'));
-  selectedRating = 0;
-
-  alert("Terima kasih atas review kamu!");
-}
-
-
-
-document.querySelectorAll('#starRating span').forEach(star => {
-  star.addEventListener('click', () => {
-    selectedRating = parseInt(star.dataset.value);
-    document.querySelectorAll('#starRating span').forEach(s => s.classList.remove('selected'));
-    for (let i = 0; i < selectedRating; i++) {
-      document.querySelectorAll('#starRating span')[i].classList.add('selected');
-    }
-  });
-});
-
-
-
-
-
-
-onSnapshot(profileRef, (docSnap) => {
-  if (docSnap.exists()) {
-    const data = docSnap.data();
-
-    // Nama: gunakan dari Google login jika ada, fallback ke Firestore
-    const name = currentUser?.displayName || data.name || "farid.";
-    document.getElementById("name").innerText = name;
-
-    document.getElementById("bio").innerText = data.bio || "Multidisciplinary Designer & Branding Expert";
-    document.getElementById("earned").innerText = data.earnings || 25000;
-    document.getElementById("hired").innerText = data.hiredCount || 27;
-    document.getElementById("followers").innerText = (data.followers || []).length;
-    document.getElementById("rating").innerText = (data.avgRating || 0).toFixed(2);
-    document.getElementById("avgRatingDisplay").innerText = (data.avgRating || 0).toFixed(2);
-    document.getElementById("reviewCount").innerText = (data.reviews || []).length;
-
-    // Tampilkan review
-    const reviews = data.reviews || [];
-    document.getElementById("reviewList").innerHTML = reviews.map(r => `
-      <div class="review-item">
-        <strong>${r.name}</strong> - ${r.position} (${r.date})<br/>
-        ★ ${r.rating} - ${r.review}
-      </div>`).join('');
-
-    // Followers list
-    const followers = data.followers || [];
-    document.getElementById("followersList").innerText = followers.length ? followers.join(', ') : 'Belum ada followers.';
-
-    // Tombol follow
-    if (currentUser && followers.includes(currentUser.uid)) {
-      document.querySelector(".btn-follow").textContent = "Following";
-      document.querySelector(".btn-follow").style.backgroundColor = "#4CAF50";
-    } else {
-      document.querySelector(".btn-follow").textContent = "Follow";
-      document.querySelector(".btn-follow").style.backgroundColor = "";
-    }
+  } else {
+    console.log("User signed out");
   }
 });
 
+// DOM Ready
+document.addEventListener('DOMContentLoaded', () => {
+  // Tombol login
+  document.getElementById("google-login-button")?.addEventListener("click", handleGoogleLogin);
 
+  // Tombol follow
+  document.querySelector(".btn-follow")?.addEventListener("click", followUser);
 
+  // Tombol review
+  document.getElementById("submitReviewBtn")?.addEventListener("click", submitReview);
 
-
-  // ✅ Tambahkan baris ini agar bisa dipanggil dari HTML
-  window.followUser = followUser;
-  window.submitReview = submitReview;
-
+  // Rating bintang
+  setupStarRating();
+});
 
 
 
