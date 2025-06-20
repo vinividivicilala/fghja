@@ -1679,7 +1679,202 @@
   transform: translateX(5px);
 }
 	    
+    	
+   .rating-container {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+        }
         
+        .stars {
+            display: flex;
+            margin-right: 10px;
+        }
+        
+        .star {
+            cursor: pointer;
+            font-size: 24px;
+            color: #ccc;
+            transition: color 0.2s;
+        }
+        
+        .star:hover, .star.active {
+            color: gold;
+        }
+        
+        .rating-count {
+            font-size: 16px;
+            color: white;
+        }
+        
+        .reviews-container {
+            margin-top: 20px;
+        }
+        
+        .review-form {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .review-form.active {
+            display: block;
+        }
+        
+        .review-form input, .review-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: black;
+            color: white;
+            border: 1px solid white;
+            border-radius: 5px;
+        }
+        
+        .review-form button {
+            background: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .review-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .reviewer-name {
+            font-weight: bold;
+        }
+        
+        .review-position {
+            font-style: italic;
+            color: #aaa;
+        }
+        
+        .review-date {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .review-content {
+            margin-top: 10px;
+        }
+        
+        .show-reviews-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }	
+	
+	
+	
+	    .profile-header {
+      display: flex; align-items: center; position: relative;
+    }
+    .profile-pic {
+      width: 80px; height: 80px; border-radius: 50%; margin-right: 15px;
+    }
+    .status-dot {
+      position: absolute; width: 12px; height: 12px; border-radius: 50%;
+      background: green; bottom: 10px; left: 60px;
+      animation: blink 1s infinite;
+    }
+    .hover-status {
+      display: none; position: absolute; top: -25px; left: 80px;
+      background: black; color: white; padding: 4px 8px;
+      border-radius: 5px; font-size: 12px;
+    }
+    .profile-header:hover .hover-status { display: block; }
+    @keyframes blink {
+      0%, 100% { opacity: 1; } 50% { opacity: 0; }
+    }
+
+    .name { font-size: 24px; font-weight: bold; }
+    .bio { color: #666; margin-bottom: 10px; }
+    .btn-follow {
+      border: 1px solid black; padding: 6px 12px;
+      border-radius: 5px; cursor: pointer; background: white;
+    }
+
+    .stats {
+      display: flex; justify-content: space-around;
+      margin: 20px 0; text-align: center;
+    }
+    .stat h3 { margin: 5px 0; }
+
+    .stars span {
+      font-size: 24px; cursor: pointer; color: gray;
+    }
+    .stars .selected { color: black; }
+
+    .form-group { margin-bottom: 10px; }
+    textarea, input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; }
+
+    .review-list { margin-top: 20px; }
+    .review-item {
+      background: #f1f1f1; padding: 10px; border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .user-list {
+      margin-top: 10px; padding: 10px;
+      background: #f3f3f3; border-radius: 8px;
+    }
+	
+	
+#auth-container {
+    text-align: center;
+    margin: 20px 0;
+	    z-index: 9999;
+		    position: relative;
+
+
+}
+
+#auth-container .button {
+    background: white;
+    color: red;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#auth-container .button:hover {
+    background: white;
+}
+
+#google-login {
+    background: white;
+    color: red;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+#google-login:hover {
+    background: #f2f2f2;
+}
+
+	    
 	    
     </style>
 </head>
@@ -1687,6 +1882,12 @@
 
 
 
+
+<div id="auth-container" style="display: block;">
+    <button id="google-login" class="button" style="margin: 20px 0;">
+        Login with Google to Follow & Review
+    </button>
+</div>
 
 
 
@@ -2836,14 +3037,95 @@
     </div>
 
 
+
+
+	
+
+<div class="profile-box">
+  <div class="profile-header">
+    <img src="images/5.jpg" class="profile-pic">
+    <div class="status-dot"></div>
+    <div class="hover-status">Budi available for work</div>
+    <div>
+      <div class="name" id="name"></div>
+      <div class="bio" id="bio"></div>
+    </div>
+  </div>
+
+  <button class="btn-follow" onclick="followUser()">Follow</button>
+
+  <div class="stats">
+    <div class="stat">
+      <small>Earned</small>
+      <h3>$<span id="earned">0</span>+</h3>
+    </div>
+    <div class="stat">
+      <small>Hired</small>
+      <h3><span id="hired">0</span>x</h3>
+    </div>
+    <div class="stat">
+      <small>Rating</small>
+      <h3>★ <span id="rating">0.00</span></h3>
+    </div>
+    <div class="stat">
+      <small>Followers</small>
+      <h3><span id="followers">0</span></h3>
+    </div>
+  </div>
+
+  <h3>Submit Review</h3>
+  <div class="form-group"><input id="reviewName" placeholder="Nama pengguna"></div>
+  <div class="form-group"><input id="reviewPos" placeholder="Posisi pekerjaan"></div>
+  <div class="form-group"><input id="reviewDate" type="date"></div>
+  <div class="form-group"><textarea id="reviewText" rows="3" placeholder="Tulis review..."></textarea></div>
+  <div class="stars" id="starRating">
+    <span data-value="1">★</span>
+    <span data-value="2">★</span>
+    <span data-value="3">★</span>
+    <span data-value="4">★</span>
+    <span data-value="5">★</span>
+  </div>
+  <button onclick="submitReview()">Kirim Review</button>
+  
+  <div class="review-summary" style="margin-top: 20px; font-weight: bold;">
+  <div>⭐ Rata-rata Bintang: <span id="avgRatingDisplay">0.00</span></div>
+  <div>📝 Total Review: <span id="reviewCount">0</span></div>
+</div>
+
+  
+
+  <div class="review-list" id="reviewList"></div>
+  
+  
+
+  <div>
+    <h4>Following</h4>
+    <div class="user-list" id="followingList">Loading...</div>
+    <h4>Followers</h4>
+    <div class="user-list" id="followersList">Loading...</div>
+  </div>
+</div>
     
+
+
+
+
+
+
+
+
+
+
+	
+	
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+        import { getFirestore,  doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+		  import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyD_htQZ1TClnXKZGRJ4izbMQ02y6V3aNAQ",
-            authDomain: "wawa44-58d1e.firebaseapp.com",
+            authDomain: "faridardiansyah.netlify.app",
             projectId: "wawa44-58d1e",
             storageBucket: "wawa44-58d1e.appspot.com",
             messagingSenderId: "836899520599",
@@ -2853,13 +3135,288 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-
+		    const provider = new GoogleAuthProvider();
+			    const auth = getAuth(app); // Tambahkan in
         const sayHiBtn = document.getElementById('sayHiBtn');
         const inputContainer = document.getElementById('inputContainer');
         const mainContainer = document.getElementById('main-container');
         const sendBtn = document.getElementById('sendBtn');
         const backBtn = document.getElementById('backBtn');
         const messageInput = document.getElementById('messageInput');
+
+	    const userId = "attiq_r";
+  const profileRef = doc(db, "profiles", userId);
+  
+    let selectedRating = 0;
+	    let currentUser = null;
+
+
+
+
+
+
+// Saat login
+loginButton.addEventListener("click", async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    currentUser = user; // ✅ Simpan user ke variabel global
+    console.log("User signed in:", user.displayName);
+
+    document.getElementById("auth-container").innerHTML = `
+      <p>Selamat datang, ${user.displayName}</p>
+      <p>Email: ${user.email}</p>
+    `;
+  } catch (error) {
+    console.error("Login error:", error);
+  }
+});
+
+await setDoc(doc(db, "users", user.uid), {
+  displayName: user.displayName,
+  email: user.email,
+  photoURL: user.photoURL,
+}, { merge: true });
+
+
+
+
+// Saat reload, jika user sudah login
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    currentUser = user; // ✅ Simpan user ke variabel global
+    document.getElementById("auth-container").innerHTML = `
+      <p>Selamat datang kembali, ${user.displayName}</p>
+      <p>Email: ${user.email}</p>
+    `;
+  } else {
+    document.getElementById("auth-container").style.display = "block";
+  }
+});
+
+
+
+
+  // Rating bintang interaktif
+  document.querySelectorAll('#starRating span').forEach(star => {
+    star.addEventListener('click', () => {
+      selectedRating = parseInt(star.dataset.value);
+      document.querySelectorAll('#starRating span').forEach(s => s.classList.remove('selected'));
+      for (let i = 0; i < selectedRating; i++) {
+        document.querySelectorAll('#starRating span')[i].classList.add('selected');
+      }
+    });
+  });
+
+  
+  
+  
+  // Tombol Follow
+async function followUser() {
+    if (!currentUser) {
+        alert("Please login with Google to follow this profile.");
+        return;
+    }
+
+    const snapshot = await getDoc(profileRef);
+
+    if (snapshot.exists()) {
+        const data = snapshot.data();
+        const currentFollowers = data.followers || [];
+        
+        // Check if already following
+        if (currentFollowers.includes(currentUser.uid)) {
+            alert("You're already following this profile!");
+            return;
+        }
+
+        const updatedFollowers = [...currentFollowers, currentUser.uid];
+        await updateDoc(profileRef, {
+            followers: updatedFollowers
+        });
+
+        // Update following list for current user
+        const currentUserRef = doc(db, "users", currentUser.uid);
+        await updateDoc(currentUserRef, {
+            following: arrayUnion(userId)
+        });
+
+        alert("You're now following this profile!");
+    }
+}
+
+
+async function submitReview() {
+  if (!currentUser) {
+    alert("Please login with Google to submit a review.");
+    return;
+  }
+
+  const name = currentUser.displayName || "Anonymous"; // otomatis dari akun Google
+  const position = document.getElementById("reviewPos").value;
+  const date = document.getElementById("reviewDate").value;
+  const text = document.getElementById("reviewText").value;
+
+  if (!position || !date || !text || selectedRating === 0) {
+    alert("Semua kolom dan rating bintang wajib diisi.");
+    return;
+  }
+
+  const snapshot = await getDoc(profileRef);
+  const data = snapshot.exists() ? snapshot.data() : {};
+  const reviews = data.reviews || [];
+
+  const hasReviewed = reviews.some(review => review.userId === currentUser.uid);
+  if (hasReviewed) {
+    alert("Kamu sudah pernah memberikan review.");
+    return;
+  }
+
+  reviews.push({
+    userId: currentUser.uid,
+    name: name,
+    position,
+    date,
+    review: text,
+    rating: selectedRating
+  });
+
+  const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);
+  const avgRating = totalRating / reviews.length;
+
+  await updateDoc(profileRef, {
+    reviews: reviews,
+    avgRating: avgRating
+  });
+
+  // Reset form
+  document.getElementById("reviewPos").value = "";
+  document.getElementById("reviewDate").value = "";
+  document.getElementById("reviewText").value = "";
+  document.querySelectorAll('#starRating span').forEach(s => s.classList.remove('selected'));
+  selectedRating = 0;
+
+  alert("Terima kasih atas review kamu!");
+}
+
+
+
+document.querySelectorAll('#starRating span').forEach(star => {
+  star.addEventListener('click', () => {
+    selectedRating = parseInt(star.dataset.value);
+    document.querySelectorAll('#starRating span').forEach(s => s.classList.remove('selected'));
+    for (let i = 0; i < selectedRating; i++) {
+      document.querySelectorAll('#starRating span')[i].classList.add('selected');
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  onSnapshot(profileRef, (docSnap) => {
+  
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+
+    // Nama langsung dari akun Google (jika sudah login)
+    if (currentUser) {
+        document.getElementById("name").innerText = currentUser.displayName || "farid.";
+    } else {
+        document.getElementById("name").innerText = data.name || "farid.";
+    }
+
+    document.getElementById("bio").innerText = data.bio || "";
+    document.getElementById("earned").innerText = data.earnings || 25000;
+    document.getElementById("hired").innerText = data.hiredCount || 27;
+}
+
+
+        
+        // Update followers count
+        const followers = data.followers || [];
+        document.getElementById("followers").innerText = followers.length;
+        
+        // Check if current user is following
+        if (currentUser && followers.includes(currentUser.uid)) {
+            document.querySelector(".btn-follow").textContent = "Following";
+            document.querySelector(".btn-follow").style.backgroundColor = "#4CAF50";
+        } else {
+            document.querySelector(".btn-follow").textContent = "Follow";
+            document.querySelector(".btn-follow").style.backgroundColor = "";
+        }
+        
+        // Rest of your display logic...
+    }
+});
+  
+ 
+
+
+  // Akhir dari script kamu
+  onSnapshot(profileRef, (docSnap) => {
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+              document.getElementById("name").innerText = currentUser.displayName || "farid.";
+      document.getElementById("bio").innerText = data.bio || "Multidisciplinary Designer & Branding Expert";
+      document.getElementById("earned").innerText = data.earnings || 25000;
+      document.getElementById("hired").innerText = data.hiredCount || 27;
+      document.getElementById("followers").innerText = (data.followers || []).length;
+      document.getElementById("rating").innerText = (data.avgRating || 0).toFixed(2);
+	  document.getElementById("avgRatingDisplay").innerText = (data.avgRating || 0).toFixed(2);
+document.getElementById("reviewCount").innerText = (data.reviews || []).length;
+
+
+      const reviews = data.reviews || [];
+      document.getElementById("reviewList").innerHTML = reviews.map(r => `
+        <div class="review-item">
+          <strong>${r.name}</strong> - ${r.position} (${r.date})<br/>
+          ★ ${r.rating} - ${r.review}
+        </div>`).join('');
+
+      const followers = data.followers || [];
+      document.getElementById("followersList").innerText = followers.length ? followers.join(', ') : 'Belum ada followers.';
+    }
+  });
+
+  // Tampilkan Following user login
+  const currentUserRef = doc(db, "profiles", "user123");
+  onSnapshot(currentUserRef, (docSnap) => {
+    if (docSnap.exists()) {
+      const following = docSnap.data().following || [];
+      document.getElementById("followingList").innerText = following.length ? following.join(', ') : 'Belum mengikuti siapa pun.';
+    }
+  });
+  
+  // Tampilkan container auth secara default
+document.getElementById('auth-container').style.display = 'block';
+
+
+  // ✅ Tambahkan baris ini agar bisa dipanggil dari HTML
+  window.followUser = followUser;
+  window.submitReview = submitReview;
+
+
+
+
+
+
+
+
+
+
+
+
+	    
 
         async function checkSavedMessage() {
             const q = query(collection(db, "messages"), orderBy("timestamp", "desc"));
