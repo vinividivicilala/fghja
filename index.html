@@ -3209,15 +3209,19 @@ window.handleGoogleLogin = async (e) => {
   }
 };
 
-// Fungsi bantuan
-function handleLoginSuccess(user) {
-  currentUser = user; // Simpan user ke state
-  showUserInfo(user);
-  
-  // Update UI lainnya yang bergantung pada auth state
-  updateAuthDependentUI();
+
+async function handleGoogleLogin(e) {
+  e.preventDefault();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    console.log("Login berhasil:", user.displayName);
+  } catch (error) {
+    console.error("Login gagal:", error.message);
+  }
 }
 
+	    
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("google-login-button");
   if (btn) {
