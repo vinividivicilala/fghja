@@ -3313,51 +3313,47 @@ document.querySelectorAll('#starRating span').forEach(star => {
 
 
 
-
-
-
-
-
-
-
-  
-  
-  
-  onSnapshot(profileRef, (docSnap) => {
-  
+onSnapshot(profileRef, (docSnap) => {
   if (docSnap.exists()) {
     const data = docSnap.data();
 
     // Nama langsung dari akun Google (jika sudah login)
     if (currentUser) {
-        document.getElementById("name").innerText = currentUser.displayName || "farid.";
+      document.getElementById("name").innerText = currentUser.displayName || "farid.";
     } else {
-        document.getElementById("name").innerText = data.name || "farid.";
+      document.getElementById("name").innerText = data.name || "farid.";
     }
 
     document.getElementById("bio").innerText = data.bio || "";
     document.getElementById("earned").innerText = data.earnings || 25000;
     document.getElementById("hired").innerText = data.hiredCount || 27;
-}
 
+    // Update followers count
+    const followers = data.followers || [];
+    document.getElementById("followers").innerText = followers.length;
 
-        
-        // Update followers count
-        const followers = data.followers || [];
-        document.getElementById("followers").innerText = followers.length;
-        
-        // Check if current user is following
-        if (currentUser && followers.includes(currentUser.uid)) {
-            document.querySelector(".btn-follow").textContent = "Following";
-            document.querySelector(".btn-follow").style.backgroundColor = "#4CAF50";
-        } else {
-            document.querySelector(".btn-follow").textContent = "Follow";
-            document.querySelector(".btn-follow").style.backgroundColor = "";
-        }
-        
-        // Rest of your display logic...
+    // Check if current user is following
+    if (currentUser && followers.includes(currentUser.uid)) {
+      document.querySelector(".btn-follow").textContent = "Following";
+      document.querySelector(".btn-follow").style.backgroundColor = "#4CAF50";
+    } else {
+      document.querySelector(".btn-follow").textContent = "Follow";
+      document.querySelector(".btn-follow").style.backgroundColor = "";
     }
+
+    // Rest of your display logic...
+  }
 });
+
+
+
+
+
+
+
+  
+  
+  
   
  
 
