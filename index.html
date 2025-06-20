@@ -1889,18 +1889,25 @@
 <body>
 
 
-<button id="google-login-button" onclick="handleGoogleLogin(event)">
-  <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-  Login dengan Google
+<button id="google-login-button" onclick="window.handleGoogleLogin(event)">
+    <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
+    Login dengan Google
 </button>
 
-<div id="user-info" style="display:none;">
-    <img id="user-avatar" width="30" style="border-radius:50%;">
-    <span id="user-name"></span>
-    <button onclick="handleLogout()">Logout</button>
-</div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+	
 <a href="https://noted-farid.netlify.app/#" class="vote-banner">
   website note farid
   <svg class="arrow-icon" viewBox="0 0 24 24">
@@ -3130,16 +3137,14 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
         import { getFirestore,  doc, getDoc, setDoc, updateDoc, arrayUnion, onSnapshot, collection, addDoc, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
-	import { getAuth, 
+	import {
+         getAuth, 
         GoogleAuthProvider, 
         signInWithPopup, 
         signInWithRedirect,
-        onAuthStateChanged, 
-        signOut,
-        getRedirectResult,
+        onAuthStateChanged,
         setPersistence,
-        browserSessionPersistence,
-        browserLocalPersistence } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        browserLocalPersistence} from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
     const firebaseConfig = {
   apiKey: "AIzaSyD_htQZ1TClnXKZGRJ4izbMQ02y6V3aNAQ",
@@ -3168,77 +3173,13 @@
     let currentUser = null;
 
 
-  // Konfigurasi Provider Google untuk multi-akun
+   // Inisialisasi provider Google
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({
-        prompt: 'select_account', // Selalu tampilkan pemilihan akun
-        hd: '*', // Izinkan semua domain
-        login_hint: '' // Kosongkan untuk memungkinkan pilihan bebas
-    });
-    
-    // Tambahkan scope tambahan jika diperlukan
-    provider.addScope('email');
-    provider.addScope('profile');
-
-    // Set persistence untuk menjaga session
-    setPersistence(auth, browserLocalPersistence)
-        .then(() => {
-            console.log("Persistence set to LOCAL (tetap login setelah tab ditutup)");
-        })
-        .catch((error) => {
-            console.error("Error setting persistence:", error);
-        });
-
-
-// Pantau status auth
-    onAuthStateChanged(auth, (user) => {
-        currentUser = user;
-        
-        if (user) {
-            console.log("User logged in:", user.displayName);
-            updateUserUI(user);
-            
-            // Simpan data user ke localStorage
-            localStorage.setItem('firebaseUser', JSON.stringify({
-                uid: user.uid,
-                displayName: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL
-            }));
-        } else {
-            console.log("User logged out");
-            
-            // Coba load dari localStorage
-            const savedUser = localStorage.getItem('firebaseUser');
-            if (savedUser) {
-                try {
-                    const userData = JSON.parse(savedUser);
-                    console.log("Found saved user:", userData.displayName);
-                    updateUserUI(userData);
-                    return;
-                } catch (e) {
-                    console.error("Error parsing saved user:", e);
-                }
-            }
-            
-            updateUserUI(null);
-        }
+        prompt: 'select_account'
     });
 
-    // Handle redirect result
-    getRedirectResult(auth)
-        .then((result) => {
-            if (result) {
-                console.log("Redirect login success:", result.user.displayName);
-                window.location.href = "https://faridardiansyah.netlify.app";
-            }
-        })
-        .catch((error) => {
-            console.error("Redirect login error:", error);
-            alert("Login error: " + error.message);
-        });
-
-    // Fungsi utama login Google
+    // Fungsi login Google
     async function handleGoogleLogin(e) {
         if (e) e.preventDefault();
         
@@ -3249,72 +3190,66 @@
             loginBtn.disabled = true;
             loginBtn.innerHTML = 'Memproses...';
             
-            // 1. Coba dengan popup
+            // Set persistence untuk tetap login
+            await setPersistence(auth, browserLocalPersistence);
+            
+            // Coba login dengan popup
             const result = await signInWithPopup(auth, provider);
-            console.log("Popup login success:", result.user.displayName);
+            console.log("Login berhasil:", result.user.email);
             
             // Redirect setelah login sukses
-            window.location.href = "https://faridardiansyah.netlify.app/dashboard";
+            window.location.href = "/dashboard.html"; // Ganti dengan halaman tujuan
             
         } catch (error) {
-            console.error("Login error:", error.code, error.message);
+            console.error("Error login:", error.code, error.message);
             
-            // 2. Fallback ke redirect jika popup diblokir
-            if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+            // Fallback ke redirect jika popup diblokir
+            if (error.code === 'auth/popup-blocked') {
                 try {
                     await signInWithRedirect(auth, provider);
                 } catch (redirectError) {
                     console.error("Redirect error:", redirectError);
-                    alert("Silakan izinkan popup atau coba login kembali.");
+                    alert("Silakan izinkan popup untuk login");
                 }
             } else {
                 alert("Login gagal: " + error.message);
             }
         } finally {
-            loginBtn.disabled = false;
-            loginBtn.innerHTML = `
-                <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-                Login dengan Google
-            `;
-        }
-    }
-
-    // Fungsi logout (opsional)
-    function handleLogout() {
-        // Hapus dari localStorage
-        localStorage.removeItem('firebaseUser');
-        
-        signOut(auth).then(() => {
-            console.log("Logout successful");
-            window.location.reload();
-        }).catch((error) => {
-            console.error("Logout error:", error);
-        });
-    }
-
-    // Update UI berdasarkan status user
-    function updateUserUI(user) {
-        const authContainer = document.getElementById('auth-container');
-        const userInfo = document.getElementById('user-info');
-        
-        if (user) {
-            if (authContainer) authContainer.style.display = 'none';
-            if (userInfo) {
-                userInfo.style.display = 'block';
-                document.getElementById('user-name').textContent = user.displayName || 'User';
-                document.getElementById('user-avatar').src = user.photoURL || 'default-avatar.jpg';
+            if (loginBtn) {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = `
+                    <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
+                    Login dengan Google
+                `;
             }
-        } else {
-            if (authContainer) authContainer.style.display = 'block';
-            if (userInfo) userInfo.style.display = 'none';
         }
     }
 
-    // Export fungsi ke global scope
-    window.handleGoogleLogin = handleGoogleLogin;
-    window.handleLogout = handleLogout;
+    // Perbaikan referensi Firestore
+    function getProfileRef(userId) {
+        if (!userId || typeof userId !== 'string') {
+            console.error("Invalid user ID");
+            return null;
+        }
+        return doc(db, "profiles", userId);
+    }
 
-
+    // Inisialisasi saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+        // Pastikan fungsi tersedia di global scope
+        window.handleGoogleLogin = handleGoogleLogin;
+        
+        // Cek status login
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User sudah login:", user.email);
+                const profileRef = getProfileRef(user.uid); // Gunakan UID user yang login
+                if (profileRef) {
+                    // Lakukan operasi Firestore di sini
+                }
+            }
+        });
+    });
 
 
 
