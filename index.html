@@ -3336,29 +3336,25 @@ function generateGreeting(name) {
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Set greeting
-    const greeting = generateGreeting(user.displayName);
-    if (greetingDiv) greetingDiv.innerHTML = greeting;
+    currentUser = user;
+    const userId = user.uid;
+    profileRef = doc(db, "profiles", userId);
 
-    // Ubah tombol login jadi logout
+    console.log("User logged in:", userId);
+
+    // Tampilkan greeting
+    const greeting = generateGreeting(user.displayName);
+    document.getElementById("greeting-message").innerText = greeting;
+
     if (loginBtn) {
       loginBtn.textContent = "Logout";
       loginBtn.onclick = () => {
         signOut(auth).then(() => {
           alert("Berhasil logout.");
-          location.reload();
+          window.location.reload();
         });
       };
     }
-  } else {
-    // Jika belum login
-    if (greetingDiv) greetingDiv.innerHTML = "";
-    if (loginBtn) {
-      loginBtn.textContent = "Login dengan Google";
-      loginBtn.onclick = handleGoogleLogin;
-    }
-  }
-});
 
     // Tarik data profile hanya setelah login
     onSnapshot(profileRef, (docSnap) => {
@@ -3399,6 +3395,7 @@ onAuthStateChanged(auth, (user) => {
 
   } else {
     console.log("User signed out");
+
     if (loginBtn) {
       loginBtn.innerHTML = `
         <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
@@ -3406,9 +3403,16 @@ onAuthStateChanged(auth, (user) => {
       `;
       loginBtn.onclick = handleGoogleLogin;
     }
+
+    document.getElementById("greeting-message").innerText = "";
   }
 });
 
+
+
+
+
+	  
 let loginBtn;
 
 document.addEventListener('DOMContentLoaded', () => {
