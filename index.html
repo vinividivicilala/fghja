@@ -1890,16 +1890,10 @@
 
 
 <div id="auth-container">
-    <button id="google-login" class="button">Login dengan Google</button>
-    <button id="logout-button" class="button" style="display: none;">Logout</button>
-    <div id="greeting" style="font-size: 30px; margin-top: 15px;"></div>
+  <button id="google-login-button" class="button">Login dengan Google</button>
+  <button id="logout-button" class="button" style="display: none;">Logout</button>
+  <div id="greeting-message" style="font-size: 28px; margin-top: 15px; color: white;"></div>
 </div>
-
-<div id="greeting-message" style="font-size: 28px; margin: 20px 0; color: white;"></div>
-
-
-
-
 
 
 
@@ -3177,23 +3171,11 @@ const loginBtn = document.getElementById("google-login-button");
 let currentUser = null;
 let profileRef = null;
 let selectedRating = 0;
+let loginBtn, logoutBtn, greetingDiv;
 
 
  
   
-
-
-
-
-
-
-
-
-
-
-
-
-	  
 
 // Fungsi login
 async function handleGoogleLogin(e) {
@@ -3208,7 +3190,7 @@ async function handleGoogleLogin(e) {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    // Cek dan simpan profil di Firestore
+    // Simpan user baru ke Firestore jika belum ada
     const userRef = doc(db, "profiles", user.uid);
     const docSnap = await getDoc(userRef);
 
@@ -3222,18 +3204,37 @@ async function handleGoogleLogin(e) {
         earnings: 0,
         hiredCount: 0
       });
-    } else if (!docSnap.data().name) {
-      await updateDoc(userRef, { name: user.displayName });
     }
 
-    console.log("Login success:", user.uid);
   } catch (error) {
-    console.error("Login failed:", error);
-    alert(`Login failed: ${error.message}`);
+    console.error("Login gagal:", error);
+    alert("Login gagal: " + error.message);
   } finally {
     loginBtn.disabled = false;
+    loginBtn.textContent = "Login dengan Google";
   }
 }
+
+// Fungsi logout
+function handleLogout() {
+  signOut(auth).then(() => {
+    alert("Berhasil logout.");
+    location.reload(); // atau update UI manual
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+	  
+
 
 
 
@@ -3334,27 +3335,29 @@ function generateGreeting(name) {
 
 	  
 
+// Pantau status login
 onAuthStateChanged(auth, (user) => {
   if (user) {
     currentUser = user;
-    const userId = user.uid;
-    profileRef = doc(db, "profiles", userId);
+    profileRef = doc(db, "profiles", user.uid);
 
-    console.log("User logged in:", userId);
-
-    // Tampilkan greeting
+    // Ucapan
     const greeting = generateGreeting(user.displayName);
-    document.getElementById("greeting-message").innerText = greeting;
+    if (greetingDiv) greetingDiv.innerText = greeting;
 
-    if (loginBtn) {
-      loginBtn.textContent = "Logout";
-      loginBtn.onclick = () => {
-        signOut(auth).then(() => {
-          alert("Berhasil logout.");
-          window.location.reload();
-        });
-      };
-    }
+    // Tampilkan tombol logout
+    if (loginBtn) loginBtn.style.display = "none";
+    if (logoutBtn) logoutBtn.style.display = "inline-block";
+
+  } else {
+    // Belum login
+    currentUser = null;
+
+    if (greetingDiv) greetingDiv.innerText = "";
+    if (loginBtn) loginBtn.style.display = "inline-block";
+    if (logoutBtn) logoutBtn.style.display = "none";
+  }
+});
 
     // Tarik data profile hanya setelah login
     onSnapshot(profileRef, (docSnap) => {
@@ -3412,9 +3415,12 @@ onAuthStateChanged(auth, (user) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   loginBtn = document.getElementById("google-login-button");
-  if (loginBtn) {
-    loginBtn.addEventListener("click", handleGoogleLogin);
-  }
+  logoutBtn = document.getElementById("logout-button");
+  greetingDiv = document.getElementById("greeting-message");
+
+  if (loginBtn) loginBtn.addEventListener("click", handleGoogleLogin);
+  if (logoutBtn) logoutBtn.addEventListener("click", handleLogout);
+
   // Tombol follow
   document.querySelector(".btn-follow")?.addEventListener("click", followUser);
 
