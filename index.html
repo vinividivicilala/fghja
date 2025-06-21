@@ -3326,7 +3326,7 @@ onAuthStateChanged(auth, (user) => {
       const data = docSnap.data();
 
       document.getElementById("name").innerText = currentUser?.displayName || data.name || "farid.";
-      document.getElementById("bio").innerText = data.bio || "";
+      document.getElementById("bio").innerText = data.bio || "belajar ngoding";
       document.getElementById("earned").innerText = data.earnings || ;
       document.getElementById("hired").innerText = data.hiredCount || ;
       document.getElementById("followers").innerText = (data.followers || []).length;
