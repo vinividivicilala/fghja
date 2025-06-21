@@ -3327,8 +3327,8 @@ onAuthStateChanged(auth, (user) => {
 
       document.getElementById("name").innerText = currentUser?.displayName || data.name || "farid.";
       document.getElementById("bio").innerText = data.bio || "belajar ngoding";
-      document.getElementById("earned").innerText = data.earnings || ;
-      document.getElementById("hired").innerText = data.hiredCount || ;
+      document.getElementById("earned").innerText = data.earnings || 0;
+      document.getElementById("hired").innerText = data.hiredCount || 0;
       document.getElementById("followers").innerText = (data.followers || []).length;
       document.getElementById("rating").innerText = (data.avgRating || 0).toFixed(2);
       document.getElementById("avgRatingDisplay").innerText = (data.avgRating || 0).toFixed(2);
