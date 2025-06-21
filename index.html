@@ -1889,9 +1889,13 @@
 <body>
 
 
-<button id="google-login-button">Login with Google</button>
-    <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-   
+<div id="auth-container">
+    <button id="google-login" class="button">Login dengan Google</button>
+    <button id="logout-button" class="button" style="display: none;">Logout</button>
+    <div id="greeting" style="font-size: 30px; margin-top: 15px;"></div>
+</div>
+
+<div id="greeting-message" style="font-size: 28px; margin: 20px 0; color: white;"></div>
 
 
 
@@ -3136,7 +3140,7 @@ import {
   arrayUnion,
   onSnapshot, 
   query,                
-  collection, orderBy, getDocs, setDoc, addDoc  
+  collection, orderBy, getDocs, setDoc, addDoc
 } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
 import {
@@ -3165,24 +3169,46 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
+	  const greetingDiv = document.getElementById("greeting-message");
+const loginBtn = document.getElementById("google-login-button");
+
+
 
 let currentUser = null;
 let profileRef = null;
 let selectedRating = 0;
 
+
+ 
+  
+
+
+
+
+
+
+
+
+
+
+
+
+	  
+
+// Fungsi login
 async function handleGoogleLogin(e) {
   e?.preventDefault();
-  const loginBtn = document.getElementById('google-login-button');
   if (!loginBtn) return;
 
   try {
     loginBtn.disabled = true;
-    loginBtn.textContent = 'Signing in...';
+    loginBtn.textContent = "Signing in...";
 
     await setPersistence(auth, browserLocalPersistence);
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
+    // Cek dan simpan profil di Firestore
     const userRef = doc(db, "profiles", user.uid);
     const docSnap = await getDoc(userRef);
 
@@ -3200,21 +3226,15 @@ async function handleGoogleLogin(e) {
       await updateDoc(userRef, { name: user.displayName });
     }
 
-    console.log('Login success:', result.user.uid);
-
+    console.log("Login success:", user.uid);
   } catch (error) {
-    console.error('Login failed:', error);
+    console.error("Login failed:", error);
     alert(`Login failed: ${error.message}`);
   } finally {
-    if (loginBtn) {
-      loginBtn.disabled = false;
-      loginBtn.innerHTML = `
-        <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
-        Login with Google
-      `;
-    }
+    loginBtn.disabled = false;
   }
 }
+
 
 
 // FOLLOW user
@@ -3300,24 +3320,45 @@ function setupStarRating() {
   });
 }
 
-// Observe user auth
+function generateGreeting(name) {
+  const hour = new Date().getHours();
+  let greeting = "Halo";
+
+  if (hour >= 5 && hour < 12) greeting = "Selamat pagi";
+  else if (hour >= 12 && hour < 15) greeting = "Selamat siang";
+  else if (hour >= 15 && hour < 18) greeting = "Selamat sore";
+  else greeting = "Selamat malam";
+
+  return `${greeting}, ${name} 👋`;
+}
+
+	  
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    currentUser = user;
-    const userId = user.uid;
-    profileRef = doc(db, "profiles", userId);
+    // Set greeting
+    const greeting = generateGreeting(user.displayName);
+    if (greetingDiv) greetingDiv.innerHTML = greeting;
 
-    console.log("User logged in:", userId);
-
-	   if (loginBtn) {
+    // Ubah tombol login jadi logout
+    if (loginBtn) {
       loginBtn.textContent = "Logout";
       loginBtn.onclick = () => {
         signOut(auth).then(() => {
           alert("Berhasil logout.");
-          window.location.reload(); // Optional, untuk reset tampilan
+          location.reload();
         });
       };
     }
+  } else {
+    // Jika belum login
+    if (greetingDiv) greetingDiv.innerHTML = "";
+    if (loginBtn) {
+      loginBtn.textContent = "Login dengan Google";
+      loginBtn.onclick = handleGoogleLogin;
+    }
+  }
+});
 
     // Tarik data profile hanya setelah login
     onSnapshot(profileRef, (docSnap) => {
