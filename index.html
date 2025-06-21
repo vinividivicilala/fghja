@@ -3189,7 +3189,7 @@ async function handleGoogleLogin(e) {
     if (!docSnap.exists()) {
       await setDoc(userRef, {
         name: user.displayName,
-        bio: "Multidisciplinary Designer & Branding Expert",
+        bio: "",
         followers: [],
         reviews: [],
         avgRating: 0,
@@ -3326,9 +3326,9 @@ onAuthStateChanged(auth, (user) => {
       const data = docSnap.data();
 
       document.getElementById("name").innerText = currentUser?.displayName || data.name || "farid.";
-      document.getElementById("bio").innerText = data.bio || "Multidisciplinary Designer & Branding Expert";
-      document.getElementById("earned").innerText = data.earnings || 25000;
-      document.getElementById("hired").innerText = data.hiredCount || 27;
+      document.getElementById("bio").innerText = data.bio || "";
+      document.getElementById("earned").innerText = data.earnings || ;
+      document.getElementById("hired").innerText = data.hiredCount || ;
       document.getElementById("followers").innerText = (data.followers || []).length;
       document.getElementById("rating").innerText = (data.avgRating || 0).toFixed(2);
       document.getElementById("avgRatingDisplay").innerText = (data.avgRating || 0).toFixed(2);
