@@ -3334,8 +3334,6 @@ function generateGreeting(name) {
 }
 
 	  
-
-// Pantau status login
 onAuthStateChanged(auth, (user) => {
   if (user) {
     currentUser = user;
@@ -3348,16 +3346,6 @@ onAuthStateChanged(auth, (user) => {
     // Tampilkan tombol logout
     if (loginBtn) loginBtn.style.display = "none";
     if (logoutBtn) logoutBtn.style.display = "inline-block";
-
-  } else {
-    // Belum login
-    currentUser = null;
-
-    if (greetingDiv) greetingDiv.innerText = "";
-    if (loginBtn) loginBtn.style.display = "inline-block";
-    if (logoutBtn) logoutBtn.style.display = "none";
-  }
-});
 
     // Tarik data profile hanya setelah login
     onSnapshot(profileRef, (docSnap) => {
@@ -3399,17 +3387,42 @@ onAuthStateChanged(auth, (user) => {
   } else {
     console.log("User signed out");
 
+    currentUser = null;
+
     if (loginBtn) {
       loginBtn.innerHTML = `
         <img src="https://img.icons8.com/color/16/000000/google-logo.png" alt="Google">
         Login with Google
       `;
       loginBtn.onclick = handleGoogleLogin;
+      loginBtn.style.display = "inline-block";
     }
 
-    document.getElementById("greeting-message").innerText = "";
+    if (logoutBtn) logoutBtn.style.display = "none";
+    if (greetingDiv) greetingDiv.innerText = "";
   }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	  
 
 
 
