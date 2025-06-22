@@ -3163,15 +3163,13 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
-	  const greetingDiv = document.getElementById("greeting-message");
-const loginBtn = document.getElementById("google-login-button");
-
-
-
+	
 let currentUser = null;
 let profileRef = null;
 let selectedRating = 0;
 let logoutBtn;
+let greetingDiv;
+let loginBtn;	  
 
 
  
@@ -3404,28 +3402,6 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	  
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
   loginBtn = document.getElementById("google-login-button");
   logoutBtn = document.getElementById("logout-button");
@@ -3434,19 +3410,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (loginBtn) loginBtn.addEventListener("click", handleGoogleLogin);
   if (logoutBtn) logoutBtn.addEventListener("click", handleLogout);
 
-  // Tombol follow
   document.querySelector(".btn-follow")?.addEventListener("click", followUser);
-
-  // Tombol review
   document.getElementById("submitReviewBtn")?.addEventListener("click", submitReview);
-
-  // Rating bintang
   setupStarRating();
 });
-
-
-
-
 
 
 
